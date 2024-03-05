@@ -1,0 +1,31 @@
+::ng-deep .sqd-toolbox {
+    width: 248px !important;
+}
+::ng-deep .sqd-scrollbox-body {
+    width: 100%;
+}
+::ng-deep .sqd-theme-light .sqd-toolbox-item {
+    width: 90%;
+}
+::ng-deep  .sqd-theme-light .sqd-toolbox-filter {
+    width: 90%;
+}
+
+::ng-deep .sqd-designer-angular {
+    width: 100vw;
+    height: 70vh;
+}
+.title_div{
+    background: #3f51b5;
+    color: white !important;
+    padding: 4px;
+    border-radius: 6px;
+}
+
+  /* You can add more custom CSS styles as needed. */
+  /* my-component.component.css */
+
+
+  /* Styles for child elements within the "grades" div */
+  
+  

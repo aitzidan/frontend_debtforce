@@ -1,0 +1,172 @@
+<div class="d-flex flex-row">
+    <app-bar-schema class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-schema>
+    <div class=" col-md-8 mt-4">
+        <div class="card card-default">
+        <div class="card-body">
+            <h4 class="card-description text-primary ">
+                Créer un schéma
+            </h4>
+            
+            <!--Form-->
+            <form method="POST" enctype="multipart/form-data">
+                <div class="div_form_row">
+                    <div class="div_form_label">
+                        <mat-label>Titre <span class="text-danger">*</span>:</mat-label>
+                    </div>
+                    <div class="div_form_inputs input_div">
+                        <mat-form-field  appearance="outline" style="width: 100%">
+                        <mat-label>Titre</mat-label>
+                        <input matInput class="custom-input" [ngModelOptions]="{ standalone: true }" placeholder="Titre" [(ngModel)]="titre"  required>
+                        </mat-form-field>
+                    </div>
+                    <div class="ml-1 div_form_label">
+                        <mat-label>Fichier  <span class="text-danger">*</span>:</mat-label>
+                    </div>
+                    <div class="div_form_inputs input_div">
+                        <input  type="file" class="input-file"  (change)="onFileSelected($event)">
+                    </div>
+                </div>           
+                <fieldset>
+                    <div class="div_form_row">
+                        <div class="div_form_label">
+                          <mat-label>Modèle d'affichage :</mat-label>
+                        </div>
+                        <div class="div_form_inputs input_div">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nom de modèle</mat-label>
+                                <mat-select
+                                  [(ngModel)]="selectedModelAffichage"
+                                  [ngModelOptions]="{ standalone: true }"
+                                >
+                                  <mat-option
+                                    *ngFor="let item of models_affichage"
+                                    [value]="item.id"
+                                    >{{ item.Titre }}</mat-option
+                                  >
+                                </mat-select>
+                              </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6 ">
+                        <button class="btn-sm" [disabled]="disabled_generate" mat-flat-button  color="primary" type="button" id="btnGetColumn" (click)="onButtonClick()"> Générer les colonnes</button>
+                    </div>
+                </fieldset>
+                <div class="card card-default col-md-12" id="block1" style="display:block;" *ngIf="data.verify == 1" >
+                    <div class="card-header text-primary"> Création d'un schéma</div>
+                    <div class="card-body">
+                        <div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h4 class="sub-title">Entétes de fichier</h4> 
+                                    <mat-form-field class="div_form_inputs input_div" appearance="outline" style="width: 100%">
+                                        <mat-select [(ngModel)]="column_file_select" [ngModelOptions]="{ standalone: true }" >
+                                            <mat-option *ngFor="let table of data.columns.data" [value]="table"  [disabled]="is_disable_file(table)">
+                                                {{ table }} 
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-5">
+                                    <h4 class="sub-title">Infos dans la base de données</h4>
+                                    <div class="div_form_inputs input_div">
+                                        <mat-form-field appearance="outline" style="width: 100%">
+                                            <mat-select  [(ngModel)]="column_db_select"   [ngModelOptions]="{standalone: true}">
+                                                <mat-optgroup *ngFor="let group of list_columns_db" [label]="group.name"
+                                                    [disabled]="group.disabled">
+                                                    <mat-option  *ngFor="let item of group.items"  [value]="item" [disabled]="is_disable_column(item.id)">
+                                                        <ng-container *ngIf="item.table_bdd">
+                                                            {{item.titre_col}}
+                                                        </ng-container>
+                                                        <ng-container *ngIf="item.table_name">
+                                                            {{item.champ_name}}
+                                                        </ng-container>
+                                                    </mat-option>
+                                                </mat-optgroup>
+
+                                                <!--<mat-optgroup *ngFor="let c of columnsCadrage" [label]="c"
+                                                    [disabled]="c.disabled">
+                                                </mat-optgroup>-->
+                                                <ng-container *ngFor="let c of columnsCadrage">
+                                                    <mat-optgroup [label]="c" [disabled]="c.disabled">
+                                                      <ng-container *ngFor="let item of col2['obj']; let i = index">
+                                                        <ng-container *ngIf="col2['table'][i] === c">
+                                                          <mat-option [value]="item + '--' + col2['table'][i]" [disabled]="true">{{ item }}</mat-option>
+                                                            <ng-container *ngIf="c === 'Adresse'">
+                                                              <mat-option [value]="item + '--' + col2['table'][i] + '--ville'">Adresse--{{ item }}--ville</mat-option>
+                                                              <mat-option [value]="item + '--' + col2['table'][i] + '--pays'">Adresse--{{ item }}--pays</mat-option>
+                                                            </ng-container>
+                                                            <ng-container *ngIf="c === 'Tel'">
+                                                              <mat-option [value]="item + '--' + col2['table'][i] + '--note'">Tel--{{ item }}--note</mat-option>
+                                                              <mat-option [value]="item + '--' + col2['table'][i] + '--statut'">Tel--{{ item }}--statut</mat-option>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                      </ng-container>
+                                                    </mat-optgroup>
+                                                </ng-container>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-md-2"><br/><br/>
+                                    <button mat-raised-button color="primary" type="button" id="addCol" (click)="addColToTable()" class="btn btn-block" ><i class="fa fa-paperclip"></i></button>
+                                </div>
+                            </div><br/><br/>
+                            <div class="table-responsive" id="tableDetails">
+                                <table id="tableColumns" class="table table-striped table-bordered nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Colonne dans la base de données</th>
+                                            <th>Colonne dans le fichier</th>
+                                            <th>Champ obligatoire</th>
+                                            <th></th>
+                                        </tr> 
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngIf="list_data.length == 0">
+                                            <td colspan="4" class="text-center">Veuillez choisir une colonne.</td>
+                                        </tr>
+                                        <tr *ngFor="let item of list_data ; let i = index">
+                                            <td>{{item.column_file}}</td>
+                                            <td>{{item.column_db_name}}</td>
+                                            <td>  <mat-checkbox class="example-margin" [checked]="item.required" color="primary"  (change)="onCheckboxChangeCreance(item, $event)"
+                                                ></mat-checkbox>
+                                            </td>
+                                            <td>
+                                                <div class="example-button-container">
+                                                    <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="delet_inTable(i)">
+                                                        <mat-icon>delete</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Colonne dans la base de données</th>
+                                            <th>Colonne dans le fichier</th>
+                                            <th>Champ obligatoire</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mt-5">
+                                    <mat-checkbox color="primary"   (change)="onCheckbox()">Redirection vers l'importation</mat-checkbox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mt-5">
+                                    <button class="btn-sm" (click)="createModel()" mat-flat-button  color="primary" type="button"  > Enregistrer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>

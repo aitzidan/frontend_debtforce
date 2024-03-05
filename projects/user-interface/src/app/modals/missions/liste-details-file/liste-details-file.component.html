@@ -1,0 +1,82 @@
+<div *ngIf="this.data.type == 'liste_details_file'">
+    <h2 mat-dialog-title >Liste details fichier</h2>
+    <mat-dialog-content  style="width: 700px;">
+        <div class="w-100">
+            <table mat-table [dataSource]="dataSource"   class="mat-elevation-z8 demo-table">
+              <!-- Name Column -->
+              <ng-container matColumnDef="numero_dossier">
+                <th mat-header-cell *matHeaderCellDef> Numéro de dossier </th>
+                <td mat-cell *matCellDef="let element"> {{element.numero_dossier}} </td>
+              </ng-container>
+              <ng-container matColumnDef="adresse">
+                <th mat-header-cell *matHeaderCellDef> Adresse </th>
+                <td mat-cell *matCellDef="let element"> {{element.adresse}} </td>
+              </ng-container>
+              <ng-container matColumnDef="is_in_mission">
+                <th mat-header-cell *matHeaderCellDef> Type </th>
+                <td mat-cell *matCellDef="let element"><span class="badge badge-danger">{{element.type}}</span>  </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <!--<mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>-->
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+    </mat-dialog-actions> 
+</div>
+<div *ngIf="this.data.type == 'liste_details_for_check'">
+    <h2 mat-dialog-title >Liste details fichier</h2>
+    <mat-dialog-content  style="width: 700px;">
+        <div class="w-100">
+            <table mat-table [dataSource]="dataSource1"   class="mat-elevation-z8 demo-table">
+              <!-- Name Column -->
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                [aria-label]="checkboxLabel()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null"
+                                [checked]="selection.isSelected(row)"
+                                [aria-label]="checkboxLabel(row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Numéro de colones </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+              </ng-container>
+              <ng-container matColumnDef="numero_dossier">
+                <th mat-header-cell *matHeaderCellDef> Numéro de dossier </th>
+                <td mat-cell *matCellDef="let element"> {{element.numero_dossier}} </td>
+              </ng-container>
+              <ng-container matColumnDef="adresse">
+                <th mat-header-cell *matHeaderCellDef> Adresse </th>
+                <td mat-cell *matCellDef="let element"> {{element.adresse}} </td>
+              </ng-container>
+              <ng-container matColumnDef="is_in_mission">
+                <th mat-header-cell *matHeaderCellDef> Type </th>
+                <td mat-cell *matCellDef="let element"><span class="badge badge-danger">{{element.type}}</span>  </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+            </table>
+            <!--<mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>-->
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+    </mat-dialog-actions> 
+</div>

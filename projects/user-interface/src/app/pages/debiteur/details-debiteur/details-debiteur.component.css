@@ -1,0 +1,6 @@
+
+::ng-deep .mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8 {
+    box-shadow: none !important;
+    overflow-y: auto;
+    max-height: 302px;
+}

@@ -1,0 +1,69 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Ajouter champs</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modalRef.close()"
+    ></button>
+  </div>
+  <div class="modal-body" >
+    <div class="form-group input_div">
+        <label for="Element1" class="mr-5">Nom :
+        </label>
+        <mat-form-field appearance="outline">
+            <mat-label>Nom </mat-label>
+        <input type="text" matInput class="custom-input " id="nom" name="nom" [(ngModel)]="nom" placeholder="" required>
+        </mat-form-field>
+    </div>
+    <div class="form-group input_div">
+        <label for="Element2">Prenom :</label>
+        <mat-form-field appearance="outline">
+            <mat-label>Prenom </mat-label>
+        <input type="text" class="custom-input"matInput id="prenom" name="prenom" [(ngModel)]="prenom" placeholder="" required>
+         </mat-form-field>   
+    </div>
+    <div class="form-group input_div">
+        <label for="Element2">Adresse :</label>
+        <mat-form-field appearance="outline">
+            <mat-label>Adresse </mat-label>
+        <input type="text" class="custom-input"matInput id="adresse" name="adresse"[(ngModel)]="adresse" placeholder="" required>
+        </mat-form-field>
+    </div>
+    <div class="form-group input_div">
+        <label for="Element2">Email :</label>
+        <mat-form-field appearance="outline">
+            <mat-label>Email </mat-label>
+        <input type="text" class="custom-input"matInput id="email" name="email" [(ngModel)]="email" placeholder="" required>
+        </mat-form-field>
+    </div>
+    <div class="form-group input_div">
+        <label for="Element2">Poste :</label>
+        <mat-form-field appearance="outline">
+            <mat-label>Poste </mat-label>
+        <input type="text" class="custom-input"matInput id="poste" name="poste" [(ngModel)]="poste" placeholder="" required>
+        </mat-form-field>
+    </div>
+    
+    <div class="form-group input_div">
+        <label for="Element2">Telephone :</label>
+        <mat-form-field appearance="outline">
+            <mat-label>Telephone :</mat-label>
+        <input type="text" class="custom-input"matInput id="tel" name="tel" [(ngModel)]="tel" placeholder="" required>
+        </mat-form-field>
+    </div>
+    <div class="form-group input_div">
+        <label for="Element2">Mobile :</label>
+        <mat-form-field appearance="outline">
+            <mat-label>Mobile </mat-label>
+        <input type="text" class="custom-input"matInput id="mobile" name="mobile" [(ngModel)]="mobile" placeholder="" required>
+        </mat-form-field>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef.close()" mat-stroked-button color="primary">
+      Close
+    </button>
+    <button type="button" class="btn btn-primary" (click)="Save()"mat-raised-button color="primary" >Save changes</button>
+  </div>
+  

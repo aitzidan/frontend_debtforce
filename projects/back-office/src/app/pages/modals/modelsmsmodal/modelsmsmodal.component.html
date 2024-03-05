@@ -1,0 +1,112 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="exampleModalLabel">Modifier Model SMS</h3>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modalRef.close()"
+    ></button>
+  </div>
+  <div class="modal-body" >
+    <div class="card-body table-responsive">
+        <div class="row">
+            <div class="col-md-12 " >
+                <form  >
+                    <div class="row ">
+                        <div class="">
+                            <div class="form-group row input_div">
+                                <label class=" col-form-label">Titre
+                                    <span class="text-danger">*</span>:</label>
+                                <div class="">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Titre </mat-label>
+                                    <input value="" type="text" matInput class="custom-input" name="titre" id="title" #titre [(ngModel)]="data.titre">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="form-group row input_div">
+                                <label class=" col-form-label">Model SMS :</label>
+                                <div class="">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Model </mat-label>
+                                    <mat-select  type="text" class="custom-input" matInput id="model" name="model">
+                                        <mat-option *ngFor="let item of model" (value)="item.id">{{item.titre}}</mat-option>
+                                        
+                                    </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="form-group row input_div">
+                                <!-- <div class="col-sm-8">
+                                    <label class="col-form-label">Message
+                                        <span class="text-danger">*</span>:</label>
+                                </div> -->
+                                <div class="">
+                                    <label class="col-form-label">Ajouter des variables:</label>
+                                </div>
+                                <div class="">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Ajout variables </mat-label>
+                                    <mat-select  id="param" type="text" class="custom-input"[(ngModel)]="selectedOption"  (ngModelChange)="addParam()" name="select">
+                                        <mat-option>Select variable</mat-option>
+                                        <mat-option value="[#-Nom-#]">Nom debiteur</mat-option>
+                                        <mat-option value="[#-Prenom-#]">Prenom debiteur</mat-option>
+                                        <mat-option value="[#-Civilite-#]">Civilite debiteur</mat-option>
+                                        <mat-option value="[#-Cin-#]">Cin debiteur</mat-option>
+                                        <mat-option value="[#-Adresse-#]">Adresse debiteur</mat-option>
+                                        <mat-option value="[#-RS-#]">Raison sociale</mat-option>
+                                        <mat-option value="[#-Donneur-#]">Donneur d'ordre</mat-option>
+                                        <mat-option value="[#-CompteBancaireDonneur-#]">Compte bancaire donneur d'ordre</mat-option>
+                                        <mat-option value="[#-NumDonneur-#]">Numéro donneur d'ordre
+                                        </mat-option>
+                                        <mat-option value="[#-DateNow-#]">Date d'aujourd'hui</mat-option>
+                                        <mat-option value="[#-MontantRestant-#]">Montant Restant</mat-option>
+                                        <mat-option value="[#-MontantInitiale-#]">Montant Initiale</mat-option>
+                                        <mat-option value="[#-PrenomUtilisateur-#]">Prenom utilisateur</mat-option>
+                                        <mat-option value="[#-NomUtilisateur-#]">Nom utilisateur</mat-option>
+                                        <mat-option value="[#-AddTampon-#]">Ajouter tampon avec signature</mat-option>
+                                        <mat-option value="[#-emploie-#]">Emploie</mat-option>
+                                        <mat-option value="[#-employeur-#]">Employeur</mat-option>
+                                        <mat-option value="[#-salaire-#]">Salaire</mat-option>
+                                        <mat-option value="[#-adresseEmployeur-#]">Adresse employeur</mat-option>
+                                        <mat-option value="[#-numCnss-#]">Numéro CNSS</mat-option>
+                                        <mat-option value="[#-numFoncier-#]">Numéro Titre foncier</mat-option>
+                                        <mat-option value="[#-villeFoncier-#]">Ville titre foncier</mat-option>
+                                        <mat-option value="[#-natureFoncier-#]">Nature titre foncier</mat-option>
+
+                                        <option value="[#-numCnss-#]">Numéro de cnss</option>
+                                        <option value="[#-numCreance-#]">Numéro de créance</option>
+                                        <option value="[#-detailCreance-#]">Detail créance</option>
+                                        <option value="[#-detailFinancement-#]">detail financement</option>
+                                        <option value="[#-numeroUtilisateur-#]">Numéro d'utilisateur</option>
+
+                                    </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="form-group row">
+                                <div class="">
+                                    <!-- <textarea class="form-control limited" name="message" id="ckeditor" rows="10"></textarea> -->
+                                    <ckeditor [(ngModel)]="ckeditorContent" name="ckeditor" [(ngModel)]="data.message"></ckeditor>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef.close()" mat-stroked-button color="primary">
+      Close
+    </button>
+    <button type="button" class="btn btn-primary" (click)="Save()"mat-raised-button color="primary" >Save changes</button>
+  </div>
+  

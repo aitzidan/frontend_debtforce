@@ -1,0 +1,98 @@
+<div class="d-flex flex-row">
+    <app-bar-debiteur class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-debiteur>
+    <div class=" col-md-8 mt-4">
+        <div class="card card-default">
+            <div class="card-body">
+                
+                <h2 class="card-description text-primary bold">
+                  Téléphone
+                </h2>
+                <div>
+                    <div class="form-group row input_div">
+                        <label class="col-md-2 col-form-label" for="input-id-1"
+                          >Numero
+                          <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Numero </mat-label>
+                          <input
+                            class="custom-input"
+                            matInput
+                            type="text"
+                            value=""
+                            [(ngModel)]="numero"
+                            [ngModelOptions]="{ standalone: true }"
+                          />
+                          </mat-form-field>
+                        </div>
+                        <label class="col-md-2 col-form-label" for="input-id-1"
+                        >Note
+                        <span class="text-danger">*</span>
+                      </label>
+                      <div class="col-md-4">
+                          <mat-form-field appearance="outline">
+                              <mat-label>Note </mat-label>
+                        <input
+                          class="custom-input"
+                          matInput
+                          type="text"
+                          value=""
+                          [(ngModel)]="note"
+                          [ngModelOptions]="{ standalone: true }"
+                        />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group row input_div">
+                        <label class="col-md-2 col-form-label" for="input-id-1"
+                        >Status
+                        <span class="text-danger">*</span>
+                      </label>
+                      <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Status</mat-label>
+                          <mat-select
+                          [(ngModel)]="status_select" [ngModelOptions]="{ standalone: true }"
+                          >
+                            <mat-option
+                              *ngFor="let p of liste_status"
+                              [value]="p.id"
+                              >{{ p.status }}</mat-option
+                            >
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <label class="col-md-2 col-form-label" for="input-id-1"
+                      >Type téléphone
+                      <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-md-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Type</mat-label>
+                        <mat-select
+                        [(ngModel)]="type_select" [ngModelOptions]="{ standalone: true }"
+                        >
+                          <mat-option
+                            *ngFor="let p of liste_type"
+                            [value]="p.id"
+                            >{{ p.type }}</mat-option
+                          >
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    </div>
+                    <div class="form-group row input_div">
+                      <label class="col-md-2 col-form-label" for="input-id-1">Active</label>
+                      <div class="col-md-4">
+                          <mat-slide-toggle [(ngModel)]="active" color="accent"></mat-slide-toggle>
+                      </div>
+                    </div>
+                </div>
+                <button mat-flat-button color="primary" class="height: 31px !important;" (click)="addTelephone()">Enreigestrer </button>
+                <button mat-flat-button  class="height: 31px !important;" (click)="redirectT()">Annuler</button>
+              </div>
+        </div>
+    </div>
+</div>

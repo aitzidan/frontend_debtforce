@@ -1,0 +1,146 @@
+<div class="d-flex flex-row">
+    <app-bar-debiteur class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-debiteur>
+    <div class=" col-md-8 mt-4">
+        <div class="card card-default">
+            <div class="card-body">
+                
+                <h3 class="card-description text-primary">
+                  {{debiteur.nom}} {{debiteur.prenom}} 
+                    <p class="text-grey"><a href="#" class="text-accent">{{nbr_relation}} Relations</a></p>
+                </h3>
+                <div>
+                    <h3 class="text-orange bold"><i class="fa-solid fa-list"></i> Plus détails</h3>
+                    <div class="row ">
+                        <div class="col-md-6">
+                            <div class="col-md-12"><p><span class="text-grey">Type de personne :</span><span class="text-primary">{{debiteur.type_personne }}</span></p></div>
+                            <div class="col-md-12" *ngIf="debiteur.type_personne == 'Personne physique'"><p><span class="text-grey">CIN :</span><span class="text-primary">AS9639</span></p></div>
+                            <div class="col-md-12" *ngIf="debiteur.type_personne == 'Personne morale'"><p><span class="text-grey">Raison social :</span><span class="text-primary">AS9639</span></p></div>
+                        </div>
+                        <div class="col-md-6" *ngIf="debiteur.type_personne == 'Personne physique'">
+                          <div class="col-md-12"><p><span class="text-grey">Date naissance : </span><span class="text-primary">{{ debiteur.date_naissance }}</span></p></div>
+                          <div class="col-md-12">
+                            <p>
+                              <span class="text-grey">Lieu : </span>
+                              <span class="text-primary" *ngIf="debiteur.lieu_naissance !== undefined && debiteur.lieu_naissance !== null && debiteur.lieu_naissance !== ''">{{ debiteur.lieu_naissance }}</span>
+                              <ng-container *ngIf="debiteur.lieu_naissance === undefined || debiteur.lieu_naissance === null || debiteur.lieu_naissance === ''">""</ng-container>
+                            </p>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-orange bold"><i class="fa-solid fa-user"></i> Emploi</h3>
+                    <div class="row">
+                        <div class="text-end  mb-2">
+                          <button mat-flat-button color="primary" style="height: 31px !important;" [routerLink]="'/add-emploi/' + id">Ajouter <i class="fa-solid fa-plus"></i> </button>
+                        </div>
+                        <div class="col-md-12 " >
+                            <table mat-table [dataSource]="dataSource"   class="mat-elevation-z8 demo-table">
+                                <ng-container matColumnDef="nom_empl">
+                                  <th mat-header-cell *matHeaderCellDef> Nom emploi </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.nom_empl}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="date_debut">
+                                  <th mat-header-cell *matHeaderCellDef> Date début </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.date_debut}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="date_fin">
+                                  <th mat-header-cell *matHeaderCellDef> Date fin </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.date_fin}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="date_derniere_salaire">
+                                    <th mat-header-cell *matHeaderCellDef> Date derniere salaire </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.date_derniere_salaire}} </td>
+                                  </ng-container>
+                                <ng-container matColumnDef="salaire">
+                                  <th mat-header-cell *matHeaderCellDef> Salaire </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.salaire}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="profession">
+                                  <th mat-header-cell *matHeaderCellDef> rest </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.profession}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="operation">
+                                  <th mat-header-cell *matHeaderCellDef> Opération </th>
+                                  <td mat-cell *matCellDef="let element"> 
+                                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                      <mat-icon color="warn">more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                      <button mat-menu-item routerLink="/update-emploi/{{id}}/{{element.id}}">
+                                        <mat-icon class="text-primary">arrow_right_alt</mat-icon>
+                                        <span class="text-primary">Modifier</span>
+                                      </button>
+                                      <button mat-menu-item color="warn" (click)="deleteEmploi(element.id)">
+                                        <mat-icon color="warn">delete</mat-icon>
+                                        <span class="text-danger">Supprimer</span>
+                                      </button>
+                                    </mat-menu>  
+                                  </td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-1">
+                    <h3 class="text-orange bold"><i class="fa-solid fa-user"></i> Employeur</h3>
+                    <div class="row">
+                        <div class="text-end mb-2">
+                            <button mat-flat-button color="primary" class="height: 31px !important;" [routerLink]="'/add-employeur/' + id">Ajouter <i class="fa-solid fa-plus"></i></button>
+                        </div>
+                        <div class="col-md-12 ">
+                            <table mat-table [dataSource]="dataSource1"   class="mat-elevation-z8 demo-table">
+                                <ng-container matColumnDef="employeur">
+                                  <th mat-header-cell *matHeaderCellDef> Employeur </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.employeur}} </td>
+                                </ng-container>
+                              
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="entreprise">
+                                  <th mat-header-cell *matHeaderCellDef> Entreprise </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.entreprise}} </td>
+                                </ng-container>
+                              
+                                <!-- Symbol Column -->
+                                <ng-container matColumnDef="poste">
+                                  <th mat-header-cell *matHeaderCellDef> poste </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.poste}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="adresse_employeur">
+                                    <th mat-header-cell *matHeaderCellDef> adresse_employeur </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.adresse_employeur}} </td>
+                                  </ng-container>
+    
+                                <ng-container matColumnDef="status">
+                                  <th mat-header-cell *matHeaderCellDef> status </th>
+                                  <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="operation">
+                                  <th mat-header-cell *matHeaderCellDef> Opération </th>
+                                  <td mat-cell *matCellDef="let element"> <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                    <mat-icon color="warn">more_vert</mat-icon>
+                                  </button>
+                                  <mat-menu #menu="matMenu">
+                                    <button mat-menu-item routerLink="/update-employeur/{{id}}/{{element.id}}">
+                                      <mat-icon class="text-primary">arrow_right_alt</mat-icon>
+                                      <span class="text-primary">Modifier</span>
+                                    </button>
+                                    <button mat-menu-item color="warn" (click)="deleteEmployeur(element.id)">
+                                      <mat-icon color="warn">delete</mat-icon>
+                                      <span class="text-danger">Supprimer</span>
+                                    </button>
+                                  </mat-menu>
+                                </td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

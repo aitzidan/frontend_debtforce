@@ -1,0 +1,95 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Ajouter champs</h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="modalRef.close()"
+  ></button>
+</div>
+<div class="modal-body" >
+  <div class="form-group">
+    <label for="Element1" class="mr-5">Entitié : </label>
+    
+
+    <input type="radio" id="r1" name="rate" value="creance" checked [(ngModel)]="selectedValue" (change)="onRadioChange('creance')"/> creance
+    <input type="radio" id="r2" name="rate" value="detail_creance" [(ngModel)]="selectedValue" (change)="onRadioChange('detail_creance')"/> detail
+    creance
+  </div>
+  <div class="form-group">
+    <label for="Element2">Label</label>
+      
+      <input
+        type="text"
+        class="form-control"
+        id="Element2"
+        name="Element2"
+        placeholder=""
+        [(ngModel)]="title"
+        
+      />
+  </div>
+  <div class="form-group">
+    <label for="Element2">Table name</label>
+    <input
+      type="text"
+      class="form-control"
+      id=""
+      name=""
+      placeholder=""
+      [(ngModel)]="tableName"
+    />
+  </div>
+  <div class="form-group">
+    <label for="Element3">Type :</label>
+    
+    <select class="form-control" id="type_val" [(ngModel)]="type" >
+      <option value="Text">Text</option>
+      <option value="Number">Number</option>
+    </select>
+    
+  </div>
+  <div class="form-group">
+    <label for="Element3">Lentgh :</label>
+    
+    <input
+      type="number"
+      class="form-control"
+      
+      id="lentgh"
+      name="lentgh"
+      placeholder=""
+      [(ngModel)]="length"
+    />
+    
+  </div>
+
+  <div class="form-group">
+    <label for="Element4" class="mr-5">Active : </label>
+    
+    <input type="radio" id="r1" name="etat" value="1" checked [(ngModel)]="active" (change)="onActiveChange('1')" /> Oui
+    <input type="radio" id="r2" name="etat" value="2" [(ngModel)]="active" (change)="onActiveChange('0')"/> Non
+  </div>
+
+  <div class="form-group">
+    <label for="Element5" class="mr-5">Type de creance : </label>
+    
+    <select class="form-control" id="type_creance" [(ngModel)]="typeCreance">
+      <option value="Segmentation">Segmentation</option>
+      <option value="Creance">Creance</option>
+    </select>
+    
+  </div>
+  <div class="form-group">
+    <label for="Element6" class="mr-5">Required : </label>
+    
+    <input type="radio" id="r1" name="required" value="1" [(ngModel)]="required" (change)="Required('1')"/> Oui
+    <input type="radio" id="r2" name="required" value="2" checked [(ngModel)]="required" (change)="Required('0')"/> Non
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="modalRef.close()"mat-stroked-button color="primary">
+    Close
+  </button>
+  <button type="button" class="btn btn-primary" (click)="Save()"mat-raised-button color="primary">Save changes</button>
+</div>

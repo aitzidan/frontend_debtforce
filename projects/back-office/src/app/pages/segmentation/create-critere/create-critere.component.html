@@ -1,0 +1,257 @@
+<div class="d-flex flex-row">
+  <div class="card card-default col-md-3 mr-5 ml-4 mt-4">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="" class="p-2 fw-normal" style="color:grey !important;"><i class="fa fa-solid fa-less-than"></i> Retour</a>
+    </div>  
+    <h4 class="card-header text-primary" >Liste des critères :</h4>
+    <mat-selection-list #shoes [multiple]="false">
+      <mat-list-option style="height:70px" *ngFor="let shoe of listeParentCriteres" 
+      [ngStyle]="{'height': '70px' , 'border-left':'3px solid #03C988' , 'background-color': shoe.id === critere_selected ? 'rgb(128 128 128 / 14%)' : 'rgb(128 129 128 / 3%)'}"
+
+      (click)="onShoeSelectionChange(shoe.id)" [value]="shoe.id" [disabled]="shoe.isDisabled">
+        <p style="padding-top: 8px;">
+          <span>
+          {{ shoe.titre }}
+          </span>
+        </p>
+        <p class="badge-date" style="background-color: #03C988;">
+          <span class="span_date">
+            Le: {{ shoe.dateCreation | date:'dd-MM-yyyy HH:mm' }}
+          </span> 
+        </p>
+      </mat-list-option>
+    </mat-selection-list> 
+    <mat-paginator *ngIf="listeParentCriteres.length > 0" [length]="typesOfShoes.length"
+        [pageSize]="pageSize"
+        (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
+  <div class=" col-md-8 mt-4">
+    <div class="card card-default">
+      <div class="card-body">
+        <h4 class="card-description text-primary ">
+            Créer un critère
+        </h4> 
+        <form class="forms-sample"  #f="ngForm" (ngSubmit)="onSubmit(f, $event)">
+            <div class="div_form mt-5">
+              <div class="div_form_row">
+                <div class="div_form_label">
+                  <mat-label>Titre :</mat-label>
+                </div>
+                <div class="div_form_inputs input_div">
+                  <mat-form-field  appearance="outline" style="width: 100%">
+                    <mat-label style="font-size: small;">Titre </mat-label>
+                    <input matInput placeholder="Titre" class="custom-input" required [(ngModel)]="titre_critere" name="titre_critere">      
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <fieldset class="w-100">
+                <div id="add_regles" class="mt-3 ">
+                      <label class="input_param" id="list_regle_titre"></label>
+                      <div *ngFor="let d of data; let i = index">                                
+                            <div class="w-100 text-right">
+                              <div class="div_input button_action btn ">
+                                <button type="button" mat-flat-button color="primary" (click)="add_critere(i)" type="button" class="btn-material-size text-white" id="add_regle_model" style="background-color:#FF7C05; color:white">
+                                  <span>Ajouter critère </span>
+                                  <i class="fa-solid fa fa-plus text-white"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="">
+                              <div class="div_rgele " *ngFor="let c of d.criteres , let k = index">
+                                <div class="div_regle">
+                                  <div class="example-container">
+                                    
+                                    <div class=" class_action_critere">
+                                      <button type="button" *ngIf="k > 0" mat-mini-fab color="warn" class="mr-1" (click)="delete_critere(i,k)">
+                                        <mat-icon>delete_one</mat-icon>
+                                      </button>
+                                      <button type="button" mat-mini-fab color="primary" class="mr-1" (click)="add_detail_critere(i,k)">
+                                        <mat-icon><i class="fa-solid fa fa-plus text-white"></i></mat-icon>
+                                      </button>
+                                      <span class="mr-1">
+                                        <mat-button-toggle-group vallue="AND" *ngIf="k != 0" name="fontStyle" aria-label="Font Style" (selectionChange)="onOperatorChange(c.operator , c)" [(ngModel)]="c.operator" [ngModelOptions]="{standalone: true}">
+                                          <mat-button-toggle value="AND" >ET</mat-button-toggle>
+                                          <mat-button-toggle value="OR">OU</mat-button-toggle>
+                                        </mat-button-toggle-group>
+                                      </span>
+                                    </div>
+                                    <span class="input_div ml-2">
+                                      <mat-form-field appearance="outline">
+                                        <mat-label>Tables</mat-label>
+                                        <mat-select [(ngModel)]="c.table_name" [ngModelOptions]="{ standalone: true }" (selectionChange)="onTableChange(c.table_name , c)">
+                                          <mat-option *ngFor="let table of liste_table" [value]="table">{{ table }}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </span>
+                                    <span class="input_div ml-3">
+                                      <mat-form-field appearance="outline">
+                                        <mat-label>Column</mat-label>
+                                        <mat-select [(ngModel)]="c.column_name" [ngModelOptions]="{ standalone: true }" (selectionChange)="onColumnChange(c.table_name , c , c.list_column)">
+                                          <mat-option *ngFor="let column of c.list_column" [value]="column.Field">{{ column.Field }}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </span>
+                                    <span class="input_div ml-3">
+                                      <mat-form-field appearance="outline">
+                                        <mat-label>Action</mat-label>
+                                        <mat-select [(ngModel)]="c.action_name" [ngModelOptions]="{ standalone: true }">
+                                          <mat-option *ngFor="let column of c.list_action" [value]="column.value">{{ column.name }}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </span>
+                                    <span class="input_div ml-1">
+                                      <mat-form-field appearance="outline" *ngIf=" c.type == 'string' && (c.action_name == 'like' || c.action_name == 'notlike')">
+                                        <mat-label>Valeur 1</mat-label>
+                                        <input type="text" matInput class="form-control form-control-sm" [(ngModel)]="c.valeur1" [ngModelOptions]="{standalone: true}" >                                        
+                                      </mat-form-field>
+                                    </span>
+                                    <div class="div_value value_critere input_div ml-3" *ngIf=" c.type == 'int' && (c.action_name != 'null' || c.action_name == 'not null')">
+                                      <mat-form-field appearance="outline" >
+                                        <mat-label>Valeur 1</mat-label>
+                                        <input type="text" matInput class="form-control form-control-sm" [(ngModel)]="c.valeur1" [ngModelOptions]="{standalone: true}" placeholder="Titre de règle">                                        
+                                      </mat-form-field>
+                                    </div>
+                                    <div class="div_value value_critere input_div ml-3" *ngIf=" c.type == 'int' && (c.action_name == 'entre')">
+                                      <mat-form-field appearance="outline" *ngIf=" c.type == 'int' && (c.action_name == 'entre')">
+                                        <mat-label>Valeur 2</mat-label>
+                                        <input type="text" matInput class="form-control form-control-sm" [(ngModel)]="c.valeur2" [ngModelOptions]="{standalone: true}" placeholder="Titre de règle">                                        
+                                      </mat-form-field>
+                                    </div>
+                                    <div class="div_value value_critere date input_div ml-3" *ngIf="c.action_name != 'null' || c.action_name == 'not null'">
+                                      <mat-form-field appearance="outline" *ngIf=" c.type == 'date'">
+                                        <mat-label>Valeur 1</mat-label>
+                                        <input matInput [matDatepicker]="picker" [(ngModel)]="c.valeur1" [ngModelOptions]="{standalone: true}">
+                                        <mat-hint>MM/DD/YYYY</mat-hint>
+                                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                      </mat-form-field>
+                                    </div>
+                                    <div class="div_value value_critere date input_div ml-3" *ngIf="c.action_name != 'null' || c.action_name == 'not null'">
+                                      <mat-form-field appearance="outline" *ngIf=" c.type == 'date'">
+                                        <mat-label>Valeur 2</mat-label>
+                                        <input matInput [matDatepicker]="picker" [disabled]="c.action_name != 'entre' ? true : false" [(ngModel)]="c.valeur2"  [ngModelOptions]="{standalone: true}">
+                                        <mat-hint>MM/DD/YYYY</mat-hint>
+                                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                      </mat-form-field>
+                                    </div>
+                                    <div class="detail_ofCritere" *ngIf=" c.type == 'string' && (c.action_name == 'multiple') || c.details_critere.length > 0 ">
+                                      <div class="table_multiple" *ngIf=" c.type == 'string' && (c.action_name == 'multiple')">
+                                        <div class="div_test mt-1 mb-3">
+                                            <div class="input-group w-50 float-right mb-1 mt-1">
+                                                <input type="text" class="form-control" [(ngModel)]="c.input_search" [ngModelOptions]="{ standalone: true }" placeholder="Search"  aria-label="Search" aria-describedby="search-button" id="value_input_search" />
+                                                <div class="input-group-append">
+                                                    <button class="" type="button" (click)="getList_search(i,k,c)">
+                                                        <i class="fas fa-search"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <table id="list_culomn" class="table_critere table-striped table-bordered dt-responsive nowrap w-100 mt-3 list_culomn">
+                                                <thead>
+                                                    <tr class="th_class">
+                                                        <th class="w-50">Sélectionné</th>
+                                                        <th class="w-50">ID</th>
+                                                        <th class="w-50">Nom culoumn</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr *ngFor="let dt of c.details_multiple_search">
+                                                    <td><mat-checkbox color="primary" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="dt.isChecked"></mat-checkbox></td>
+                                                    <td>{{dt.id}}</td>
+                                                    <td>{{dt|json}}</td>
+                                                  </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                      </div>
+                                      <!--Detail critère -->
+                                      <div class="detail_critère" *ngFor="let detail_critere of c.details_critere ; let d = index">
+                                        <!--<div class=" class_action_critere">
+                                        </div>-->
+                                        <div class=" class_action_critere">
+                                          <button type="button" mat-mini-fab color="warn" class="mr-1" (click)="delete_detail_critere(i,k , d)">
+                                            <mat-icon>delete_one</mat-icon>
+                                          </button>
+                                          <span class="mr-1">
+                                            <mat-button-toggle-group name="fontStyle" aria-label="Font Style" (selectionChange)="onOperatorChange(detail_critere.operator , detail_critere)" [(ngModel)]="detail_critere.operator" [ngModelOptions]="{standalone: true}">
+                                              <mat-button-toggle value="AND">ET</mat-button-toggle>
+                                              <mat-button-toggle value="OR">OU</mat-button-toggle>
+                                            </mat-button-toggle-group>
+                                          </span>
+                                        </div>
+                                        <span class="input_div ml-3 column_detail" >
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Column</mat-label>
+                                            <mat-select  [(ngModel)]="detail_critere.column_name" [ngModelOptions]="{ standalone: true }" (selectionChange)="onColumnChangeDetail(detail_critere.table_name , detail_critere , c.list_column)">
+                                              <mat-option *ngFor="let column of c.list_column" [value]="column.Field">{{ column.Field }}</mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                        </span>
+                                        <span class="input_div ml-3">
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Action</mat-label>
+                                            <mat-select [(ngModel)]="detail_critere.action_name" [ngModelOptions]="{ standalone: true }">
+                                              <mat-option *ngFor="let column of detail_critere.list_action" [value]="column.value">{{ column.name }}</mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                        </span>
+                                      <!--
+                                      -->
+                                        <span class="input_div ml-1">
+                                          <mat-form-field appearance="outline" *ngIf=" detail_critere.type == 'string' && (detail_critere.action_name == 'like' || detail_critere.action_name == 'notlike')">
+                                            <mat-label>Valeur 1</mat-label>
+                                            <input type="text" matInput class="form-control form-control-sm" [(ngModel)]="detail_critere.valeur1" [ngModelOptions]="{standalone: true}" placeholder="Titre de règle">                                        
+                                          </mat-form-field>
+                                        </span>
+                                        <div class="div_value value_critere input_div ml-3" *ngIf=" detail_critere.type == 'int' && (detail_critere.action_name != 'null' || detail_critere.action_name == 'not null')">
+                                          <mat-form-field appearance="outline" >
+                                            <mat-label>Valeur 1</mat-label>
+                                            <input type="text" matInput class="form-control form-control-sm" [(ngModel)]="detail_critere.valeur1" [ngModelOptions]="{standalone: true}" placeholder="Titre de règle">                                        
+                                          </mat-form-field>
+                                        </div>
+                                        <div class="div_value value_critere input_div ml-3" *ngIf=" detail_critere.type == 'int' && (detail_critere.action_name == 'entre')">
+                                          <mat-form-field appearance="outline" >
+                                            <mat-label>Valeur 2</mat-label>
+                                            <input type="text" matInput class="form-control form-control-sm" [(ngModel)]="detail_critere.valeur2" [ngModelOptions]="{standalone: true}" placeholder="Titre de règle">                                        
+                                          </mat-form-field>
+                                        </div>
+
+                                        <div *ngIf="detail_critere.action_name != 'null' || detail_critere.action_name == 'not null'" class="div_value value_critere date input_div ml-3" >
+                                          <mat-form-field appearance="outline" *ngIf=" detail_critere.type == 'date'">
+                                            <mat-label>Valeur 1</mat-label>
+                                            <input matInput [matDatepicker]="picker" [(ngModel)]="detail_critere.valeur1" [ngModelOptions]="{standalone: true}">
+                                            <mat-hint>MM/DD/YYYY</mat-hint>
+                                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                          </mat-form-field>
+                                        </div>
+                                        <div *ngIf="detail_critere.action_name != 'null' || detail_critere.action_name == 'not null'" class="div_value value_critere date input_div ml-3" >
+                                          <mat-form-field appearance="outline" *ngIf=" detail_critere.type == 'date'">
+                                            <mat-label>Valeur 2</mat-label>
+                                            <input matInput [matDatepicker]="picker" [disabled]="detail_critere.action_name != 'entre' ? true : false" [(ngModel)]="detail_critere.valeur2"  [ngModelOptions]="{standalone: true}">
+                                            <mat-hint>MM/DD/YYYY</mat-hint>
+                                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                          </mat-form-field>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!--Fin detail -->
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                      </div>
+                      <!--  {{data | json }} -->
+                </div> 
+              </fieldset>
+            <div class="text-center mt-5">
+                <button mat-flat-button class="" color="primary">Ajouter</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

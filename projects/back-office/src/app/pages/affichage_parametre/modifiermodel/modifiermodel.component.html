@@ -1,0 +1,71 @@
+<div class="content-wrapper card card-default m-2" style="width:95%">
+    <div class="row">
+      <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title Title-card">Model de paramétrages </h4>
+            <p class="card-description">
+              Modifier un modèle de paramétrage d'affichage
+            </p>
+            <form class="forms-sample"  method="POST" (ngSubmit)="UpdateModal(title.value,objet.value)">
+              <div class="form-group">
+                <label for="titre">Titre</label>
+                <mat-form-field appearance="outline">
+                  <mat-label>Titre </mat-label>
+                <input type="text" matInput class="custom-input"   id="titre" name="titre" #title id="exampleInputName1" placeholder="" [(ngModel)]="model.model[0].titre">
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <label for="objet">Objet</label>
+                <mat-form-field appearance="outline">
+                  <mat-label>Objet </mat-label>
+                <input type="text" matInput class="custom-input" id="objet" name="objet"#objet  placeholder="" [(ngModel)]="model.model[0].objet">
+                </mat-form-field>
+              </div>
+            <div class="wrapper text-left">
+                  <button type="button" class="btn btn-outline-secondary" onclick="" (click)="openModal()">Ajouter une label  </button>
+                </div>
+            <div class="table-responsive mb-5">
+                <table class="table table-hover" id="myTable">
+                  <thead>
+                      <tr>
+                          <!-- <th>Table</th> -->
+                          <th>Label</th>
+                          <th>Table Name</th>
+                          <th>Type champ</th>
+                          <th>Length</th>
+                          <th>Etat</th>
+                          <th>Type de creance</th>
+                          <th>Required</th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody >
+                    <tr *ngFor="let item of Modelarray">
+                        <!-- <td>{{item.}}</td> -->
+                        <td>{{item.champ_name}}</td>
+                        <td>{{item.table_name}}</td>
+                        <td>{{item.type_champ}}</td>
+                        <td>{{item.length}}</td>
+                        <td>{{item.etat}}</td>
+                        <td>{{item.type_creance}}</td>
+                        <td>{{item.required}}</td>
+                        <td>
+                            <a type="button" class="btn btn-warning btn-sm m-1" (click)="openModalWithData(item.id)" ><i class="fa fa-pencil-alt"></i></a>
+                            <button type="button" class="btn btn-danger btn-sm m-1" (click)="DeleteDetailModel(item.id)"  o><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          
+
+
+              <div class="form-group text-center">
+                  <button type="submit"  class="btn btn-success mr-2" >Enreigestrer</button>
+              </div>
+            </form>
+        </div>
+      </div>
+     
+    </div>

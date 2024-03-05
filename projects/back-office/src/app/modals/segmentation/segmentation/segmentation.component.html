@@ -1,0 +1,604 @@
+<div *ngIf="data_from_overiew_predefined.type == 'add_seg'">
+    <h2 mat-dialog-title >Ajouter un segementation</h2>
+    <mat-dialog-content class="mat-typography" >
+        <h3 class="text-primary">Ajouter un segmentation : </h3>
+        <div class="div_form ">
+            <div class="div_form_row">
+                <div class="div_form_label">
+                <mat-label>Clé identifiant :</mat-label>
+                </div>
+                <div class="div_form_inputs input_div">
+                    <mat-form-field  appearance="outline" style="width: 100%">
+                        <mat-label style="font-size: small;">Clé </mat-label>
+                        <input matInput placeholder="Titre" class="custom-input" disabled [(ngModel)]="cle"  [ngModelOptions]="{standalone: true}">      
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="div_form ">
+            <div class="div_form_row">
+                <div class="div_form_label">
+                <mat-label>Titre :</mat-label>
+                </div>
+                <div class="div_form_inputs input_div">
+                    <mat-form-field  appearance="outline" style="width: 100%">
+                        <mat-label style="font-size: small;">Titre </mat-label>
+                        <input matInput placeholder="Titre" class="custom-input" [(ngModel)]="titre"  [ngModelOptions]="{standalone: true}">      
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="div_form">
+            <div class="div_form_row">
+              <div class="div_form_label">
+                <mat-label>Description :</mat-label>
+              </div>
+              <div class="div_form_inputs">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Description</mat-label>
+                  <textarea matInput placeholder="Description"  [(ngModel)]="description"  [ngModelOptions]="{standalone: true}" class="custom-textarea"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+        </div>
+        <div class="div_form ">
+            <div class="div_form_row">
+                <div class="div_form_label">
+                    <mat-label>Type  :</mat-label>
+                </div>
+                <div class="div_form_inputs input_div" >
+                    <mat-radio-group aria-label="Select an option" [(ngModel)]="type_select"  [ngModelOptions]="{standalone: true}" >
+                        <mat-radio-button *ngFor="let t of all_type" [value]="t.id" color="accent">{{t.type}}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+        </div>
+        <div class="div_form ">
+            <div class="div_form_row">
+                <div class="div_form_label">
+                    <mat-label>Sélectionner des entités <span class="text-danger">*</span> :</mat-label>
+                </div>
+                <div class="div_form_inputs input_div chips">
+                    <mat-form-field appearance="outline" class="example-chip-list" style="width: 100%">
+                        <mat-label>Tables</mat-label>
+                        <mat-chip-grid #chipGrid aria-label="">
+                          <mat-chip-row *ngFor="let fruit of entity" (removed)="remove(fruit)" >
+                            {{fruit}}
+                            <button matChipRemove [attr.aria-label]="'remove ' + fruit">
+                              <mat-icon>cancel</mat-icon>
+                            </button>
+                          </mat-chip-row>
+                        </mat-chip-grid>
+                          <input placeholder="Novelle élement..." #fruitInput [formControl]="fruitCtrl"
+                            [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            (matChipInputTokenEnd)="add($event)"/>
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                          <mat-option color="primary" *ngFor="let fruit of filteredEntity | async" [value]="fruit" [disabled]="isDisableChip(fruit)">
+                            {{fruit}}
+                          </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+          <mat-tab-group>
+            <mat-tab label="Ajouter critère">
+               <div class="row mt-4">
+                <div *ngIf="listes_criteres.length === 0" class="d-flex justify-content-center align-items-center">
+                    <mat-spinner class="custom-spinner"></mat-spinner>
+                </div>
+                    <div class="col-md-3">
+                        <details *ngFor="let gr of listes_criteres">
+                            <summary class="text-bold">{{gr.titre_groupe}}</summary>
+                            <ul cdkListbox
+                            [(ngModel)]="critere_selected" [ngModelOptions]="{standalone: true}" 
+                                aria-labelledby="example-language-label"
+                                class="example-listbox">
+                                <li *ngFor="let cr of gr.criteres"
+                                    [cdkOption]="cr" 
+                                    [cdkOptionDisabled]="disabledCritere(cr.type , cr.critere)"
+                                    (click)="onchangeSelect(gr,cr.type , cr.details)"
+                                    class="example-option">
+                                    {{cr.critere}}
+                                </li>
+                            </ul>
+                        </details>
+                    </div>
+                    <div  *ngIf=" critere_selected[0] && critere_selected[0].critere != 'type créance' && critere_selected[0].critere != 'Secteur d\'activité'" class="col-md-6">
+                        <div *ngIf="type_selected == 'multiple_check'">
+                            <table id="list_culomn" class="table_critere table-striped table-bordered dt-responsive nowrap w-100 mt-3 list_culomn">
+                                <thead>
+                                    <tr class="th_class bg-primary">
+                                        <th class="w-50">Sélectionné</th>
+                                        <th class="w-50">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let item of details_values">
+                                    <td><mat-checkbox color="primary" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.selected" ></mat-checkbox></td>
+                                    <td>{{item.value}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div *ngIf="type_selected == 'montant'">
+                            <div class="div_form_row mb-3">
+                                <mat-radio-group aria-label="Select an option"  [ngModelOptions]="{standalone: true}" [(ngModel)]="action_value" >
+                                    <mat-radio-button value="1" checked>Entre</mat-radio-button>
+                                    <mat-radio-button value="2">Sépurieur à </mat-radio-button>
+                                    <mat-radio-button value="3">Inférieur à </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                            <div class=" div_form_row">
+                                <div class="div_form_label">
+                                    <mat-label *ngIf="action_value == '1'">De :</mat-label>
+                                    <mat-label *ngIf="action_value == ('2')">à :</mat-label>
+                                    <mat-label *ngIf="action_value == ('3')">à :</mat-label>
+                                </div>
+                                <div class="div_form_inputs input_div">
+                                    <mat-form-field appearance="outline" >
+                                        <mat-label>Valeur 1</mat-label>
+                                        <input type="text" matInput class="form-control form-control-sm" [(ngModel)]="value1_montant" [ngModelOptions]="{standalone: true}" placeholder="Montant ">                                        
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class=" div_form_row" *ngIf="action_value == '1'">
+                                <div class="div_form_label">
+                                    <mat-label>à :</mat-label>
+                                </div>
+                                <div class="div_form_inputs input_div">
+                                    <mat-form-field appearance="outline" >
+                                        <mat-label>Valeur 2</mat-label>
+                                        <input type="text" matInput class="form-control form-control-sm" [(ngModel)]="value2_montant" [ngModelOptions]="{standalone: true}" placeholder="Montant ">                                        
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="type_selected == 'date'">
+                            <div class="div_form_row mb-3">
+                                <mat-radio-group aria-label="Select an option"  [ngModelOptions]="{standalone: true}" [(ngModel)]="action_value" >
+                                    <mat-radio-button value="1" checked>Entre</mat-radio-button>
+                                    <mat-radio-button value="2">Sépurieur à </mat-radio-button>
+                                    <mat-radio-button value="2">Inférieur à </mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                            <div class=" div_form_row">
+                                <div class="div_form_label">
+                                    <mat-label>De :</mat-label>
+                                </div>
+                                <div class="div_form_inputs input_div">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Valeur 1</mat-label>
+                                        <input matInput [matDatepicker]="picker" [disabled]="false" [(ngModel)]="value1_date"  [ngModelOptions]="{standalone: true}">
+                                        <mat-hint>MM/DD/YYYY</mat-hint>
+                                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class=" div_form_row" *ngIf="action_value == '1'">
+                                <div class="div_form_label">
+                                    <mat-label>à :</mat-label>
+                                </div>
+                                <div class="div_form_inputs input_div">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Valeur 2</mat-label>
+                                        <input matInput [matDatepicker]="picker1" [disabled]="false" [(ngModel)]="value2_date"  [ngModelOptions]="{standalone: true}">
+                                        <mat-hint>MM/DD/YYYY</mat-hint>
+                                        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf=" critere_selected[0] && critere_selected[0].critere == 'type créance'" class="col-md-3" >
+                        <details *ngFor="let gr of listeTypeDonneurOrdre" (click)="onchangeSelectType(gr)">
+                            <summary class="text-bold" [ngStyle]="{'background': gr.id === type_dn ? 'rgba(0, 0, 0, 0.2)' : ''}">
+                              {{gr.type}}
+                            </summary>
+                        </details>
+                    </div>  
+                    <div *ngIf=" critere_selected[0] && critere_selected[0].critere == 'type créance'" class="col-md-3" >
+                        <details *ngFor="let gr of listeTypeCreance" (click)="onchangeSelectTypeCreance(gr)">
+                            <summary class="text-bold" [ngStyle]="{'background': gr.id === type_creance ? 'rgba(0, 0, 0, 0.2)' : ''}">
+                              {{gr.type}}
+                            </summary>
+                        </details>
+                    </div>
+                    <div *ngIf="critere_selected[0] && critere_selected[0].critere == 'type créance'" class="col-md-3" >
+                        <div *ngIf="type_creance !== ''">
+                            <table id="list_culomn" class="table_critere table-striped table-bordered dt-responsive nowrap w-100 mt-3 list_culomn">
+                                <thead>
+                                    <tr class="th_class bg-primary">
+                                        <mat-checkbox color="primary" [(ngModel)]="selectAll" (change)="toggleSelectAll()"> </mat-checkbox>
+                                        <th class="w-50">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of details_values">
+                                        <td><mat-checkbox color="primary" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.selected" ></mat-checkbox></td>
+                                        <td>{{item.value}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>  
+                    <div *ngIf=" critere_selected[0] && critere_selected[0].critere == 'Secteur d\'activité'" class="col-md-5" >
+                        <details *ngFor="let gr of liste_secteur_activite" (click)="onchangeSelectSecteur(gr)">
+                            <summary class="text-bold" [ngStyle]="{'background': gr.id === secteur_activite ? 'rgba(0, 0, 0, 0.2)' : ''}">
+                              {{gr.secteur}}
+                            </summary>
+                        </details>
+                    </div>
+                    <div *ngIf="critere_selected[0] && critere_selected[0].critere == 'Secteur d\'activité'" class="col-md-3" >
+                        <div *ngIf="secteur_activite !== ''">
+                            <table id="list_culomn" class="table_critere table-striped table-bordered dt-responsive nowrap w-100 mt-3 list_culomn">
+                                <thead>
+                                    <tr class="th_class bg-primary">
+                                        <th class="w-50">Sélectionné</th>
+                                        <th class="w-50">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of details_values">
+                                        <td><mat-checkbox color="primary" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.selected" ></mat-checkbox></td>
+                                        <td>{{item.value}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Liste critères">
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div *ngFor="let dt of data_checked , let j = index">
+                            <p class="text-bold">{{dt.groupe.titre_groupe }}</p>
+                            <div *ngFor="let cr of dt.critere ; let i = index" >
+                                <p class="text-bold ml-2">
+                                    <button mat-icon-button color="warn" (click)="deleteCritere(i,j)" aria-label="Example icon button with a filter list icon">
+                                        <mat-icon>delete</mat-icon>
+                                    </button> {{cr.critere}} 
+                                </p>
+                                <div class="ml-5" *ngIf="cr.type == 'montant'  ">
+                                    <div  *ngIf="cr.action == '1'" >
+                                        De : {{cr.values.value1}}
+                                        à : {{cr.values.value2}}
+                                    </div>
+                                    <div *ngIf="cr.action != '1'" >
+                                        {{cr.action == "2" ? 'Supérieur' : 'Inférieur'}} à : {{cr.values.value1}}
+                                    </div>
+                                </div>
+                                <div class="ml-5" *ngIf=" cr.type == 'date' ">
+                                    <div  *ngIf="cr.action == '1'" >
+                                        De : {{cr.values.value1 | date: 'dd-MM-yyyy'}}
+                                        à : {{cr.values.value2 | date: 'dd-MM-yyyy'}}
+                                    </div>
+                                    <div *ngIf="cr.action != '1'" >
+                                        {{cr.action == "2" ? 'Supérieur' : 'Inférieur'}} à : {{cr.values.value1 | date: 'dd-MM-yyyy'}}
+                                    </div>
+                                </div>
+                                <div class="ml-5" *ngIf="cr.type == 'multiple'">
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+        <div class="div text-center mt-3">
+            <button mat-flat-button color="primary" (click)="add_critere()" [disabled]="disabledAddBtn()">Ajouter</button>
+        </div>
+    </mat-dialog-content>   
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+      <button mat-flat-button [mat-dialog-close]="saveDataQueue()" cdkFocusInitial [disabled]="disabledSaveBtn()">Enreigestrer</button>
+    </mat-dialog-actions> 
+</div>
+<div *ngIf="data_from_overiew_predefined.type == 'update_seg'">
+    <h2 mat-dialog-title >Modifier la segementation</h2>
+    <mat-dialog-content class="mat-typography" style="width:100vh;height:100vh">
+        <h3 class="text-primary">Modifier la segmentation : </h3>
+        <div class="div_form mt-5 mb-5">
+            <div class="div_form ">
+                <div class="div_form_row">
+                    <div class="div_form_label">
+                    <mat-label>Clé identifiant :</mat-label>
+                    </div>
+                    <div class="div_form_inputs input_div">
+                        <mat-form-field  appearance="outline" style="width: 100%">
+                            <mat-label style="font-size: small;">Clé </mat-label>
+                            <input matInput placeholder="Titre" class="custom-input" [(ngModel)]="cle" disabled [(ngModel)]="cle"  [ngModelOptions]="{standalone: true}">      
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="div_form_row">
+                <div class="div_form_label">
+                <mat-label>Titre :</mat-label>
+                </div>
+                <div class="div_form_inputs input_div">
+                    <mat-form-field  appearance="outline" style="width: 100%">
+                        <mat-label style="font-size: small;">Titre </mat-label>
+                        <input matInput placeholder="Titre" class="custom-input" required [(ngModel)]="titre"  [ngModelOptions]="{standalone: true}">      
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="div_form mt-5">
+            <div class="div_form_row">
+              <div class="div_form_label">
+                <mat-label>Description :</mat-label>
+              </div>
+              <div class="div_form_inputs">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Description</mat-label>
+                  <textarea matInput placeholder="Description"  [(ngModel)]="description"  [ngModelOptions]="{standalone: true}" class="custom-textarea"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+        </div>
+        <div class="div_form ">
+            <div class="div_form_row">
+                <div class="div_form_label">
+                    <mat-label>Type  :</mat-label>
+                </div>
+                <div class="div_form_inputs input_div" >
+                    <mat-radio-group aria-label="Select an option" [(ngModel)]="type_select"  [ngModelOptions]="{standalone: true}" >
+                        <mat-radio-button *ngFor="let t of all_type" [value]="t.id" color="accent">{{t.type}}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+        </div>
+        <div class="div_form ">
+            <div class="div_form_row">
+                <div class="div_form_label">
+                    <mat-label>Sélectionner des entités <span class="text-danger">*</span> :</mat-label>
+                </div>
+                <div class="div_form_inputs input_div chips">
+                    <mat-form-field appearance="outline" class="example-chip-list" style="width: 100%">
+                        <mat-label>Tables</mat-label>
+                        <mat-chip-grid #chipGrid aria-label="">
+                          <mat-chip-row *ngFor="let fruit of entity" (removed)="remove(fruit)" >
+                            {{fruit}}
+                            <button matChipRemove [attr.aria-label]="'remove ' + fruit">
+                              <mat-icon>cancel</mat-icon>
+                            </button>
+                          </mat-chip-row>
+                        </mat-chip-grid>
+                          <input placeholder="Novelle élement..." #fruitInput [formControl]="fruitCtrl"
+                            [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                            (matChipInputTokenEnd)="add($event)"/>
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                          <mat-option color="primary" *ngFor="let fruit of filteredEntity | async" [value]="fruit" [disabled]="isDisableChip(fruit)">
+                            {{fruit}}
+                          </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <mat-tab-group>
+            <mat-tab label="Ajouter critère">
+                <div class="row mt-4">
+                    <div *ngIf="listes_criteres.length === 0" class="d-flex justify-content-center align-items-center">
+                        <mat-spinner class="custom-spinner"></mat-spinner>
+                    </div>
+                        <div class="col-md-3">
+                            <details *ngFor="let gr of listes_criteres">
+                                <summary class="text-bold">{{gr.titre_groupe}}</summary>
+                                <ul cdkListbox
+                                [(ngModel)]="critere_selected" [ngModelOptions]="{standalone: true}" 
+                                    aria-labelledby="example-language-label"
+                                    class="example-listbox">
+                                    <li *ngFor="let cr of gr.criteres"
+                                        [cdkOption]="cr" 
+                                        [cdkOptionDisabled]="disabledCritere(cr.type , cr.critere)"
+                                        (click)="onchangeSelect(gr,cr.type , cr.details)"
+                                        class="example-option">
+                                        {{cr.critere}}
+                                    </li>
+                                </ul>
+                            </details>
+                        </div>
+                        <div  *ngIf=" critere_selected[0] && critere_selected[0].critere != 'type créance' && critere_selected[0].critere != 'Secteur d\'activité'" class="col-md-6">
+                            <div *ngIf="type_selected == 'multiple_check'">
+                                <table id="list_culomn" class="table_critere table-striped table-bordered dt-responsive nowrap w-100 mt-3 list_culomn">
+                                    <thead>
+                                        <tr class="th_class bg-primary">
+                                            <th class="w-50">Sélectionné</th>
+                                            <th class="w-50">Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let item of details_values">
+                                        <td><mat-checkbox color="primary" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.selected" ></mat-checkbox></td>
+                                        <td>{{item.value}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div *ngIf="type_selected == 'montant'">
+                                <div class="div_form_row mb-3">
+                                    <mat-radio-group aria-label="Select an option"  [ngModelOptions]="{standalone: true}" [(ngModel)]="action_value" >
+                                        <mat-radio-button value="1" checked>Entre</mat-radio-button>
+                                        <mat-radio-button value="2">Sépurieur à </mat-radio-button>
+                                        <mat-radio-button value="3">Inférieur à </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                                <div class=" div_form_row">
+                                    <div class="div_form_label">
+                                        <mat-label *ngIf="action_value == '1'">De :</mat-label>
+                                        <mat-label *ngIf="action_value == ('2')">à :</mat-label>
+                                        <mat-label *ngIf="action_value == ('3')">à :</mat-label>
+                                    </div>
+                                    <div class="div_form_inputs input_div">
+                                        <mat-form-field appearance="outline" >
+                                            <mat-label>Valeur 1</mat-label>
+                                            <input type="text" matInput class="form-control form-control-sm" [(ngModel)]="value1_montant" [ngModelOptions]="{standalone: true}" placeholder="Montant ">                                        
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class=" div_form_row" *ngIf="action_value == '1'">
+                                    <div class="div_form_label">
+                                        <mat-label>à :</mat-label>
+                                    </div>
+                                    <div class="div_form_inputs input_div">
+                                        <mat-form-field appearance="outline" >
+                                            <mat-label>Valeur 2</mat-label>
+                                            <input type="text" matInput class="form-control form-control-sm" [(ngModel)]="value2_montant" [ngModelOptions]="{standalone: true}" placeholder="Montant ">                                        
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="type_selected == 'date'">
+                                <div class="div_form_row mb-3">
+                                    <mat-radio-group aria-label="Select an option"  [ngModelOptions]="{standalone: true}" [(ngModel)]="action_value" >
+                                        <mat-radio-button value="1" checked>Entre</mat-radio-button>
+                                        <mat-radio-button value="2">Sépurieur à </mat-radio-button>
+                                        <mat-radio-button value="2">Inférieur à </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                                <div class=" div_form_row">
+                                    <div class="div_form_label">
+                                        <mat-label>De :</mat-label>
+                                    </div>
+                                    <div class="div_form_inputs input_div">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Valeur 1</mat-label>
+                                            <input matInput [matDatepicker]="picker" [disabled]="false" [(ngModel)]="value1_date"  [ngModelOptions]="{standalone: true}">
+                                            <mat-hint>MM/DD/YYYY</mat-hint>
+                                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class=" div_form_row" *ngIf="action_value == '1'">
+                                    <div class="div_form_label">
+                                        <mat-label>à :</mat-label>
+                                    </div>
+                                    <div class="div_form_inputs input_div">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Valeur 2</mat-label>
+                                            <input matInput [matDatepicker]="picker1" [disabled]="false" [(ngModel)]="value2_date"  [ngModelOptions]="{standalone: true}">
+                                            <mat-hint>MM/DD/YYYY</mat-hint>
+                                            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker1></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf=" critere_selected[0] && critere_selected[0].critere == 'type créance'" class="col-md-3" >
+                            <details *ngFor="let gr of listeTypeDonneurOrdre" (click)="onchangeSelectType(gr)">
+                                <summary class="text-bold" [ngStyle]="{'background': gr.id === type_dn ? 'rgba(0, 0, 0, 0.2)' : ''}">
+                                {{gr.type}}
+                                </summary>
+                            </details>
+                        </div>  
+                        <div *ngIf=" critere_selected[0] && critere_selected[0].critere == 'type créance'" class="col-md-3" >
+                            <details *ngFor="let gr of listeTypeCreance" (click)="onchangeSelectTypeCreance(gr)">
+                                <summary class="text-bold" [ngStyle]="{'background': gr.id === type_creance ? 'rgba(0, 0, 0, 0.2)' : ''}">
+                                {{gr.type}}
+                                </summary>
+                            </details>
+                        </div>
+                        <div *ngIf="critere_selected[0] && critere_selected[0].critere == 'type créance'" class="col-md-3" >
+                            <div *ngIf="type_creance !== ''">
+                                <table id="list_culomn" class="table_critere table-striped table-bordered dt-responsive nowrap w-100 mt-3 list_culomn">
+                                    <thead>
+                                        <tr class="th_class bg-primary">
+                                            <mat-checkbox color="primary" [(ngModel)]="selectAll" (change)="toggleSelectAll()"> </mat-checkbox>
+                                            <th class="w-50">Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of details_values">
+                                            <td><mat-checkbox color="primary" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.selected" ></mat-checkbox></td>
+                                            <td>{{item.value}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>  
+                        <div *ngIf=" critere_selected[0] && critere_selected[0].critere == 'Secteur d\'activité'" class="col-md-5" >
+                            <details *ngFor="let gr of liste_secteur_activite" (click)="onchangeSelectSecteur(gr)">
+                                <summary class="text-bold" [ngStyle]="{'background': gr.id === secteur_activite ? 'rgba(0, 0, 0, 0.2)' : ''}">
+                                {{gr.secteur}}
+                                </summary>
+                            </details>
+                        </div>
+                        <div *ngIf="critere_selected[0] && critere_selected[0].critere == 'Secteur d\'activité'" class="col-md-3" >
+                            <div *ngIf="secteur_activite !== ''">
+                                <table id="list_culomn" class="table_critere table-striped table-bordered dt-responsive nowrap w-100 mt-3 list_culomn">
+                                    <thead>
+                                        <tr class="th_class bg-primary">
+                                            <th class="w-50">Sélectionné</th>
+                                            <th class="w-50">Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of details_values">
+                                            <td><mat-checkbox color="primary" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.selected" ></mat-checkbox></td>
+                                            <td>{{item.value}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Liste critères">
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div *ngFor="let dt of data_checked , let j = index">
+                                <p class="text-bold">{{dt.groupe.titre_groupe }}</p>
+                                <div *ngFor="let cr of dt.critere ; let i = index" >
+                                    <p class="text-bold ml-2">
+                                        <button mat-icon-button color="warn" (click)="deleteCritere(i,j)" aria-label="Example icon button with a filter list icon">
+                                            <mat-icon>delete</mat-icon>
+                                        </button> {{cr.critere}} 
+                                    </p>
+                                    <div class="ml-5" *ngIf="cr.type == 'montant'  ">
+                                        <div  *ngIf="cr.action == '1'" >
+                                            De : {{cr.values.value1}}
+                                            à : {{cr.values.value2}}
+                                        </div>
+                                        <div *ngIf="cr.action != '1'" >
+                                            {{cr.action == "2" ? 'Supérieur' : 'Inférieur'}} à : {{cr.values.value1}}
+                                        </div>
+                                    </div>
+                                    <div class="ml-5" *ngIf=" cr.type == 'date' ">
+                                        <div  *ngIf="cr.action == '1'" >
+                                            De : {{cr.values.value1 | date: 'dd-MM-yyyy'}}
+                                            à : {{cr.values.value2 | date: 'dd-MM-yyyy'}}
+                                        </div>
+                                        <div *ngIf="cr.action != '1'" >
+                                            {{cr.action == "2" ? 'Supérieur' : 'Inférieur'}} à : {{cr.values.value1 | date: 'dd-MM-yyyy'}}
+                                        </div>
+                                    </div>
+                                    <div class="ml-5" *ngIf="cr.type == 'multiple'">
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+        </mat-tab-group>
+        <div class="div text-center mt-3">
+            <button mat-flat-button color="primary" (click)="add_critere()" [disabled]="disabledAddBtn()">Ajouter</button>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+      <button mat-button [mat-dialog-close]="saveDataQueue()" cdkFocusInitial >Enreigestrer</button>
+    </mat-dialog-actions> 
+</div>

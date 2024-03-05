@@ -1,0 +1,172 @@
+<div class="d-flex flex-row">
+    <app-bar-debiteur class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-debiteur>
+    <div class=" col-md-8 mt-4">
+        <div class="card card-default">
+            <div class="card-body">
+                
+                <h2 class="card-description text-primary bold">
+                  Emploi
+                </h2>
+                <div>
+                    <div class="form-group row input_div">
+                        <label class="col-md-2 col-form-label" for="input-id-1"
+                          >Nom d'emploi
+                          <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nom d'emploi </mat-label>
+                          <input
+                            class="custom-input"
+                            matInput
+                            type="text"
+                            value=""
+                            [(ngModel)]="nom_empl"
+                            [ngModelOptions]="{ standalone: true }"
+                          />
+                          </mat-form-field>
+                        </div>
+                        <label class="col-md-2 col-form-label" for="input-id-1"
+                        >Salaire
+                        <span class="text-danger">*</span>
+                      </label>
+                      <div class="col-md-4">
+                          <mat-form-field appearance="outline">
+                              <mat-label>Salaire </mat-label>
+                        <input
+                          class="custom-input"
+                          matInput
+                          type="text"
+                          value=""
+                          [(ngModel)]="salaire"
+                          [ngModelOptions]="{ standalone: true }"
+                        />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="form-group row input_div">
+                      <label class="col-md-2 col-form-label" for="input-id-1">Classifcation</label>
+                      <div class="col-md-4">
+                          <mat-form-field appearance="outline">
+                              <mat-label>Classification</mat-label>
+                              <mat-select
+                              (selectionChange)="getProfession()"
+                              [(ngModel)]="classification_select" [ngModelOptions]="{ standalone: true }"
+                              >
+                                <mat-option
+                                  *ngFor="let c of list_calification"
+                                  [value]="c.id"
+                                  >{{ c.classification_name }}</mat-option
+                                >
+                              </mat-select>
+                            </mat-form-field>
+                      </div>
+                      <label class="col-md-2 col-form-label" for="input-id-1">Profession</label>
+                      <div class="col-md-4">
+                          <mat-form-field appearance="outline">
+                              <mat-label>Profession</mat-label>
+                              <mat-select
+                              [(ngModel)]="profession_select" [ngModelOptions]="{ standalone: true }"
+                              >
+                                <mat-option
+                                  *ngFor="let p of list_profession"
+                                  [value]="p.id"
+                                  >{{ p.profession }}</mat-option
+                                >
+                              </mat-select>
+                            </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="form-group row input_div">
+                      <label class="col-md-2 col-form-label" for="input-id-1">Date début</label>
+                      <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Date début </mat-label>
+                          <input
+                          class="custom-input"
+                          matInput
+                          [matDatepicker]="picker"
+                          name="date_debut"
+                          value=""
+                          [(ngModel)]="date_debut"
+                          [ngModelOptions]="{ standalone: true }"
+                          
+                          />
+                          <mat-hint>MM/DD/YYYY</mat-hint>
+                          <mat-datepicker-toggle
+                          matIconSuffix
+                          [for]="picker"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                      </div>
+                      <label class="col-md-2 col-form-label" for="input-id-1">Date fin</label>
+                      <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Date fin </mat-label>
+                          <input
+                          class="custom-input"
+                          matInput
+                          [matDatepicker]="picker1"
+                          name="date_fin"
+                          value=""
+                          [(ngModel)]="date_fin"
+                          [ngModelOptions]="{ standalone: true }"
+                          
+                          />
+                          <mat-hint>MM/DD/YYYY</mat-hint>
+                          <mat-datepicker-toggle
+                          matIconSuffix
+                          [for]="picker1"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="form-group row input_div">
+                      <label class="col-md-2 col-form-label" for="input-id-1">Date derniere salaire</label>
+                      <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Date derniere salaire </mat-label>
+                          <input
+                          class="custom-input"
+                          matInput
+                          [matDatepicker]="picker2"
+                          name="date_dernier_salaire"
+                          value=""
+                          [(ngModel)]="date_dernier_salaire"
+                          [ngModelOptions]="{ standalone: true }"
+                          
+                          />
+                          <mat-hint>MM/DD/YYYY</mat-hint>
+                          <mat-datepicker-toggle
+                          matIconSuffix
+                          [for]="picker2"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
+                      </mat-form-field>
+                      </div>
+                      <label class="col-md-2 col-form-label" for="input-id-1">Status</label>
+                      <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Status</mat-label>
+                          <mat-select
+                          [(ngModel)]="status_select" [ngModelOptions]="{ standalone: true }"
+                          >
+                            <mat-option
+                              *ngFor="let p of list_status"
+                              [value]="p.id"
+                              >{{ p.status }}</mat-option
+                            >
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                </div>
+                
+                <button mat-flat-button color="primary" class="height: 31px !important;">Enreigestrer <i class="fa-solid fa-plus"></i> </button>
+                <button mat-flat-button  class="height: 31px !important;" (click)="redirectT()">Annuler  </button>
+              </div>
+        </div>
+    </div>
+</div>

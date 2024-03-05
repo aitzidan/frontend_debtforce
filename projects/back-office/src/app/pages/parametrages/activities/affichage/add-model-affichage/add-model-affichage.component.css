@@ -1,0 +1,31 @@
+
+  .icon{
+    width: 30px;
+    height: 30px;
+  }
+.main-card {
+    position: relative;
+    height: 400px; /* Set the desired height for the main card */
+    overflow: hidden;
+  }
+
+  .card-list {
+    height: 100%;
+    overflow-y: auto;
+  }
+  .badge{
+    border-radius: 15px !important;
+    color: white !important;
+    background-color:#03C988 !important;
+  }
+
+  #dot{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color:green;
+  }
+  .card-list .card{
+    border-top: solid #CFDBE2;
+    margin:1px;
+  }

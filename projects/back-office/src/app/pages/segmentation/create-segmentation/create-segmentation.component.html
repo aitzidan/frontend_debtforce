@@ -1,0 +1,200 @@
+<div class="d-flex flex-row">
+  <!--
+  -->
+  <app-bar-segmentation class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-segmentation>
+    <div class=" col-md-8 mt-4">
+        <div class="card card-default">
+        <div class="card-body">
+            <h4 class="card-description text-primary ">
+                Créer une segmentation
+            </h4> 
+            <div class="div_form mt-5 mb-5">
+                <div class="div_form_row">
+                    <div class="div_form_label">
+                    <mat-label>Titre :</mat-label>
+                    </div>
+                    <div class="div_form_inputs input_div">
+                    <mat-form-field  appearance="outline" style="width: 100%">
+                        <mat-label style="font-size: small;">Titre </mat-label>
+                        <input matInput placeholder="Titre" class="custom-input" required [(ngModel)]="titre_segment"  [ngModelOptions]="{standalone: true}">      
+                    </mat-form-field>
+                    </div>
+                </div>
+                </div>
+                <div>
+                    <div class="div_form_row">
+                        <div class="div_form_label">
+                            <mat-label>Sélectionner des éléments :</mat-label>
+                        </div>
+                        <div class="div_form_inputs input_div">
+                            <mat-form-field appearance="outline" class="example-chip-list">
+                                <mat-label>Tables</mat-label>
+                                <mat-chip-grid #chipGrid aria-label="">
+                                  <mat-chip-row *ngFor="let fruit of fruits" (removed)="remove(fruit)">
+                                    {{fruit}}
+                                    <button matChipRemove [attr.aria-label]="'remove ' + fruit">
+                                      <mat-icon>cancel</mat-icon>
+                                    </button>
+                                  </mat-chip-row>
+                                </mat-chip-grid>
+                                <input placeholder="Novelle élement..." #fruitInput [formControl]="fruitCtrl"
+                                  [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                  (matChipInputTokenEnd)="add($event)"/>
+                                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                  <mat-option color="primary" *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                                    {{fruit}}
+                                  </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5" style="margin-top: 4rem !important;">
+                <div class="col-md-12 mt-5">
+                    <div class="div_form_row">
+                        <div class="div_form_label">
+                            <mat-label>Sélectionner des éléments :</mat-label>
+                        </div>
+                        <div class="div_form_inputs input_div" cdkDropListGroup style="display: flex;justify-content: space-between;">
+                            <div class="example-container">
+                              <h2 class="text-primary">Liste groupes</h2>
+                              <div
+                                  cdkDropList
+                                  [cdkDropListData]="todo"
+                                  class="example-list"
+                                  (cdkDropListDropped)="drop($event)">
+                                  <div class="example-box" *ngFor="let item of todo" cdkDrag>{{ item.titreGroupe }}</div>
+                              </div>
+                            </div>
+                            <div class="example-container">
+                              <h2 class="text-primary">Liste des groupes sélectionnés</h2>
+                              <div
+                                  cdkDropList
+                                  [cdkDropListData]="done"
+                                  class="example-list"
+                                  (cdkDropListDropped)="drop($event)">
+                                  <div class="example-box" *ngFor="let item of done" cdkDrag>{{ item.titreGroupe }}</div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                  </div>
+                </div>
+                <div class="text-center mt-5">
+                    <button mat-flat-button (click)="getDataSegment()" class="" color="accent">Recharger les données</button>
+                </div>
+
+                <div *ngIf="etat_get_data == true && fruits.includes('creance')">
+                  <h2 class="text-success"> <mat-icon>folders</mat-icon> Créances : {{nbr_creance}} creance trouvées</h2>
+                  <div class=" text-primary mt-1 mb-1">
+                    
+                  </div>
+                  <div class="mat-elevation-z8" style="max-height: 700px;overflow-y: scroll;">
+                    <table mat-table [dataSource]="dataSource1"  >
+                      <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef> # </th>
+                        <td mat-cell *matCellDef="let element"> {{element.id }} </td>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="numero_creance">
+                          <th mat-header-cell *matHeaderCellDef>numero_creance</th>
+                          <td mat-cell *matCellDef="let element">  {{element.numero_creance}}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="total_ttc_initial">
+                        <th mat-header-cell *matHeaderCellDef>total_ttc_initial</th>
+                        <td mat-cell *matCellDef="let element">  {{element.total_ttc_initial}}</td>
+                    </ng-container>
+                      <ng-container matColumnDef="total_ttc_restant">
+                        <th mat-header-cell *matHeaderCellDef>total_ttc_restant</th>
+                        <td mat-cell *matCellDef="let element">  {{element.total_ttc_restant}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="total_creance">
+                      <th mat-header-cell *matHeaderCellDef>total_creance</th>
+                      <td mat-cell *matCellDef="let element">  {{element.total_creance}}</td>
+                    </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+                    </table>
+                  </div>
+                </div>
+
+                <div *ngIf="etat_get_data == true && fruits.includes('dossier')" class="mt-4">
+                  <h2 class="text-success"> <mat-icon>folders</mat-icon> Dossiers : {{nbr_dossier}} dossiers trouvées</h2>
+                  <div class=" text-primary mt-1 mb-1">
+                    
+                  </div>
+                  <div class="mat-elevation-z8" style="max-height: 700px;overflow-y: scroll;">
+                    <table mat-table [dataSource]="dataSource"  >
+                      <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef> # </th>
+                        <td mat-cell *matCellDef="let element"> {{element.id }} </td>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="numero_dossier">
+                          <th mat-header-cell *matHeaderCellDef>numero_dossier</th>
+                          <td mat-cell *matCellDef="let element">  {{element.numero_dossier}}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="date_creation">
+                        <th mat-header-cell *matHeaderCellDef>date_creation</th>
+                        <td mat-cell *matCellDef="let element">  {{element.date_creation}}</td>
+                    </ng-container>
+          
+                      
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                  </div>
+                </div>
+
+              
+                
+               <!--
+                <div *ngIf="etat_get_data == true">
+                  
+                  
+                </div>
+                <div class="mat-elevation-z8" *ngIf="etat_get_data == true">
+                    <mat-table mat-table [dataSource]="dataSource">
+                      <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef> Numéro </th>
+                        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                      </ng-container>            
+                      <ng-container matColumnDef="numero_dossier">
+                        <th mat-header-cell *matHeaderCellDef> numero_dossier </th>
+                        <td mat-cell *matCellDef="let element"> {{element.numero_dossier}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="date_creation">
+                        <th mat-header-cell *matHeaderCellDef> date_creation </th>
+                        <td mat-cell *matCellDef="let element"> {{element.date_creation}} </td>
+                      </ng-container>
+      
+                      <ng-container matColumnDef="operation">
+                        <th mat-header-cell *matHeaderCellDef> Opération </th>
+                        <td mat-cell *matCellDef="let element"> 
+                            </td>
+                      </ng-container>
+                  
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </mat-table>
+                  
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                                   showFirstLastButtons
+                                   aria-label="Select page of periodic elements">
+                    </mat-paginator>
+                  </div>
+              -->
+              <div *ngIf="etat_get_data == true " class="mt-5">
+                <div class="text-center" style="padding-right: 2rem;">
+                  <button type="button" mat-flat-button color="primary"  (click)="create_segment()" >
+                      Enrigestrer 
+                      <i class="fa-solid fa-plus"></i>
+                  </button>
+          </div>
+              </div>
+        </div>
+        </div>
+  </div>
+</div>

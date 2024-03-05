@@ -1,0 +1,66 @@
+<div class="content-wrapper card card-default m-2" style="width:95%">
+    <div class="row">
+      <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title Title-card mb-4">Model de paramétrages </h1>
+            <p class="card-description">
+              Ajouter un modèle de paramétrage d'affichage
+            </p>
+            <form class="forms-sample"  method="POST" (ngSubmit)="AddModal(title.value,objet.value)">
+              <div class="form-group">
+                <label for="titre" class="m-3">Titre</label>
+                <mat-form-field appearance="outline">
+                  <mat-label>Titre </mat-label>
+                <input type="text" class="custom-input"matInput  id="titre" name="titre" #title id="exampleInputName1" placeholder="">
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <label for="objet" class="m-3">Objet</label>
+                <mat-form-field appearance="outline">
+                  <mat-label>Objet </mat-label>
+                <input type="text" matInput class="custom-input" id="objet" name="objet"#objet  placeholder="">
+                </mat-form-field>
+              </div>
+          <div class="wrapper text-left">
+                  <button type="button" class="btn btn-outline-secondary" onclick="" (click)="openModal()">Ajouter une label  </button>
+                </div>
+          
+
+           <div class="table-responsive mb-5">
+                          <table class="table table-hover" id="myTable">
+                          <thead>
+                              <tr>
+                                  <!-- <th>Table</th> -->
+                                  <th>Label</th>
+                                  <th>Table Name</th>
+                                  <th>Type champ</th>
+                                  <th>Length</th>
+                                  <th>Etat</th>
+                                  <th>Type de creance</th>
+                                  <th>Required</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                          <tbody >
+                            <tr *ngFor="let item of Modelarray">
+                                <!-- <td>{{item.}}</td> -->
+                                <td>{{item.title}}</td>
+                                <td>{{item.tableName}}</td>
+                                <td>{{item.type}}</td>
+                                <td>{{item.length}}</td>
+                                <td>{{item.active}}</td>
+                                <td>{{item.typeCreance}}</td>
+                                <td>{{item.required}}</td>
+                            </tr>
+                          </tbody>
+                          </table>
+                      </div>
+              <div class="form-group text-center">
+                  <button type="submit"  class="btn btn-success mr-2" >Enreigestrer</button>
+              </div>
+            </form>
+        </div>
+      </div>
+     
+    </div>

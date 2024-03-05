@@ -1,0 +1,60 @@
+<div class="d-flex align-items-center justify-content-between">
+    <a href=""  class="p-2 fw-normal  retour-title" ><i class="fa fa-solid fa-less-than "></i> Retour</a>
+  </div>  
+  <h4 class="card-header text-primary" >Liste workflow </h4>
+  <div class=" input_div">
+    <mat-form-field appearance="outline" style="width: 100% !important">
+      <mat-label style="font-size: small;">Recherche</mat-label>
+      <input matInput placeholder="Titre" class="custom-input" 
+     
+        [(ngModel)]="filterValue" (ngModelChange)="filterData()"
+        >
+      <button matSuffix mat-icon-button aria-label="Clear" disabled="true">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  
+  <div *ngIf="list_models.length === 0" class="d-flex justify-content-center align-items-center">
+    <mat-spinner class="custom-spinner"></mat-spinner>
+  </div>    
+  <mat-selection-list #shoes [multiple]="false" style="overflow-y: scroll; height:600px;">
+      <mat-list-option style="height:70px" *ngFor="let shoe of filteredData" 
+      [ngStyle]="{'height': '70px', 'border-left': '3px solid #03C988',
+                  'background-color':  path != 'add-schema' && shoe.id == schemaId ? 'rgba(0,0,0,.04)' : 'rgb(128 129 128 / 3%)'}"
+                   [value]="shoe.id" [disabled]="shoe.isDisabled">
+      <div class="row">
+        <div class="col-md-6">
+          <p style="padding-top: 8px;">
+          <span>
+            <i class="fa-solid fa-diagram-project" style="color: #808284;"></i> {{ shoe.titre }}
+          </span>
+          </p>
+          <p class="badge-date" style="background-color: #03C988;">
+          <span class="span_date">
+          Le: {{ shoe.date_creation | date:'dd-MM-yyyy HH:mm' }}
+          </span> 
+          </p>
+        </div>
+      <!--
+      <div class="col-md-6 text-end mt-2">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/update-schema/{{shoe.id }}">
+              <mat-icon color="primary" >trending_flat</mat-icon>
+              <span>Modifier</span>
+            </button>
+            <button mat-menu-item color="warn">
+              <mat-icon color="warn">delete</mat-icon>
+              <span>Supprimer</span>
+            </button>
+          </mat-menu>
+        </div>
+      -->  
+
+   </div>
+   
+    </mat-list-option>
+  </mat-selection-list> 

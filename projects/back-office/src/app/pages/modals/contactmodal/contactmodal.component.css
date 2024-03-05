@@ -1,0 +1,8 @@
+::ng-deep mat-form-field {
+    width: 100%;
+    background-color: transparent !important;
+    box-shadow: 2px rgba(0, 0, 0, 0.2);
+    height: 50px !important;
+  }
+  
+ 

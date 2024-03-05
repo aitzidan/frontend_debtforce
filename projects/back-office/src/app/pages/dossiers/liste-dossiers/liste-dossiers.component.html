@@ -1,0 +1,172 @@
+<div class="d-flex flex-row">
+    <div class="card card-default col-md-3 mr-5 ml-4 mt-4 mb-1">
+        <div class="d-flex align-items-center justify-content-between">
+            <a href=""  class="p-2 fw-normal  retour-title" ><i class="fa fa-solid fa-less-than "></i> Retour</a>
+        </div>  
+        <div class="text-primary mb-1 mt-2" >Dossiers </div>
+        <div class="row input_div">
+        <mat-form-field appearance="outline" style="width: 100% !important">
+            <mat-label style="font-size: small;">Réference</mat-label>
+            <input matInput  [(ngModel)]="num_dossier"
+            [ngModelOptions]="{ standalone: true }" class="custom-input" >
+        </mat-form-field>
+        </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline">
+                <mat-label>Date prévesionnel </mat-label>
+                <input
+                class="custom-input"
+                matInput
+                [matDatepicker]="picker"
+                name="date_debut"
+                value=""
+                [(ngModel)]="date_fin_prevesionnel"
+                [ngModelOptions]="{ standalone: true }"
+                
+                />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline">
+                <mat-label>Portefuille</mat-label>
+                <mat-select
+                  [(ngModel)]="ptf"
+                  [ngModelOptions]="{ standalone: true }">
+                  <mat-option
+                    *ngFor="let item of liste_ptf"
+                    [value]="item.id">{{ item.titre }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline">
+                <mat-label>Agents</mat-label>
+                <mat-select
+                  [(ngModel)]="selectedAgent"
+                  [ngModelOptions]="{ standalone: true }"
+                  >
+                  <mat-option
+                    *ngFor="let item of liste_agents"
+                    [value]="item.id">{{ item.nom }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="text-grey mb-1 mt-2 h4" >Plus de critéres </div>
+        <div class="text-primary mb-1 mt-2" >Créances </div>
+        <div class="row input_div">
+        <mat-form-field appearance="outline" style="width: 100% !important">
+            <mat-label style="font-size: small;">Numéro de créances</mat-label>
+            <input matInput  class="custom-input" 
+            [(ngModel)]="num_creance"
+            [ngModelOptions]="{ standalone: true }"
+            >
+        </mat-form-field>
+        </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline">
+                <mat-label>Date écheance </mat-label>
+                <input
+                class="custom-input"
+                matInput
+                [matDatepicker]="picker_echeance"
+                value=""
+                [(ngModel)]="date_echeance"
+                [ngModelOptions]="{ standalone: true }"
+                />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker_echeance"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker_echeance></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="text-primary mb-1 mt-2" >Débiteurs </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline" style="width: 100% !important">
+                <mat-label style="font-size: small;">CIN</mat-label>
+                <input matInput  class="custom-input"     [(ngModel)]="cin"
+                [ngModelOptions]="{ standalone: true }">
+            </mat-form-field>
+        </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline" style="width: 100% !important">
+                <mat-label style="font-size: small;" [(ngModel)]="raison_social"
+                [ngModelOptions]="{ standalone: true }">Raison sociale</mat-label>
+                <input matInput  class="custom-input" >
+            </mat-form-field>
+        </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline">
+                <mat-label>Date naissance </mat-label>
+                <input
+                class="custom-input"
+                matInput
+                [matDatepicker]="picker_naissance"
+                value="" 
+                [(ngModel)]="date_naissance"
+                [ngModelOptions]="{ standalone: true }"
+                />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker_naissance"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker_naissance></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="text-grey mb-1 mt-2" >Cordonnés débiteur </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline" style="width: 100% !important">
+                <mat-label style="font-size: small;">Adresse</mat-label>
+                <input matInput  class="custom-input" [(ngModel)]="adresse"
+                [ngModelOptions]="{ standalone: true }">
+            </mat-form-field>
+        </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline" style="width: 100% !important">
+                <mat-label style="font-size: small;">Téléphonne</mat-label>
+                <input matInput  class="custom-input" [(ngModel)]="tel"
+                [ngModelOptions]="{ standalone: true }" >
+            </mat-form-field>
+        </div>
+        <div class="">
+            <button mat-flat-button class="mb-2" (click)="search_dossier()" color="primary" >Rechercher</button>
+        </div>
+    </div>
+
+    <div class=" col-md-8 mt-4">
+        <div class="card card-default">
+        <div class="card-body">
+            <h4 class="card-description text-primary ">
+                Liste Dossiers
+            </h4>
+            <!--Form-->
+            <form method="POST" enctype="multipart/form-data">
+                <mat-card *ngFor="let doss of liste_dossiers" class="mt-4 card_doss" >
+                    <div class="div_card"  (click)="redirectTo(doss.id)">
+                        <mat-card-header class="chunk1">
+                            <mat-card-title>{{doss.numero_dossier }}</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-header class="chunk2">
+                            <mat-card-subtitle><i class="fa-solid fa-user text-primary2"></i> AB5158 Abdlakrim lalloucht</mat-card-subtitle>
+                            <mat-card-subtitle>Porte feuille</mat-card-subtitle>
+                            <mat-card-subtitle>Donneur **</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-header class="chunk3">
+                            <mat-card-subtitle>Solde</mat-card-subtitle>
+                            <mat-card-title>50000000</mat-card-title>
+                        </mat-card-header>
+                    </div>
+                </mat-card>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>

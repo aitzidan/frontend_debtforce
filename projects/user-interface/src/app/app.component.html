@@ -1,0 +1,18 @@
+<!--
+-->
+<router-outlet></router-outlet>
+<!-- <h1>BACK-OFFICE</h1> -->
+<div class="wrapper" *ngIf="!(router.url.includes('save-workflow'))">
+  <app-header *ngIf="header.visible"></app-header>
+  <app-navbar *ngIf="nav.visible"></app-navbar>
+  <section class="section-container" style="    margin-right: 0;">
+      <router-outlet></router-outlet>
+    </section>
+    <app-footer></app-footer>
+</div> 
+<!--
+    -->
+      <!--
+      -->
+      <!--
+      -->

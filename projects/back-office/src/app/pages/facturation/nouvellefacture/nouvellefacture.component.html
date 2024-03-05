@@ -1,0 +1,478 @@
+<!--
+<div class="d-flex flex-row p-2">
+    <div class="container">
+        <div class="row gap-4">
+        <div class="col-md-5 card card-default mt-4">
+          <div class="card-header text-primary">
+            <h4>Informations</h4>
+          </div>
+          
+  
+          <div class="card main-card">
+            <fieldset class="">
+              <div class="form-group input_div">
+                <label class="fw-bold" for="input-id-1 ">Nom :</label>
+                <div class="px-4 mb-0">
+                  <p for="">{{ user[0].nom }}</p>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="">
+              <div class="form-group input_div">
+                <label class="fw-bold" for="input-id-1">Prenom :</label>
+                <div class="px-4 mb-0">
+                  <p for="">{{ user[0].prenom }}</p>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="">
+              <div class="form-group input_div">
+                <label class="fw-bold" for="input-id-1">Cin :</label>
+                <div class="px-4 mb-0">
+                  <p for="">{{ user[0].cin }}</p>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="">
+              <div class="form-group input_div">
+                <label class="fw-bold" for="input-id-1">tel :</label>
+                <div class="px-4 mb-0">
+                  <p for="">{{ user[0].tel }}</p>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="">
+              <div class="form-group input_div">
+                <label class="fw-bold" for="input-id-1">Mobile :</label>
+                <div class="px-4 mb-0">
+                  <p for="">{{ user[0].mobile }}</p>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="">
+              <div class="form-group input_div">
+                <label class="fw-bold" for="input-id-1">Adresse :</label>
+                <div class="px-4 mb-0">
+                  <p for="">{{ user[0].adresse }}</p>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="">
+              <div class="form-group input_div">
+                <label class="fw-bold" for="input-id-1">Ville :</label>
+                <div class="px-4 mb-0">
+                  <p for="">{{ user[0].ville }}</p>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          
+        </div>
+        <div class="col-md-6 card card-default mt-4">
+          <div class="card-header text-primary">
+            <h4>Client</h4>
+          </div>
+          <div class="card main-card">
+            <div class="card-body">
+              <form method="POST">
+                <fieldset class="">
+                  <div class="form-group input_div">
+                    <label class="col-md-3 col-form-label" for="input-id-1"
+                      >Clients :</label
+                    >
+                    <mat-form-field appearance="outline" class="col-md-11">
+                      <mat-label>Donneur d'ordre</mat-label>
+                      <mat-select
+                        [(ngModel)]="selectedDonneurId"
+                        [ngModelOptions]="{ standalone: true }"
+                        (ngModelChange)="changeDonneur()"
+                      >
+                        <mat-option
+                          *ngFor="let item of donneur"
+                          [value]="item.id"
+                          >{{ item.nom }}</mat-option
+                        >
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </fieldset>
+                <div *ngIf="selectedDonneur">
+                  <fieldset class="">
+                    <div class="form-group input_div">
+                      <label class="fw-bold" for="input-id-1">Nom :</label>
+                      <div class="px-4 mb-0">
+                        {{ selectedDonneur.donneur[0].nom }}
+                      </div>
+                    </div>
+                  </fieldset>
+                  <fieldset class="">
+                    <div class="form-group input_div">
+                      <label class="fw-bold" for="input-id-1">Metier :</label>
+                      <div class="px-4 mb-0">
+                        {{ selectedDonneur.donneur[0].metier }}
+                      </div>
+                    </div>
+                  </fieldset>
+  
+                  <fieldset class="">
+                    <div class="form-group input_div">
+                      <label class="fw-bold" for="input-id-1"
+                        >Raison sociale :</label
+                      >
+                      <div class="px-4 mb-0">
+                        {{ selectedDonneur.donneur[0].raison_sociale }}
+                      </div>
+                    </div>
+                  </fieldset>
+                  <fieldset class="">
+                    <div class="form-group input_div">
+                      <label class="fw-bold" for="input-id-1">Numero rc :</label>
+                      <div class="px-4 mb-0">
+                        {{ selectedDonneur.donneur[0].numero_rc }}
+                      </div>
+                    </div>
+                  </fieldset>
+                  <fieldset class="">
+                    <div class="form-group input_div">
+                      <label class="fw-bold" for="input-id-1"
+                        >Code postal :</label
+                      >
+                      <div class="px-4 mb-0">
+                        {{ selectedDonneur.donneur[0].cp }}
+                      </div>
+                    </div>
+                  </fieldset>
+                  <fieldset class="">
+                    <div class="form-group input_div">
+                      <label class="fw-bold" for="input-id-1"
+                        >Compte bancaire :</label
+                      >
+                      <div class="px-4 mb-0">
+                        {{ selectedDonneur.donneur[0].compte_bancaire }}
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row d-flex flex-row card card-default" style="width: 96.5%">
+        <fieldset>
+          <div class="form-group row mt-3 ">
+            <label class="col-md-1 col-form-label" for="input-id-1"
+              >Type :
+              <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-5 input_div">
+              <mat-form-field appearance="outline">
+                <mat-label>Type</mat-label>
+                <mat-select class="custom-input" [(ngModel)]="type">
+                  <mat-option value="1">Encaissement</mat-option>
+                  <mat-option value="2">Quantité</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+  
+            <label class="col-md-1 col-form-label" for="input-id-1"
+              >Date Echeance :
+            </label>
+            <div class="col-md-5 input_div">
+              <mat-form-field appearance="outline">
+                <mat-label>Date echeance</mat-label>
+                <input
+                  class="custom-input"
+                  matInput
+                  [matDatepicker]="picker"
+                  name="date_echeance"
+                  #date_echeance
+                />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </fieldset>
+  
+        <div class="row">
+          <div class="px-2 d-flex flex-row">
+            <div class="col-md-6">
+              <div class="card-header text-primary">
+                <h3>Regles de Model de facture</h3>
+              </div>
+              <div class="card-body">
+                <div class="form-group input_div">
+                  <label for="Element5" class="mt-1"
+                    >Model de facturation :
+                  </label>
+                  <mat-form-field appearance="outline">
+                    <mat-label>model</mat-label>
+                    <mat-select
+                      class="custom-input"
+                      matInput
+                      [(ngModel)]="selectedModelId"
+                      [ngModelOptions]="{ standalone: true }"
+                      (ngModelChange)="changeModel()"
+                    >
+                      <mat-option
+                        *ngFor="let model of modeles"
+                        [value]="model.id"
+                        >{{ model.titre }}</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <fieldset class="checkbox-group" *ngIf="regles">
+                <div class="checkbox" *ngFor="let item of regles">
+                  <label class="checkbox-wrapper">
+                    <input
+                      type="checkbox"
+                      class="checkbox-input"
+                      name="check"
+                      (change)="onchangeregles(item)"
+                      [checked]="isSelectedRegles(item)"
+                    />
+                    <span class="checkbox-tile">
+                      <span class="checkbox-label">{{ item.nom }}</span>
+                    </span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+            <div class="col-md-6 mx-4" *ngIf="regles">
+              <div class="card-header text-primary">
+                <h3>Les Regles Selectionnées</h3>
+              </div>
+              <fieldset class="checkbox-group">
+                <div class="checkbox" *ngFor="let item of Regles">
+                  <label class="checkbox-wrapper">
+                    <input
+                      type="checkbox"
+                      class="checkbox-input"
+                      checked
+                      (click)="RemoveRegle(item)"
+                    />
+                    <span class="checkbox-tile">
+                      <span class="checkbox-label">{{ item.nom }}</span>
+                    </span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div
+        class="col-md-12 mt-3 text-center d-flex flex-row align-items-center justify-content-center"
+      >
+        <button
+          type="submit"
+          class="btn form-control-sm col-md-8 m-2"
+          mat-raised-button
+          color="primary"
+          (click)="AjouterFacture(date_echeance.value)"
+        >
+          Ajouter
+        </button>
+      </div>
+    </div>
+  </div>
+-->
+
+<div class="d-flex flex-row">
+  <div class=" col-md-12 mt-4">
+    <div class="card card-default">
+      <div class="card-body">
+        <h4 class="card-description text-primary h3 bold ">
+          <i class="fa-solid fa-file"></i> Nouvelle facture
+        </h4>
+      </div>
+      <div>
+        <div class="ml-4 mr-4 mt-4">
+          <h4 class="text-primary"> <i class="fa-solid fa-user"></i>Clients : </h4>
+        </div>
+        <div class="ml-4 mr-4">
+          <div class="div_form_row">
+            <div class="">
+              <mat-label>Clients : </mat-label>
+            </div>
+            <div class="div_form_inputs input_div row">
+              <div class="col-md-12">
+                <mat-form-field appearance="outline" class="col-md-11">
+                  <mat-label>Donneur d'ordre</mat-label>
+                  <mat-select [(ngModel)]="selectedDonneurId" [ngModelOptions]="{ standalone: true }"
+                    (selectionChange)="getDetailsDonneur()">
+                    <mat-option *ngFor="let item of liste_donneur" [value]="item.dn.id">{{ item.dn.nom }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="">
+              <mat-label>Objet : </mat-label>
+            </div>
+            <div class="div_form_inputs input_div row">
+              <div class="col-md-12">
+                <mat-form-field appearance="outline" class="col-md-11">
+                  <mat-label>Objet</mat-label>
+                  <input matInput placeholder="Objet" class="custom-input" required [(ngModel)]="objet"
+                    [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="div_form_row">
+            <div class=" w-100 mt-3">
+              <div class="mt-2 class_div col-md-6 pl-2" *ngIf="donneurOrdre">
+                <p class="h5 text-start">Nom : {{donneurOrdre.nom}} </p>
+                <p class="h5 text-start">Metier : {{donneurOrdre.metier}} </p>
+                <p class="h5 text-start">numero_rc : {{donneurOrdre.numero_rc}} </p>
+                <p class="h5 text-start">Raison sociale : {{donneurOrdre.raison_sociale}} </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div>
+        
+        <div class="ml-4 mr-4 mt-4">
+          <mat-divider class="mb-2"></mat-divider>
+          <h4 class="text-primary"> <i class="fa-solid fa-file"></i> Produits : </h4>
+        </div>
+        <div class="ml-4 mr-4">
+          <div class="table-responsive" id="tableDetails">
+            <table id="tableColumns" class="table  table-bordered nowrap">
+              <thead>
+                <tr>
+                  <th>Reference</th>
+                  <th>Titre</th>
+                  <th>Qte</th>
+                  <th>Prix u</th>
+                  <th>Total ttc</th>
+                  <th>Remise</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of products ; let i = index">
+                  <td>
+                    <div class="div_form_inputs input_div row">
+                      <mat-form-field appearance="outline" class="col-md-11">
+                        <mat-select [(ngModel)]="selectedProduct" [ngModelOptions]="{ standalone: true }"
+                          (selectionChange)="getDetailsProducts(i)">
+                          <mat-option *ngFor="let item of productListe" [value]="item.id">{{ item.reference }} -- {{
+                            item.nom }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="div_form_inputs input_div row">
+                      <mat-form-field appearance="outline" class="col-md-11">
+                        <input matInput readonly class="custom-input" required [value]="item.titre">
+                      </mat-form-field>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="div_form_inputs input_div row">
+                      <mat-form-field appearance="outline" class="col-md-11">
+                        <input matInput type="number" min="1" (ngModelChange)="calculTTC(i, $event)"
+                          class="custom-input" required [(ngModel)]="item.qte">
+                      </mat-form-field>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="div_form_inputs input_div row">
+                      <mat-form-field appearance="outline" class="col-md-11">
+                        <input matInput class="custom-input" required [value]="item.prix_u">
+                      </mat-form-field>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="div_form_inputs input_div row">
+                      <mat-form-field appearance="outline" class="col-md-11">
+                        <input matInput class="custom-input" required [value]="item.totalttc">
+                      </mat-form-field>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="div_form_inputs input_div row">
+                      <mat-form-field appearance="outline" class="col-md-11">
+                        <input matInput type="number" (ngModelChange)="calculRemise(i, $event)" class="custom-input"
+                          required [value]="item.remise">
+                      </mat-form-field>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="example-button-container">
+                      <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon"
+                        (click)="delete_product(i)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="justify-content-end w-100 mt-3">
+              <div class="mt-2 class_div col-md-6">
+                <p class="h4 text-end">Total TTC : {{getValue() }} MAD </p>
+              </div>
+            </div>
+            <div class="mt-4">
+              <button mat-raised-button class="" color="accent" (click)="addProduct()">Ajouter + </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="ml-4 mr-4 mt-4">
+          <mat-divider class="mb-2"></mat-divider>
+          <h4 class="text-primary"> <i class="fa-solid fa-user"></i>Conditions : </h4>
+        </div>
+        <div class="ml-4 mr-4">
+          <div class="div_form_row">
+            <div class="">
+              <mat-label>Type de paiement : </mat-label>
+            </div>
+            <div class="div_form_inputs input_div row">
+              <div class="col-md-12">
+                <mat-form-field appearance="outline" class="col-md-11">
+                  <mat-label>Type paiement</mat-label>
+                  <mat-select [(ngModel)]="type_selected" [ngModelOptions]="{ standalone: true }">
+                    <mat-option *ngFor="let item of liste_type_paiement" [value]="item.id">{{ item.type
+                      }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="">
+              <mat-label>Note : </mat-label>
+            </div>
+            <div class="div_form_inputs input_div row">
+              <div class="col-md-12">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Notes</mat-label>
+                  <textarea matInput placeholder="Notes"  class="custom-textarea" [(ngModel)]="note"
+                  [ngModelOptions]="{standalone: true}"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 mb-3">
+            <button  mat-flat-button class= "" color="primary" (click)="validerFacture()">Valider la facture</button>
+            <button  mat-flat-button class= "ml-1" color="warn" routerLink="/Listefacture">Annuler </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

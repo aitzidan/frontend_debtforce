@@ -1,0 +1,79 @@
+<div class="d-flex flex-row">
+    <app-bar-workflow class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-workflow>
+    <div class=" col-md-8 mt-4">
+        <div class="card card-default">
+        <div class="card-body">
+            <h4 class="card-description text-primary ">
+                Description workflow
+            </h4>
+            
+            <!--Form-->
+            <form method="POST" enctype="multipart/form-data">
+                <div class="div_form mt-5 mb-5">
+                    <div class="div_form_row">
+                        <div class="div_form_label">
+                        <mat-label>Titre :</mat-label>
+                        </div>
+                        <div class="div_form_inputs input_div">
+                        <mat-form-field  appearance="outline" style="width: 100%">
+                            <mat-label style="font-size: small;">Titre </mat-label>
+                            <input matInput placeholder="Titre" class="custom-input" required [(ngModel)]="titreWorkflow"  [ngModelOptions]="{standalone: true}">      
+                        </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="div_form mt-5 mb-5">
+                    <div class="div_form_row">
+                        <div class="div_form_label">
+                            <mat-label>Type de workflow :</mat-label>
+                        </div>
+                        <div class="div_form_inputs input_div" >
+                            <mat-radio-group aria-label="Select an option" [(ngModel)]="type_select"  [ngModelOptions]="{standalone: true}" (change)="onchangeSegment()">
+                                <mat-radio-button *ngFor="let t of all_type" [value]="t.value" color="primary">{{t.name}}</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="div_form_row">
+                        <div class="div_form_label">
+                            <mat-label>Sélectionner des éléments : </mat-label>
+                        </div>
+                        <div class="div_form_inputs input_div">
+                            <mat-form-field appearance="outline" style="width: 100%;" *ngIf="type_select === 1 || type_select === 2">
+                                <mat-label>Segmentation</mat-label>
+                                <mat-select name="ary[]" [(ngModel)]="ary" multiple > 
+                                    <mat-option *ngFor="let seg of segmentation" [value]="seg.id">{{seg.nomSegment}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" style="width: 100%;" *ngIf="type_select === 0 || type_select === 3">
+                                <mat-label>Segmentation</mat-label>
+                                <mat-select name="ary[]" [(ngModel)]="ary" multiple > 
+                                    <mat-option *ngFor="let seg of segmentation" [value]="seg.id">{{seg.nomSegment}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="div_form mt-5">
+                    <div class="div_form_row">
+                      <div class="div_form_label">
+                        <mat-label>Note :</mat-label>
+                      </div>
+                      <div class="div_form_inputs">
+                        <mat-form-field appearance="outline" style="width: 100%">
+                          <mat-label>Notes</mat-label>
+                          <textarea matInput placeholder="Notes" [(ngModel)]="notes" ></textarea>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                </div>
+                <div class="text-center mt-5">
+                    <button mat-flat-button (click)="generateWorkflow()" class="" color="accent">Génerer le workflow </button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>

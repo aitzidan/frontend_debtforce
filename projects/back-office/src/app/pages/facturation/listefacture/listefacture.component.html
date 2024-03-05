@@ -1,0 +1,91 @@
+<div class="d-flex flex-row">
+  <div class=" col-md-12 mt-4" >
+    <div class="card card-default">
+      <div class="card-body">
+          <h4 class="card-description text-primary ">
+              Liste facture
+          </h4>
+      </div>
+      <div class="ml-4 mr-4">
+          <div class="div_form_row">
+            <div class="div_form_label">
+              <mat-label>Clients :  </mat-label>
+            </div>
+            <div class="div_form_inputs input_div row">
+              <div class="col-md-7">
+                <mat-form-field appearance="outline" class="col-md-11">
+                  <mat-label>Donneur d'ordre</mat-label>
+                  <mat-select
+                    [(ngModel)]="selectedDonneurId"
+                    [ngModelOptions]="{ standalone: true }"
+                  >
+                    <mat-option
+                      *ngFor="let item of liste_donneur"
+                      [value]="item.dn.id"
+                      >{{ item.dn.nom }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-5 text-end">
+                  <button type="button" class="" mat-raised-button    color="accent">Filtrer<mat-icon iconPositionEnd> search</mat-icon></button>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="ml-4 mr-4 mt-4">
+        <div class="row">
+          <div class="col-md-12 text-end">
+            <button mat-raised-button color="primary" routerLink="/nouvelle-facture" >Facture + </button>
+          </div>
+          <div class="col-md-12">
+            <table mat-table [dataSource]="dataSource">
+              <!-- Position Column -->
+              <ng-container matColumnDef="Num_facture">
+                <th mat-header-cell *matHeaderCellDef> Facture Numéro </th>
+                <td mat-cell *matCellDef="let element"> {{element.numeroFact}} </td>
+              </ng-container>
+              <!-- Name Column -->
+              <ng-container matColumnDef="date_creation">
+                <th mat-header-cell *matHeaderCellDef> date creation </th>
+                <td mat-cell *matCellDef="let element"> {{element.dateCreation| date:'longDate'}} </td>
+              </ng-container>
+              <ng-container matColumnDef="donneur_ordre">
+                <th mat-header-cell *matHeaderCellDef> donneur ordre </th>
+                <td mat-cell *matCellDef="let element"> {{element.idDonneurOrdreId.nom}} </td>
+              </ng-container>
+              <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef> Total </th>
+                <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+              </ng-container>
+              <ng-container matColumnDef="etat">
+                <th mat-header-cell *matHeaderCellDef> Etat </th>
+                <td mat-cell *matCellDef="let element"> {{element.etat}} </td>
+              </ng-container>
+              <ng-container matColumnDef="paiement">
+                <th mat-header-cell *matHeaderCellDef> paiement </th>
+                <td mat-cell *matCellDef="let element"> {{element.paiement}} </td>
+              </ng-container>
+              <ng-container matColumnDef="operation">
+                <th mat-header-cell *matHeaderCellDef> Opération </th>
+                <td mat-cell *matCellDef="let element"> 
+                  <a type="button" class="btn btn-warning btn-sm m-1" ><i class="fa fa-pencil-alt"></i></a>
+                  <button type="button" class="btn btn-danger btn-sm m-1"  o><i class="fa fa-trash"></i></button>   
+                </td>
+              </ng-container>
+             <!--
+            --> 
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="d-flex align-items-center justify-content-between">
+    <a href="" class="p-2 fw-normal" style="color:grey !important;"><i class="fa fa-solid fa-less-than"></i> Retour</a>
+  </div>  
+  <h4 class="card-header text-primary" >Groupes :</h4>
+  <div class="text-end">
+    <button mat-flat-button (click)="openDialogForAddGroupe()" class="mr-1" color="primary">Ajouter</button>
+    <button mat-flat-button (click)="openDialogForUpdateGroupe()"  [disabled]="checkIfSelected()" style="background:#fc8900">Modifier</button>
+  </div>
+  <mat-selection-list #shoes [multiple]="false" style="overflow-x: auto;height: 900px;" class="mt-5">
+    <mat-list-option style="height:70px" *ngFor="let shoe of listes_groupes"  
+    [ngStyle]="{'height': '70px' , 'border-left':'3px solid #03C988' ,'background-color': shoe === groupe_selected ? 'rgb(128 128 128 / 14%)' : 'rgb(128 129 128 / 3%)'}"
+      [value]="shoe.id" [disabled]="shoe.isDisabled" (click)="onShoeSelectionChange(shoe)">
+      <p style="padding-top: 8px;" class="text-bold">
+        <span>
+        {{ shoe.titre }}
+        </span>
+      </p>
+      <p class="badge-date" style="background-color: #03C988;">
+        <span class="span_date">
+          {{ shoe.description}}
+        </span>
+      </p>
+    </mat-list-option>
+  </mat-selection-list> 

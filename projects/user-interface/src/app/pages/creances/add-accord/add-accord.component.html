@@ -1,0 +1,333 @@
+<div class="d-flex flex-row">
+    <app-bar-creance class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-creance>
+    <div class=" col-md-8 mt-4">
+        <div class="card card-default">
+            <div class="card-body">
+                <h2 class="card-description text-primary bold">
+                  Accords
+                </h2>
+                <div *ngIf="div == 1">
+                    <div>
+                        <h3 class="card-description text-primary bold">
+                            1 - Sélectionnez les options
+                        </h3>
+                        <div class="row ">
+                            <div class="div_form  col-md-6">
+                                <div class="div_form_row">
+                                    <div class="div_form_label">
+                                        <mat-label>Fréquence <span class="text-danger">*</span>:</mat-label>
+                                    </div>
+                                    <div class="div_form_inputs input_div">
+                                        <mat-form-field appearance="outline" style="width: 100%">
+                                            <mat-label>Fréquence</mat-label>
+                                            <mat-select required [(ngModel)]="frenquence_select" [ngModelOptions]="{ standalone: true }"  >
+                                              <mat-option *ngFor="let f of liste_frenquence" [value]="f.id" >{{ f.frenquence }}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="div_form_row">
+                                    <div class="div_form_label">
+                                        <mat-label>Monatnt <span class="text-danger">*</span>:</mat-label>
+                                    </div>
+                                    <div class="div_form_inputs input_div">
+                                        <mat-form-field  appearance="outline" style="width: 100%">
+                                            <mat-label style="font-size: small;">Montant</mat-label>
+                                            <input matInput placeholder="Entrer un montant" class="custom-input" required [(ngModel)]="montant_a_Payer"  [ngModelOptions]="{standalone: true}"> 
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="div_form  col-md-6 text-end">
+                                <div>
+                                    <a mat-button (click)="restart()">Restart<mat-icon iconPositionEnd style="color:grey">list_alt</mat-icon>
+                                    </a>
+                                </div>
+                                Total restant <h2 class="text-danger bold">{{totalRestant  | number:'1.2-2'}} MAD</h2>
+                                Total créance : <h2 class="bold text-success ">{{total  | number:'1.2-2'}} MAD</h2>
+                                Montant accord : <h2 class="bold">{{montant_a_Payer  | number:'1.2-2'}} MAD</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="card-description text-primary bold">
+                            2 - Propositions
+                        </h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-radio-group aria-label="Select an option" [(ngModel)]="proposition" [ngModelOptions]="{ standalone: true }">
+                                    <mat-radio-button [value]="1">Montant</mat-radio-button>
+                                    <mat-radio-button [value]="2">Écheanciers</mat-radio-button>
+                                </mat-radio-group>
+
+                                <div class="div_form  col-md-12 ">
+                                    <div class="div_form_row ">
+                                        <div class="div_form_inputs input_div"  *ngIf="proposition == 1">
+                                            <mat-form-field  appearance="outline" style="width: 100%">
+                                                <mat-label style="font-size: small;">Monatnt </mat-label>
+                                                <input matInput placeholder="Entrer un montant" class="custom-input" required [(ngModel)]="montant"  [ngModelOptions]="{standalone: true}"> 
+                                            </mat-form-field>
+                                            <span class="text-grey mt-2">Minimum 50 DH</span>     
+                                            
+                                        </div>
+                                        <div class="div_form_inputs input_div"  *ngIf="proposition == 2">
+                                            <mat-form-field  appearance="outline" style="width: 100%" >
+                                                <mat-label style="font-size: small;">Nombre écheanciers </mat-label>
+                                                <input matInput placeholder="Entrer un nombre" class="custom-input" required [(ngModel)]="echeanciers"  [ngModelOptions]="{standalone: true}">      
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button mat-flat-button class="mb-2" color="accent" (click)="validatePropo()">Validé <mat-icon iconPositionEnd>check_circle</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="isValidateOption">
+                        <h3 class="card-description text-primary bold">
+                            3 - Autre proposition
+                        </h3>
+                        <div>
+                            <div class="row ">
+                                <div class="div_form col-md-6 ">
+                                    <div class="div_form_row">
+                                        <div class="div_form_label">
+                                            <mat-label>Nombre écheanciers <span class="text-danger">*</span>:</mat-label>
+                                        </div>
+                                        <div class="div_form_inputs input_div row">
+                                            <div class="col-md-2">
+                                                <button mat-mini-fab aria-label="Increment" color="primary" (click)="increment()" [disabled]="echeanciers_decider == maxEcheanciers">+</button>
+                                              </div>
+                                              <div class="col-md-8">
+                                                <mat-form-field appearance="outline" style="width: 100%">
+                                                  <mat-label style="font-size: small;">Nombre écheanciers </mat-label>
+                                                  <input matInput type="number" placeholder="Entrer un nombre" class="custom-input" required
+                                                         [(ngModel)]="echeanciers_decider" [ngModelOptions]="{ standalone: true }" [max]="maxEcheanciers" [min]="minEcheanciers">
+                                                </mat-form-field>
+                                              </div>
+                                              <div class="col-md-2">
+                                                <button mat-mini-fab aria-label="Decrement" color="warn" (click)="decrement()" [disabled]="echeanciers_decider == minEcheanciers">-</button>
+                                              </div>
+                                        </div>
+                                    </div>
+                                    <div class="div_form_row">
+                                        <div class="div_form_label">
+                                            <mat-label>Monatnt :</mat-label>
+                                        </div>
+                                        <div class="div_form_inputs input_div row">
+                                            <div>
+                                                <mat-form-field appearance="outline" style="width: 100%">
+                                                    <mat-label style="font-size: small;">Nombre écheanciers </mat-label>
+                                                    <input matInput  class="custom-input" required
+                                                            [(ngModel)]="montant_decider" [ngModelOptions]="{ standalone: true }" >
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="div_form_row">
+                                        <div class="div_form_label">
+                                            <mat-label>Intérets :</mat-label>
+                                        </div>
+                                        <div class="div_form_inputs input_div row">
+                                            <div>
+                                                <mat-form-field appearance="outline" style="width: 100%">
+                                                    <mat-label style="font-size: small;">Intérets </mat-label>
+                                                    <input matInput  class="custom-input" required placeholder="0%"
+                                                            [(ngModel)]="interet_decider" [ngModelOptions]="{ standalone: true }" >
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div>
+                                        <h4 class="text-primary bold">Remise</h4>
+                                        <mat-radio-group aria-label="Select an option" [(ngModel)]="remise" [ngModelOptions]="{ standalone: true }">
+                                            <mat-radio-button [value]="1">Montant</mat-radio-button>
+                                            <mat-radio-button [value]="2">Taux</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div class="div_form  row col-md-6">
+                                        <div class="div_form_row">
+                                            <div class="div_form_inputs input_div"  *ngIf="remise == 1">
+                                                <mat-form-field  appearance="outline" style="width: 100%">
+                                                    <mat-label style="font-size: small;">Monatnt </mat-label>
+                                                    <input matInput placeholder="Entrer un montant" class="custom-input" required [(ngModel)]="montant_remise"  [ngModelOptions]="{standalone: true}"> 
+                                                </mat-form-field>                                            
+                                            </div>
+                                            <div class="div_form_inputs input_div"  *ngIf="remise == 2">
+                                                <mat-form-field  appearance="outline" style="width: 100%" >
+                                                    <mat-label style="font-size: small;">Taux </mat-label>
+                                                    <input matInput placeholder="Entrer un taux" class="custom-input" required [(ngModel)]="taux_remise"  [ngModelOptions]="{standalone: true}">      
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="text-end col-md-4 ml-2">
+                                    <!-- <div class="row">
+                                        <div class="col-md-6">Total restant</div>
+                                        <div class="col-md-6 h3 text-primary text-end">{{totalRestant}} MAD</div>
+                                    </div>
+                                -->
+                                    <div class="row">
+                                        <div class="col-md-6">Montant accord</div>
+                                        <div class="col-md-6 h3 text-primary text-end">
+                                            <span *ngIf="remise == 1">{{montant_a_Payer - (montant_a_Payer * (taux_remise / 100))}}MAD</span>
+                                            <span *ngIf="remise == 2">{{montant_a_Payer - (montant_remise)}} MAD</span>
+                                        </div>
+                                    </div> 
+                                    <div class="row">
+                                        <div class="col-md-6">Nombre écheanciers</div>
+                                        <div class="col-md-6 h3 text-primary text-end">{{echeanciers_decider}}</div>
+                                    </div>
+                                   
+                                    <div class="row">
+                                        <div class="col-md-6">Montant</div>
+                                        <div class="col-md-6 h3 text-primary text-end">{{montant_decider}} MAD</div>
+                                    </div>
+                                    <!-- <div class="row">
+                                        <div class="col-md-6">Remise</div>
+                                        <div class="col-md-6">
+                                            <span *ngIf="remise == 1">{{montant_remise}} MAD</span>
+                                            <span *ngIf="remise == 2">{{taux_remise}} %</span>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button mat-flat-button [disabled]="!isValidateOption" class="mb-2" color="primary" (click)="createPlan()" >Créer plan <mat-icon iconPositionEnd>chevron_right</mat-icon></button>
+                    </div>
+                </div>
+                <div *ngIf="div == 2">
+                    <div>
+                        <h3 class="card-description text-primary bold">
+                            Plan de paiement
+                        </h3>
+                        <div class="row ">
+                            <div class="div_form  col-md-4">
+                                <div class="div_form_row">
+                                    
+                                </div>
+                            </div>
+                            <div class="div_form  col-md-4 row">
+                                <div class="row">
+                                    <div class="col-md-6 text-grey">Montant accord</div>
+                                    <div class="col-md-6 h4 text-end">{{montant_a_Payer |number:'1.2-2'}} MAD</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-grey">Nombre écheanciers</div>
+                                    <div class="col-md-6 h4 text-end text-primary">{{echeanciers_decider}}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-grey">Fréquence</div>
+                                    <div class="col-md-6 h4 text-end text-primary">{{liste_frenquence[frenquence_select - 1].frenquence}}</div>
+                                </div>
+                            </div>
+                            <div class="div_form  col-md-4 row">
+                                <div class="row">
+                                    <div class="col-md-6 text-grey">Total restant</div>
+                                    <div class="col-md-6 h4 text-end">{{totalRestant |number:'1.2-2'}} MAD</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-orange">Montant</div>
+                                    <div class="col-md-6 h4 text-end text-primary">{{montant_decider |number:'1.2-2'}} MAD</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-orange">Intéret</div>
+                                    <div class="col-md-6 h4 text-end text-primary">{{interet_decider}} %</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="div_form mt-5 ">
+                                <div class="div_form_row">
+                                    <div class="div_form_label">
+                                        <mat-label>start_date <span class="text-danger">*</span>:</mat-label>
+                                    </div>
+                                    <div class="div_form_inputs input_div">
+                                        <mat-form-field  appearance="outline" style="width: 100%">
+                                            <mat-label>Date début </mat-label>
+                                            <input
+                                            class="custom-input"
+                                            matInput
+                                            [matDatepicker]="picker"
+                                            name="start_date"
+                                            value=""
+                                            [(ngModel)]="start_date"
+                                            [ngModelOptions]="{ standalone: true }"
+                                            />
+                                            <mat-hint>MM/DD/YYYY</mat-hint>
+                                            <mat-datepicker-toggle
+                                            matIconSuffix
+                                            [for]="picker"
+                                            ></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>   
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="div_form mt-5 ">
+                                <div class="div_form_row">
+                                    <div class="div_form_label">
+                                        <mat-label>Type de paiement <span class="text-danger">*</span>:</mat-label>
+                                    </div>
+                                    <div class="div_form_inputs input_div">
+                                        <mat-form-field appearance="outline" style="width: 100%">
+                                            <mat-label>Type de paiement</mat-label>
+                                            <mat-select required [(ngModel)]="type_select" [ngModelOptions]="{ standalone: true }"  >
+                                              <mat-option *ngFor="let f of liste_type_paiement" [value]="f.id" >{{ f.type }}</mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <mat-tab-group>
+                                <mat-tab label="Plan de paiement"> 
+                                    <div class="text-end mb-2">
+                                        <div>
+                                            <a mat-button (click)="showProcess()" >Affiché plan<mat-icon iconPositionEnd style="color:grey">list_alt</mat-icon>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <table id="tableColumns" class="table table-striped table-bordered nowrap classCenterTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Montant</th>
+                                                <th>Type de paiement</th>
+                                                <th>Status</th>
+                                                <th>Notes</th>
+                                            </tr> 
+                                        </thead>
+                                        <tbody>
+                                           
+                                            <tr *ngFor="let item of liste_paiement ; let i = index">
+                                                <td class="text-primary">{{item.date}}</td>
+                                                <td class="text-accent">{{item.montant}}</td>
+                                                <td>{{item.type_paiement}}</td>
+                                                <td> <span class="badge badge-success">{{item.status}}</span></td>
+                                                <td>{{item.notes}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </mat-tab>
+                                <mat-tab label="Notes"> Notes </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                        <div class="col-md-12 text-end mt-2">
+                            <button mat-flat-button [disabled]="!(liste_paiement.length > 0)" class="mb-2" color="primary" (click)="savePayment()" >Confirmé</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

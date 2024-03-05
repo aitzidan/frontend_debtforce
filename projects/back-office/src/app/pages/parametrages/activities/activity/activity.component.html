@@ -1,0 +1,152 @@
+<div class="d-flex flex-row">
+  <app-activity-bar class="card card-default col-md-3 mr-5 ml-4 mt-4">
+  </app-activity-bar>
+  <div class=" col-md-8 mt-4">
+    <div class="card card-default">
+      <div class="card-body">
+        <h4 class="card-description text-primary ">
+            Créer un activité
+        </h4>
+        <!--Form-->
+        <form  #form="ngForm">
+          <mat-stepper linear #stepper>
+            <mat-step [stepControl]="firstFormGroup" errorMessage="Familles est oubliguatoire !">
+              <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>Familles </ng-template>
+                <div class="div_form mt-5">
+                  <div class="div_form_row">
+                    <div class="div_form_label">
+                      <mat-label>Séléctionner une familles :</mat-label>
+                    </div>
+                    <div class="div_form_inputs input_div">
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <mat-label>Familles</mat-label>
+                        <mat-select formControlName="firstCtrl" required>
+                          <mat-option *ngFor="let f of familles" [value]="f.id">{{ f.titre }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="button_next">
+                  <button mat-flat-button color="primary" matStepperNext (click)="getParamsByType()">Suivant</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup" errorMessage="Titre est oubliguatoire"  >
+              <form [formGroup]="secondFormGroup" class="example-form">
+                <ng-template matStepLabel (click)="getParamsByType()">Informations</ng-template>
+                <div class="div_form mt-5">
+                  <div class="div_form_row">
+                    <div class="div_form_label">
+                      <mat-label>Titre :</mat-label>
+                    </div>
+                    <div class="div_form_inputs input_div">
+                      <mat-form-field  appearance="outline" style="width: 100%">
+                        <mat-label>Titre</mat-label>
+                        <input matInput  placeholder="Titre" formControlName="secondCtrl" required>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="div_form mt-5">
+                  <div class="div_form_row">
+                    <div class="div_form_label">
+                      <mat-label>Note :</mat-label>
+                    </div>
+                    <div class="div_form_inputs">
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <mat-label>Notes</mat-label>
+                        <textarea matInput placeholder="Tapez une descrption ou ajoutez des notes ici" formControlName="secondCtrl2" class="custom-textarea"></textarea>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="button_next">
+                  <button mat-flat-button matStepperPrevious class="mr-1">Retour</button>
+                  <button mat-flat-button matStepperNext color="primary">Suivant</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step>
+              <form [formGroup]="threeFormGroup"   method="POST" enctype="multipart/form-data"   class="example-form">
+              <ng-template matStepLabel>Validation</ng-template>
+              <div class="mt-5" style="display: flex; flex-wrap:wrap">
+                <div style="width: 30%;">
+                  <h4 class="text-primary2" >Liste des étapes : </h4>
+                  <div *ngFor="let act of activityArray; let i = index">
+                    <div>
+                      <span style="font-size:larger ; font-weight:500">{{getValueOfParam(getValue(act)[0].value)}}</span> : 
+                      <button mat-raised-button  color="primary" (click)="openDialog(act, 'etap' , 0 , i)">
+                        étap +
+                      </button>
+                      <!--
+                      <button mat-raised-button  color="primary" (click)="openDialog(act, 'etap' , 0 , i)">
+                        étap +
+                      </button>
+                    -->
+                    </div>
+                    <ul class="mt-2">
+                      <li *ngFor="let item of getValue(act); let i = index" style="padding: 0px !important;">
+                        <ul *ngIf="item.etap && item.etap.length > 0">
+                          <li *ngFor="let etapValue of item.etap; let j = index" style="
+                          background: #8080804d;
+                          margin-right: 6px;
+                          border-radius: 3px;">
+                            <span style="color: #0000006e;" class="mt-1">Etap {{ j + 1 }}</span>:  {{getValueOfParam(etapValue)}}
+                          </li>
+                        </ul>                    
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <!-- 
+                    <h4 class="text-primary2 mt-3">Résultats :</h4>
+                      <div *ngIf="resultArray[0]" >
+  
+                      <mat-radio-group
+                        aria-labelledby="example-radio-group-label"
+                        class="example-radio-group" style="display: inline-grid"   [ngModelOptions]="{standalone: true}" (change)="onchangeRes()"
+                        [(ngModel)]="res_sauter">
+                        <mat-radio-button class="example-radio-button" *ngFor="let season of resultArray[0].result_0" [value]="getFirstKey(season)" color="primary">
+                          {{getValueOfParam(getFirstKey(season))}}  
+                        </mat-radio-button>
+                      </mat-radio-group>
+                    </div> -->
+                </div>
+                <div class="vl" style="width: 5%;"></div>
+                <div class="text-center"  style="width: 60%;">
+                  <h4 class="text-start text-primary2">Shémas :</h4>
+                  <div class="input_div">
+                    <mat-form-field class="mr-1" appearance="outline">
+                      <mat-label>Liste de paramétrages</mat-label>
+                      <mat-select formControlName="firstCtrl" required >
+                        <mat-option  *ngFor="let f of params" value="{{f.id}}" id="param-{{f.id}}" >{{f.type }}</mat-option>
+                      </mat-select>
+                    </mat-form-field> 
+                    <button mat-mini-fab color="primary"  (click)="add_activite_princip(0)" aria-label="Example icon button with a menu icon">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </div>
+                  <div class="example-button-container">
+                    <div class="div_decision_tree " id="div_decision_tree">
+                      <ul id="ul_activite_0">
+                      </ul>    
+                    </div>
+                  </div>
+                 
+                </div>
+              </div>
+              <div class="button_next">
+                <button mat-flat-button matStepperPrevious  class="mr-1">Retour</button>
+                <button mat-flat-button   (click)="env(form)" color="primary" ><i class="fa fa-save text-white"></i> Enrigestrer</button>
+              </div>
+            </form>
+            </mat-step>
+          </mat-stepper>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+  

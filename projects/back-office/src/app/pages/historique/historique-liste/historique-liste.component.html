@@ -1,0 +1,36 @@
+<div class="d-flex flex-row">
+    <app-bar-historique class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-historique>
+    <div class=" col-md-8 mt-4" >
+        <div class="card card-default">
+        <div class="card-body">
+            <div class="card-description text-primary ">
+                <div class="card-description  ">
+                    <div style="    font-weight: 500;
+                        font-size: larger;"class="text-primary  mb-1 mt-2" > <i class="fa-solid fa-folder-open"></i> Historiques </div>
+                    <!-- <section class="mt-3">
+                      <button mat-raised-button class="mr-2" [color]="active(1)" (click)="showDetails(1)">Téléphone</button>
+                      <button mat-raised-button class="mr-2" [color]="active(2)" (click)="showDetails(2)">Adresse</button>
+                      <button mat-raised-button class="mr-2" [color]="active(3)" (click)="showDetails(3)">Emploi</button>
+                      <button mat-raised-button class="mr-2" [color]="active(4)" (click)="showDetails(4)">Employeur</button>
+                      <button mat-raised-button class="mr-2" [color]="active(5)" (click)="showDetails(5)">Paiement</button>
+                    </section> -->
+                </div> 
+            </div>
+            <div *ngIf="variable == 1">
+                <app-historique-telephone></app-historique-telephone>
+            </div>
+            <div *ngIf="variable == 2">
+                <app-historique-addresse></app-historique-addresse>
+            </div>
+            <div *ngIf="variable == 3">
+                <app-historique-emploi></app-historique-emploi>
+            </div>
+            <div *ngIf="variable == 4">
+                <app-historique-employeur></app-historique-employeur>
+            </div>
+            <div *ngIf="variable == 5">
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<header class="topnavbar-wrapper z-0">
+    <nav class="navbar topnavbar">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <div class="brand-logo">
+            <img class="img-fluid" src="assets/backTemplate/img/logo.png" alt="App Logo" style="width: 190px;">
+          </div>
+          <div class="brand-logo-collapsed">
+            <img class="img-fluid" src="assets/backTemplate/img/logo.png" alt="App Logo">
+          </div>
+        </a>
+      </div>
+      <ul class="navbar-nav mr-auto flex-row">
+        <li class="nav-item">
+          <a class="nav-link d-none d-md-block d-lg-block d-xl-block" href="#" data-trigger-resize="" data-toggle-state="aside-collapsed">
+            <em class="fas fa-bars"></em>
+          </a>
+          <a class="nav-link sidebar-toggle d-md-none" href="#" data-toggle-state="aside-toggled" data-no-persist="true">
+            <em class="fas fa-bars"></em>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-search-open="">
+            <em class="icon-magnifier"></em>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav flex-row">
+        <li class="nav-item dropdown dropdown-list" *ngFor="let link of dynamicLinks">
+          <a [routerLink]="link.route" routerLinkActive="active-link" class="nav-link dropdown-toggle dropdown-toggle-nocaret">{{ link.link }}</a>
+        </li>
+        <li class="nav-item dropdown dropdown-list">
+          <button class="nav-link dropdown-toggle dropdown-toggle-nocaret" style="color:#fc8900;" data-toggle="dropdown" (click)="toggleDropdown()">
+            <i class="fa-solid fa-user"></i>
+            <!-- <i class="fa-solid fa-chevron-down"></i> -->
+          </button>
+          <!-- Add the dropdown menu here -->
+          <ul class="dropdown-menu" *ngIf="ShowDrop">
+            <li><a href="#" >Profile</a></li>
+            <!-- Use [routerLink] for Angular routes -->
+            <!--<li><a href='/donneur'(click)="toggleDropdown()">Settings</a></li>
+            -->
+            <!-- Use (click) to handle click event -->
+            <li><a (click)="Logout()" style="cursor: pointer ;display:flex ; "(click)="toggleDropdown()"><mat-icon>logout</mat-icon> <span style="    margin-top: 4px;">Déconnecter</span> </a></li>
+        </ul>
+        
+        </li>
+      </ul>
+      <form class="navbar-form" role="search" action="search.html">
+        <div class="form-group">
+          <input class="form-control" type="text" placeholder="Barre de recherche ...">
+          <div class="fas fa-times navbar-form-close" data-search-dismiss=""></div>
+        </div>
+        <button class="d-none" type="submit">Rechercher</button>
+      </form>
+    </nav>
+  </header>

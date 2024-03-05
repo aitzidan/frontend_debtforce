@@ -1,0 +1,301 @@
+<div class="card card-default col-md-12 m-2" style="width: 96%">
+  <div class="card">
+    <div class="card-body">
+      <div class="div_header">
+        <div class="title">
+          <h4 class="card-title text-primary">Créer portefeuille</h4>
+        </div>
+        <div></div>
+      </div>
+      <div id="container" style="padding-bottom: 0vh">
+        <div id="">
+          <form
+            class=""
+            method="POST"
+            (ngSubmit)="
+              AddPortefeuille(
+                titre.value,
+                numPtf.value,
+                dureeGestion.value,
+                dateDebutGestion.value,
+                dateFinGestion.value,
+                typeMission.value,
+                typeCreance.value
+              )
+            "
+          >
+            <fieldset>
+              <div class="form-group row input_div">
+                <label class="col-md-2 col-form-label" for="input-id-1"
+                  >Donneur d'ordre
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Donneur d'ordre</mat-label>
+                    <mat-select
+                      [(ngModel)]="selectedDonneurId"
+                      [ngModelOptions]="{ standalone: true }"
+                      (selectionChange)="getTypeCreance()"
+                    >
+                      <mat-option
+                        *ngFor="let item of donneur"
+                        [value]="item.dn.id"
+                        >{{ item.dn.nom }}</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <label class="col-md-2 col-form-label" for="input-id-1"
+                  >Titre
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Titre </mat-label>
+                    <input
+                      class="custom-input"
+                      matInput
+                      name="titre"
+                      value=""
+                      type="text"
+                      #titre
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <div class="form-group row input_div">
+                <label class="col-md-2 col-form-label" for="input-id-1"
+                  >Numèro°
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Numéro </mat-label>
+                    <input
+                      class="custom-input"
+                      matInput
+                      name="numPtf"
+                      type="text"
+                      value=""
+                      #numPtf
+                    />
+                  </mat-form-field>
+                </div>
+                <label class="col-md-2 col-form-label" for="input-id-1"
+                  >Durée du gestion
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Durée du gestion </mat-label>
+                    <input
+                      class="custom-input"
+                      matInput
+                      name="dureeGestion"
+                      type="text"
+                      value=""
+                      #dureeGestion
+                    />
+                  </mat-form-field>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div class="form-group row input_div">
+                <label class="col-md-2 col-form-label" for="input-id-1"
+                  >Date debut gestion
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Date de debut gestion </mat-label>
+                    <input
+                      class="custom-input"
+                      matInput
+                      [matDatepicker]="picker"
+                      name="dateDebutGestion"
+                      value=""
+                      #dateDebutGestion
+                    />
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle
+                      matIconSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <label class="col-md-2 col-form-label" for="input-id-1"
+                  >Date fin gestion
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Date fin gestion </mat-label>
+                  <input
+                    class="custom-input"
+                    name="dateFinGestion"
+                    matInput
+                    [matDatepicker]="pickerf"
+                    value=""
+                    #dateFinGestion
+                  />
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle
+                      matIconSuffix
+                      [for]="pickerf"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #pickerf></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div class="form-group row input_div">
+                <label class="col-md-2 col-form-label" for="input-id-1"
+                  >Type mission
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Type mission </mat-label>
+                  <input
+                    class="custom-input"
+                    matInput
+                    name="typeMission"
+                    type="text"
+                    value=""
+                    #typeMission
+                  />
+                  </mat-form-field>
+                </div>
+                <label class="col-md-2 col-form-label" for="input-id-1"
+                  >Type créance
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Type creance</mat-label>
+                    <mat-select
+                      [(ngModel)]="select_type"
+                      [ngModelOptions]="{ standalone: true }"
+                      (selectionChange)="getDetailsTypeCreance()"
+                      >
+                      <mat-option
+                        *ngFor="let item of typeCreance"
+                        [value]="item.id"
+                        >{{ item.type }}</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div class="form-group row input_div">
+                <label class="col-md-2 col-form-label" for="input-id-1"
+                  >Type (details créance)
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Type </mat-label>
+                    <mat-select
+                      [(ngModel)]="select_details_type"
+                      [ngModelOptions]="{ standalone: true }"
+                      (selectionChange)="getDetailsTypeCreance()"
+                      >
+                      <mat-option
+                        *ngFor="let item of detailsTypeCreance"
+                        [value]="item.id"
+                        >{{ item.type }}</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div class="form-group row m-3 input_div" *ngFor="let champ of champsp">
+                <label class="col-md-2 col-form-label" for="input-id-1">
+                  {{ champ.champ_name }}
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{champ.champ_name}} </mat-label>
+                  <input
+                    class="custom-input"
+                    matInput
+                    [(ngModel)]="champ.value"
+                    name="input[{{ champ.id }}]"
+                    type="{{ champ.type }}"
+                    [required]="champ.required === true"
+                    (change)="handleInputChange()"
+                  />
+                  </mat-form-field>
+                </div>
+              </div>
+            </fieldset>
+            <!--<fieldset>
+              <div class="form-group row input_div">
+                <label class="col-md-2 col-form-label" for="input-id-1"
+                  >Secteur d'activite
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Secteur d'activite</mat-label>
+                    <mat-select
+                      [(ngModel)]="id_secteur"
+                      [ngModelOptions]="{ standalone: true }"
+                      (selectionChange)="getDetailsSecteur()"
+                    >
+                      <mat-option
+                        *ngFor="let item of liste_secteur"
+                        [value]="item.id"
+                        >{{ item.secteur }}</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <label class="col-md-2 col-form-label" for="input-id-1"
+                  >Activite
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="col-md-4">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Activite</mat-label>
+                    <mat-select
+                      [(ngModel)]="id_activity"
+                      [ngModelOptions]="{ standalone: true }"
+                    >
+                      <mat-option
+                        *ngFor="let item of liste_activite"
+                        [value]="item.id"
+                        >{{ item.activite }}</mat-option
+                      >
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </fieldset>-->
+            <div class="form-group row div_btn">
+              <button
+                type="submit"
+                class="btn btn-success col-sm-6 offset-3 form-control-sm"
+                mat-raised-button color="primary"
+              >
+                Ajouter
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

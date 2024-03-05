@@ -1,0 +1,182 @@
+<div class="d-flex flex-row">
+    <div class="card card-default col-md-3 mr-5 ml-4 mt-4 mb-1">
+        <div class="d-flex align-items-center justify-content-between">
+            <a href=""  class="p-2 fw-normal  retour-title" ><i class="fa fa-solid fa-less-than "></i> Retour</a>
+        </div>  
+        <div style="    font-weight: 500;
+    font-size: larger;"class="text-primary  mb-1 mt-2" > <i class="fa-solid fa-file"></i> Créances </div>
+        <div class="row input_div">
+        <mat-form-field appearance="outline" style="width: 100% !important">
+            <mat-label style="font-size: small;">Réference</mat-label>
+            <input matInput  [(ngModel)]="numero_creance"
+            [ngModelOptions]="{ standalone: true }" class="custom-input" >
+        </mat-form-field>
+        </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline">
+                <mat-label>Date prévesionnel </mat-label>
+                <input
+                class="custom-input"
+                matInput
+                [matDatepicker]="picker"
+                name="date_debut"
+                value=""
+                [(ngModel)]="date_fin_prevesionnel"
+                [ngModelOptions]="{ standalone: true }"
+                />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline">
+                <mat-label>Portefuille</mat-label>
+                <mat-select
+                  [(ngModel)]="ptf"
+                  [ngModelOptions]="{ standalone: true }">
+                  <mat-option
+                    *ngFor="let item of liste_ptf"
+                    [value]="item.id">{{ item.titre }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <!-- <div class="row input_div">
+            <mat-form-field appearance="outline">
+                <mat-label>Agents</mat-label>
+                <mat-select
+                  [(ngModel)]="selectedAgent"
+                  [ngModelOptions]="{ standalone: true }"
+                  >
+                  <mat-option
+                    *ngFor="let item of liste_agents"
+                    [value]="item.id">{{ item.nom }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="text-grey mb-1 mt-2 h4" >Plus de critéres </div>
+        <div style="    font-weight: 500;
+    font-size: larger;"class="text-primary  mb-1 mt-2" >Créances </div>
+        <div class="row input_div">
+        <mat-form-field appearance="outline" style="width: 100% !important">
+            <mat-label style="font-size: small;">Numéro de créances</mat-label>
+            <input matInput  class="custom-input" 
+            [(ngModel)]="num_creance"
+            [ngModelOptions]="{ standalone: true }"
+            >
+        </mat-form-field>
+        </div> -->
+        <div class="row input_div">
+            <mat-form-field appearance="outline">
+                <mat-label>Date écheance </mat-label>
+                <input
+                class="custom-input"
+                matInput
+                [matDatepicker]="picker_echeance"
+                value=""
+                [(ngModel)]="date_echeance"
+                [ngModelOptions]="{ standalone: true }"
+                />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker_echeance"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker_echeance></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div style="    font-weight: 500;
+    font-size: larger;"class="text-primary  mb-1 mt-2" > <i class="fa-solid fa-user"></i> Débiteurs </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline" style="width: 100% !important">
+                <mat-label style="font-size: small;">CIN</mat-label>
+                <input matInput  class="custom-input"     [(ngModel)]="cin"
+                [ngModelOptions]="{ standalone: true }">
+            </mat-form-field>
+        </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline" style="width: 100% !important">
+                <mat-label style="font-size: small;" [(ngModel)]="raison_social"
+                [ngModelOptions]="{ standalone: true }">Raison sociale</mat-label>
+                <input matInput  class="custom-input" >
+            </mat-form-field>
+        </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline">
+                <mat-label>Date naissance </mat-label>
+                <input
+                class="custom-input"
+                matInput
+                [matDatepicker]="picker_naissance"
+                value="" 
+                [(ngModel)]="date_naissance"
+                [ngModelOptions]="{ standalone: true }"
+                />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker_naissance"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker_naissance></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="text-grey mb-1 mt-2"  style="    font-weight: 500;
+        font-size: larger;"> <i class="fa-solid fa-address-card"></i> Cordonnés débiteur </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline" style="width: 100% !important">
+                <mat-label style="font-size: small;">Adresse</mat-label>
+                <input matInput  class="custom-input" [(ngModel)]="adresse"
+                [ngModelOptions]="{ standalone: true }">
+            </mat-form-field>
+        </div>
+        <div class="row input_div">
+            <mat-form-field appearance="outline" style="width: 100% !important">
+                <mat-label style="font-size: small;">Téléphonne</mat-label>
+                <input matInput  class="custom-input" [(ngModel)]="tel"
+                [ngModelOptions]="{ standalone: true }" >
+            </mat-form-field>
+        </div>
+        <div class="">
+            <button mat-flat-button class="mb-2" (click)="search_creance()" color="primary" >Rechercher <mat-icon iconPositionEnd>search</mat-icon></button>
+        </div>
+    </div>
+
+    <div class="col-md-8 mt-4" style="text-align: center;
+    margin-top: 50px !important;" *ngIf="!isSearch">
+        <img src="assets/backTemplate/img/search-file-svgrepo-com.svg" style="    width: 200px;
+        height: 200px;" />
+        <h2 class="text-primary">Aucun résulat trouvé</h2>
+    </div>
+    <div class=" col-md-8 mt-4" *ngIf="isSearch">
+        <div class="card card-default">
+        <div class="card-body">
+            <!-- <h4 class="card-description text-primary text-larger">
+                Liste créances {{liste_creances|json}}
+            </h4> -->
+            <form method="POST" enctype="multipart/form-data">
+                <mat-card *ngFor="let cr of liste_creances" class="mt-4 card_doss" >
+                    <div class="div_card"  (click)="redirectTo(cr.id)">
+                        <div class="chunk1" >
+                            <mat-card-title class="text-bold-1 text-primary" ><i class="fa-solid fa-user text-primary"></i>  {{cr.debiteur.nom}} {{cr.debiteur.prenom}}</mat-card-title>
+                            <div style="color: white;"><span style="    background-color: grey;
+                                padding: 0px 5px;
+                                border-radius: 5px;">{{cr.type_debiteur.type}}</span></div>
+                        </div>
+                        <div class="chunk2 mt-1">
+                            <mat-card-subtitle style="color: #212529;font-size: larger;font-weight: 500;"> {{cr.numero_creance}}</mat-card-subtitle>
+                            <mat-card-subtitle>{{cr.dn.nom}}</mat-card-subtitle>
+                        </div>
+                        <div class="chunk3" style="text-align: end;">
+                            <mat-card-subtitle class="text-bold-1 text-danger">{{cr.total_restant}} MAD</mat-card-subtitle>
+                            <mat-card-subtitle class="text-success">{{cr.total_creance}} MAD</mat-card-subtitle>
+                        </div>
+                    </div>
+                </mat-card>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>

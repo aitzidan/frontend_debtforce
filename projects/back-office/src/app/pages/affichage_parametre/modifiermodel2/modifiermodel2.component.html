@@ -1,0 +1,205 @@
+<div class="d-flex flex-row mt-3">
+  <div class="card card-default col-md-4 m-2">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="" class="p-2 fw-normal" style="color: grey !important"
+        ><i class="fa-solid fa-less-than"></i> Retour</a
+      >
+      <a href="" class="p-2 fw-normal" style="color: grey !important"
+        ><i class="fa-solid fa-bars p-1"></i> Actions</a
+      >
+    </div>
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="" class="p-2 fw-normal">Ajouter un chmp</a>
+    </div>
+    <form method="POST" (ngSubmit)="AddDetailModel()">
+      <div class="card mt-2p-2">
+        <div class="form-group input_div">
+            <label for="Element1" class="mr-5">Entitié : </label>
+          
+            <mat-form-field appearance="outline">
+              <mat-label>Entité : </mat-label>
+              <mat-select
+                class="custom-input"
+                matInput
+                id="table"
+                name="table_name"
+                [(ngModel)]="entite"
+              >
+              <mat-option value="debiteur">Débiteur</mat-option>
+                <mat-option value="creance">Creance</mat-option>
+                <mat-option value="dossier">Dossier</mat-option>
+                <mat-option value="portefeuille">Porte feuille</mat-option>
+                <mat-option value="detail_creance">Detail creance</mat-option>
+                <mat-option value="donneur_ordre">Donneur ordre</mat-option>
+              </mat-select>
+            </mat-form-field>
+          
+        </div>
+        <div class="form-group input_div">
+                <label for="champ_name" class="mt-1">Nom de champ :</label>
+                <mat-form-field appearance="outline">
+                  <mat-label>Nom champ</mat-label>
+                  <input
+                    type="text"
+                    class="custom-input"
+                    matInput
+                    id="champ_name"
+                    name="champ_name"
+                    placeholder=""
+                    [(ngModel)]="nom"
+                  />
+                </mat-form-field>
+        </div>
+        <div class="form-group input_div">
+          <label for="champ_type"class="mt-1">Type :</label>
+          <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <mat-select
+              class="custom-input"
+              matInput
+              id="type_val"
+              name="champ_type"
+              [(ngModel)]="type"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <mat-option value="text">Text</mat-option>
+              <mat-option value="number">Number</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group input_div">
+          <label for="Element3"class="mt-1">Lentgh :</label>
+          <mat-form-field appearance="outline">
+            <mat-label>Length</mat-label>
+            <input
+              type="number"
+              class="custom-input"
+              matInput
+              name="lentgh"
+              name="lentgh"
+              placeholder=""
+              [(ngModel)]="length"
+              
+            />
+          </mat-form-field>
+        </div>
+        <!-- <div class="form-group input_div">
+          <label for="Element5" class="mt-1">Type de creance : </label>
+          <mat-form-field appearance="outline">
+            <mat-label>Type creance</mat-label>
+            <mat-select
+              class="custom-input"
+              matInput
+              id="type_creance"
+              [(ngModel)]="typeCreance"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <mat-option value="segmentation">Segmentation</mat-option>
+              <mat-option value="creance">Creance</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div> -->
+        <div class="form-group input_div">
+          <label for="Element4"class="mt-1">Active : </label>
+          
+          <mat-radio-group [(ngModel)]="active"[ngModelOptions]="{standalone: true}">
+            <mat-radio-button color="primary" value="1"(change)="onActiveChange('1')">Oui</mat-radio-button>
+            <mat-radio-button color="primary" value="0"(change)="onActiveChange('0')">Non</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="form-group input_div">
+          <label for="Element6" class="mt-1">Required : </label>
+          <input
+            type="text"
+            class="form-control"
+            id="Element6"
+            name="Element6"
+            id="exampleInputName1"
+            placeholder=""
+            style="display: none"
+          />
+          
+          <mat-radio-group [(ngModel)]="required"[ngModelOptions]="{standalone: true}">
+            <mat-radio-button color="primary" value="1"(change)="Required('1')">Oui</mat-radio-button>
+            <mat-radio-button color="primary" value="0"(change)="Required('0')">Non</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="form-group text-center mt-5">
+          <button type="submit" class="btn btn-warning mr-2" mat-raised-button color="primary">
+            <i class="fa-solid fa fa-save text-white"></i> Enreigestrer
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-md-8 mt-2">
+    <div class="card card-default">
+      <div class="card-body">
+        <p class="card-description text-primary">
+          Liste des infos complémentaires
+        </p>
+        <table class="table table-hover table-data-table" id="myTable">
+          <thead>
+            <tr>
+              <th>Table</th>
+              <th>Label</th>
+              <th>Type champ</th>
+              <th>Etat</th>
+              <th>Length</th>
+              <th>Required</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="">
+            <tr *ngFor="let item of detail">
+              <td>{{ item.table_name }}</td>
+              <td>{{ item.champ_name }}</td>
+              <td>{{ item.type_champ }}</td>
+              <td>
+                <label
+                  class="badge badge-success m-1"
+                  *ngIf="item.etat === 1; else notactive"
+                  >Active</label
+                >
+                <ng-template #notactive>
+                  <label class="badge badge-danger">inactive</label>
+                </ng-template>
+              </td>
+              <td>{{ item.length }}</td>
+              <td>
+                <label
+                  class="badge badge-success m-1"
+                  *ngIf="item.required === true; else notrequired"
+                  >Required</label
+                >
+                <ng-template #notrequired>
+                  <label class="badge badge-danger">Non required</label>
+                </ng-template>
+                <!-- <label class="badge badge-success m-1">Required</label><label class="badge badge-danger">Non required</label> -->
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm text-white m-1"
+                  (click)="openModalWithData(item.id)"
+                  mat-raised-button color="primary"
+                >
+                  <i class="fa-solid fa-pen"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm text-white m-1"
+                  (click)="DeleteModel(item.id)"
+                  mat-raised-button color="warn"
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

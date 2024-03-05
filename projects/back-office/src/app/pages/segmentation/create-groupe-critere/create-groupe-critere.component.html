@@ -1,0 +1,156 @@
+<div class="d-flex flex-row">
+    <div class="card card-default col-md-3 mr-5 ml-4 mt-4">
+        <div class="d-flex align-items-center justify-content-between">
+          <a href="" class="p-2 fw-normal" style="color:grey !important;"><i class="fa fa-solid fa-less-than"></i> Retour</a>
+        </div>  
+        <h4 class="card-header text-primary" >Liste des groupes :</h4>
+        <mat-selection-list #shoes [multiple]="false">
+          <mat-list-option style="height:70px" *ngFor="let shoe of listes_groupes" 
+          [ngStyle]="{'height': '70px' , 'border-left':'3px solid #03C988' , 'background-color': shoe.id === groupe_selected ? 'rgb(128 128 128 / 14%)' : 'rgb(128 129 128 / 3%)'}"
+  
+                           (click)="onShoeSelectionChange(shoe.id)" [value]="shoe.id" [disabled]="shoe.isDisabled">
+            <p style="padding-top: 8px;">
+              <span>
+              {{ shoe.titreGroupe }}
+              </span>
+            </p>
+            <p class="badge-date" style="background-color: #03C988;">
+              <span class="span_date">
+                Le: {{ shoe.dateCreation | date:'dd-MM-yyyy HH:mm' }}
+              </span> 
+            </p>
+          </mat-list-option>
+        </mat-selection-list> 
+      </div>
+      <div class=" col-md-8 mt-4">
+        <div class="card card-default">
+          <div class="card-body">
+            <h4 class="card-description text-primary ">
+                Créer un groupe des critères
+            </h4> 
+            <form class="forms-sample"  #f="ngForm" (ngSubmit)="onSubmit(f, $event)">
+                <div class="div_form mt-5">
+                  <div class="div_form_row">
+                    <div class="div_form_label">
+                      <mat-label>Titre :</mat-label>
+                    </div>
+                    <div class="div_form_inputs input_div">
+                      <mat-form-field  appearance="outline" style="width: 100%">
+                        <mat-label style="font-size: small;">Titre </mat-label>
+                        <input matInput placeholder="Titre" class="custom-input" required [(ngModel)]="titre_groupe"  [ngModelOptions]="{standalone: true}">      
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="px-2 d-flex flex-row">
+                    <!--<div class="col-md-6">
+                      <div class="card-header text-primary">
+                        <h3>Regles de Model de facture</h3>
+                      </div>
+                      <div class="card-body">
+                        <div class="form-group">
+                        </div>
+                      </div>
+                      <fieldset class="checkbox-group" >
+                        <div class="checkbox" *ngFor="let item of liste_criteres">
+                          <label class="checkbox-wrapper">
+                            <input
+                              type="checkbox"
+                              class="checkbox-input"
+                              name="check"
+                              (change)="onchangeregles(item)"
+                              />
+                            <span class="checkbox-tile">
+                              <span class="checkbox-label">{{ item["titre"] }}</span>
+                            </span>
+                          </label>
+                        </div>
+                      </fieldset>
+                    </div>
+                    <div class="col-md-6 mx-4" >
+                      <div class="card-header text-primary">
+                        <h3>Les Regles Selectionnées</h3>
+                      </div>
+                      <fieldset class="checkbox-group">
+                        <div class="checkbox" *ngFor="let item of liste_criteres_select">
+                          <label class="checkbox-wrapper">
+                            <input
+                              type="checkbox"
+                              class="checkbox-input"
+                              checked
+                              (click)="RemoveCritere(item)"
+                            />
+                            <span class="checkbox-tile">
+                              <span class="checkbox-label">{{ item["titre"] }}</span>
+                            </span>
+                          </label>
+                        </div>
+                      </fieldset>
+                    </div>-->
+
+                  
+                  </div>
+                  
+                  <div class="col-md-12 mt-5">
+                    <div class="div_form_row">
+                        <div class="div_form_label">
+                            <mat-label>Sélectionner des éléments :</mat-label>
+                        </div>
+                        <div class="div_form_inputs input_div" cdkDropListGroup style="display: flex;justify-content: space-between;">
+                          <div class="example-container">
+                            <h2 class="text-primary">Liste des critères</h2>
+                            <div
+                              cdkDropList
+                              [cdkDropListData]="todo"
+                              class="example-list"
+                              (cdkDropListDropped)="drop($event)">
+                              <div class="example-box" *ngFor="let item of todo" cdkDrag>{{ item.titre }}</div>
+                            </div>
+                          </div>
+                          <div class="example-container">
+                            <h2 class="text-primary">Liste des critères sélectionnés</h2>
+                            <div
+                              cdkDropList
+                              [cdkDropListData]="done"
+                              class="example-list"
+                              (cdkDropListDropped)="drop($event)">
+                              <div class="example-box" *ngFor="let item of done" cdkDrag>{{ item.titre }}</div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    
+                  </div>
+
+
+                  <!--
+                   <div class="example-container">
+                        <h2 class="text-primary">Liste des critères</h2>
+                        <div
+                          cdkDropList
+                          [cdkDropListData]="todo"
+                          class="example-list"
+                          (cdkDropListDropped)="drop($event)">
+                          <div class="example-box" *ngFor="let item of todo" cdkDrag>{{ item.titre }}</div>
+                        </div>
+                      </div>
+                      <div class="example-container">
+                        <h2 class="text-primary">Liste des critères sélectionnés</h2>
+                        <div
+                          cdkDropList
+                          [cdkDropListData]="done"
+                          class="example-list"
+                          (cdkDropListDropped)="drop($event)">
+                          <div class="example-box" *ngFor="let item of done" cdkDrag>{{ item.titre }}</div>
+                        </div>
+                      </div>-->
+                </div>
+                <div class="text-center mt-5">
+                    <button mat-flat-button (click)="create_groupe()" class="" color="primary">Ajouter</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>

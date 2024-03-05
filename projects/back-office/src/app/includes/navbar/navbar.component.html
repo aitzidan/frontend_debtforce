@@ -1,0 +1,38 @@
+<aside class="aside-container" style="margin-top: 55px;">
+    <!-- START Sidebar (left)-->
+    <div class="aside-inner">
+        <nav class="sidebar" data-sidebar-anyclick-close="">
+            <!-- START sidebar nav-->
+            <ul class="sidebar-nav">
+                <li class="">
+                    <a href="#" title="Dashboard" style="margin-left: 16px;
+                    font-size: 13px;
+                    color: #808080b3;">Menu de navigation
+                    </a>
+                </li>
+                <li class=""><a routerLink="/activity" title="Paramétrage" [routerLinkActive]="['active-link']"><span class="li">&nbsp;&nbsp;Paramétrage</span></a>
+                </li>
+                <li class=""><a routerLink="/donneur_ordre" [routerLinkActive]="['active-link']" title="Donneurs d'ordre"><span class="li">&nbsp;&nbsp;Donneurs d'ordre </span></a></li>
+                <li class=""><a routerLink="/portefeuille" [routerLinkActive]="['active-link']" title="Porte feuille"><span class="li">&nbsp;&nbsp;Porte feuille</span></a></li>
+                <li class=""><a routerLink="/Listefacture" [routerLinkActive]="['active-link']" title="Facture"><span class="li">&nbsp;&nbsp;Facture</span></a></li>
+                <li class=""><a routerLink="/create-file-missions" [routerLinkActive]="['active-link']" title="Missions"><span class="li">&nbsp;&nbsp;Missions </span></a></li>
+            
+                <li class=""><a routerLink="/overview-predefined" [routerLinkActive]="['active-link']" title="Segmentation"><span class="li">&nbsp;&nbsp;Segmentation</span></a></li>
+                <li class=""><a routerLink="/generate-workflow" [routerLinkActive]="['active-link']" title="Workflow"><span class="li">&nbsp;&nbsp;Workflow</span></a></li>
+                <!-- 
+                <li class=""><a routerLink="/dossiers" [routerLinkActive]="['active-link']" title="Dossiers"><span class="li">&nbsp;&nbsp;Dossiers </span></a></li> 
+                <li class=""><a routerLink="/creances" [routerLinkActive]="['active-link']" title="Créances"><span class="li">&nbsp;&nbsp;Créances </span></a></li>
+                <li class=""><a routerLink="/debiteurs" [routerLinkActive]="['active-link']" title="Débiteurs"><span class="li">&nbsp;&nbsp;Débiteurs</span></a></li>-->
+                <li class=""><a routerLink="/create-integration" [routerLinkActive]="['active-link']" title="Importation / Extraction"><span class="li">&nbsp;&nbsp;Importation / Extraction</span></a></li>
+                <li class=""><a routerLink="/historique" [routerLinkActive]="['active-link']" title="historique"><span class="li">&nbsp;&nbsp;Historique</span></a></li>
+                <li class=""><a routerLink="/Users" [routerLinkActive]="['active-link']" title="Paramétrages"><span class="li">&nbsp;&nbsp;Utilisateurs</span></a>
+                    <ul class="sidebar-nav sidebar-subnav" id="layout">
+                        <li class=""><a routerLink="/Profile" [routerLinkActive]="['active-link']" title="Profils"><span>Profils</span></a></li>
+                        <li class=""><a routerLink="/Groupe" [routerLinkActive]="['active-link']" title="Groupes"><span>Groupes</span></a></li>
+                        <li class=""><a routerLink="/User" [routerLinkActive]="['active-link']" title="Utilisateurs"><span>Utilisateurs</span></a></li>
+                    </ul>
+                </li>
+            </ul><!-- END sidebar nav-->
+        </nav>
+    </div><!-- END Sidebar (left)-->
+  </aside><!-- offsidebar-->

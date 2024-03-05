@@ -1,0 +1,31 @@
+    <div class="d-flex align-items-center justify-content-between">
+        <a href="" class="p-2 fw-normal" style="color:grey !important;"><i class="fa fa-solid fa-less-than"></i> Retour</a>
+      </div>  
+      <h4 class="card-header text-primary" >Liste segmentation :</h4>
+      <div class=" input_div">
+        <mat-form-field appearance="outline" style="width: 100% !important">
+          <mat-label style="font-size: small;">Recherche</mat-label>
+          <input matInput placeholder="Titre" class="custom-input" 
+          >
+          <!--[(ngModel)]="filterValue" (ngModelChange)="filterData()"-->
+          <button matSuffix mat-icon-button aria-label="Clear" disabled="true">
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <mat-selection-list #shoes [multiple]="false" style="overflow-x: auto;    min-height: 700px;;" class="mt-5">
+        <mat-list-option style="height:70px" *ngFor="let shoe of liste_segment"  
+        [ngStyle]="{'height': '70px' , 'border-left':'3px solid #03C988' , }"
+          [value]="shoe.id" [disabled]="shoe.isDisabled">
+          <p style="padding-top: 8px;">
+            <span>
+            {{ shoe.nomSegment }}
+            </span>
+          </p>
+          <p class="badge-date" style="background-color: #03C988;">
+            <span class="span_date">
+              Le: {{ shoe.dateCreation | date:'dd-MM-yyyy HH:mm' }}
+            </span>
+          </p>
+        </mat-list-option>
+      </mat-selection-list> 

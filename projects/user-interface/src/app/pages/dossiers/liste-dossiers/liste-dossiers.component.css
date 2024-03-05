@@ -1,0 +1,14 @@
+.div_card{
+    display: flex;
+    flex-wrap: flex;
+}
+.chunk1{
+    width: 30%;
+}
+.chunk2{
+    width: 70%;
+}
+.card_doss{
+    cursor: pointer;
+    border-left: 4px solid #fc8900;
+}

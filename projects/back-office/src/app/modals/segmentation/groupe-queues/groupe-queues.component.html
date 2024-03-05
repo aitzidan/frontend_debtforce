@@ -1,0 +1,332 @@
+<div *ngIf="data_from_bar.type == 'add_groupe'">
+    <h2 mat-dialog-title >Ajouter un groupe</h2>
+    <mat-dialog-content class="mat-typography" style="width: 700px;">
+        <h3 class="text-primary">Ajouter un groupe : </h3>
+        <div class="div_form mt-5 mb-5">
+            <div class="div_form_row">
+                <div class="div_form_label">
+                <mat-label>Titre :</mat-label>
+                </div>
+                <div class="div_form_inputs input_div">
+                    <mat-form-field  appearance="outline" style="width: 100%">
+                        <mat-label style="font-size: small;">Titre </mat-label>
+                        <input matInput placeholder="Titre" class="custom-input" required [(ngModel)]="titre"  [ngModelOptions]="{standalone: true}">      
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="div_form mt-5">
+            <div class="div_form_row">
+              <div class="div_form_label">
+                <mat-label>Description :</mat-label>
+              </div>
+              <div class="div_form_inputs">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Description</mat-label>
+                  <textarea matInput placeholder="Description"  [(ngModel)]="description"  [ngModelOptions]="{standalone: true}" class="custom-textarea"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+      <button mat-button [mat-dialog-close]="saveData()" cdkFocusInitial [disabled]="disabledSaveBtn()">Enreigestrer</button>
+    </mat-dialog-actions> 
+</div>
+<div *ngIf="data_from_bar.type == 'update_groupe'">
+    <h2 mat-dialog-title >Modifier groupe</h2>
+    <mat-dialog-content class="mat-typography" style="width: 700px;">
+        <h3 class="text-primary">Modifier groupe : </h3>
+        <div class="div_form mt-5 mb-5">
+            <div class="div_form_row">
+                <div class="div_form_label">
+                  <mat-label>Titre :</mat-label>
+                </div>
+                <div class="div_form_inputs input_div">
+                  <mat-form-field  appearance="outline" style="width: 100%">
+                      <mat-label style="font-size: small;">Titre </mat-label>
+                      <input matInput placeholder="Titre" class="custom-input" required [(ngModel)]="titre"  [ngModelOptions]="{standalone: true}">      
+                  </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="div_form mt-5">
+            <div class="div_form_row">
+              <div class="div_form_label">
+                <mat-label>Description :</mat-label>
+              </div>
+              <div class="div_form_inputs">
+                <mat-form-field appearance="outline" style="width: 100%">
+                  <mat-label>Description</mat-label>
+                  <textarea matInput placeholder="Description"  [(ngModel)]="description"  [ngModelOptions]="{standalone: true}"  [value]="data_from_bar.groupe.description" class="custom-textarea"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+      <button mat-button [mat-dialog-close]="saveData()" cdkFocusInitial [disabled]="disabledSaveBtn()">Enreigestrer</button>
+    </mat-dialog-actions> 
+</div>
+<div *ngIf="data_from_overiew_predefined.type == 'add_queue'">
+  <h2 mat-dialog-title >File d'attende</h2>
+  <mat-dialog-content class="mat-typography" style="width:1500px;;height:100vh">
+      <h3 class="text-primary">Ajouter file d'attende : </h3>
+      <div class="row">
+        <div class="col-md-6 div_form ">
+          <div class="div_form_row">
+              <div class="div_form_label">
+                <mat-label>Titre :</mat-label>
+              </div>
+              <div class="div_form_inputs input_div">
+                  <mat-form-field  appearance="outline" style="width: 100%">
+                      <mat-label style="font-size: small;">Titre </mat-label>
+                      <input matInput placeholder="Titre" class="custom-input" required [(ngModel)]="titre_queue"  [ngModelOptions]="{standalone: true}">      
+                  </mat-form-field>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-6 div_form ">
+          <div class="div_form_row">
+              <div class="div_form_label">
+                <mat-label>Description :</mat-label>
+              </div>
+              <div class="div_form_inputs input_div">
+                <mat-form-field  appearance="outline" style="width: 100%">
+                    <mat-label style="font-size: small;">Description </mat-label>
+                    <textarea matInput placeholder="Description" class="custom-input" required [(ngModel)]="description_queue"  [ngModelOptions]="{standalone: true}"></textarea>      
+                </mat-form-field>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-6 div_form  ">
+          <div class="div_form_row">
+              <div class="div_form_label">
+                <mat-label>Groupe  :</mat-label>
+              </div>
+              <div class="div_form_inputs input_div">
+                <mat-form-field class="mr-1" appearance="outline">
+                  <mat-label>Liste groupes</mat-label>
+                  <mat-select  required [(ngModel)]="groupe_selected" >
+                    <mat-option  *ngFor="let f of liste_groupe" value="{{f.id}}" >{{f.titre }}</mat-option>
+                  </mat-select>
+                </mat-form-field> 
+              </div>
+          </div>
+        </div>
+        <div class="col-md-6 div_form  ">
+          <div class="div_form_row">
+              <div class="div_form_label">
+                <mat-label>Segmentation</mat-label>
+              </div>
+              <div class="div_form_inputs input_div">
+                <mat-form-field class="mr-1" appearance="outline">
+                  <mat-label>Liste segmentation</mat-label>
+                  <mat-select  required [(ngModel)]="seg_selected" (selectionChange)="onSelectionSeg()">
+                    <mat-option  *ngFor="let f of liste_segemntation" value="{{f.id}}" >{{f.nom_segment }}</mat-option>
+                  </mat-select>
+                </mat-form-field> 
+              </div>
+          </div>
+        </div>
+        <div class="col-md-6 div_form ">
+          <div class="div_form_row">
+            <div class="div_form_label">
+              <mat-label>Active :</mat-label>
+            </div>
+            <div class="div_form_inputs input_div">
+                <mat-checkbox class="example-margin" color="primary" [(ngModel)]="isActive"></mat-checkbox>
+            </div>
+          </div>
+        </div>
+        
+      </div> 
+      <h3 class="text-primary">Critères: </h3>
+      <div>
+          <mat-tab-group>
+              <mat-tab label="Ajouter critère" > 
+                  <div class="background-color header">
+                      <div class=" div_form_row mt-3" >
+                          <div class="col-md-6"></div>
+                          <!--<div class="col-md-6 text-end div_form_inputs">
+                              <div class="div_form_row">
+                                  <div class="div_form_inputs input_div">
+                                      <mat-form-field  appearance="outline" style="width: 100% !important" >
+                                          <mat-label style="font-size: small;">Recherche </mat-label>
+                                          <input matInput placeholder="Critère" class="custom-input" required >
+                                          <button  matSuffix mat-icon-button aria-label="Clear" >
+                                            <mat-icon>search</mat-icon>
+                                          </button>
+                                      </mat-form-field>
+                                  </div>
+                              </div>
+                          </div>-->
+                      </div>
+                      <div class="row">
+                        <div *ngIf="listes_criteres.length === 0" class="d-flex justify-content-center align-items-center">
+                          <mat-spinner class="custom-spinner"></mat-spinner>
+                        </div>  
+                        <div class="col-md-3">
+                          <details *ngFor="let gr of listes_criteres">
+                              <summary class="text-bold">{{gr.titre_groupe}}</summary>
+                              <ul cdkListbox
+                                [(ngModel)]="critere_selected" [ngModelOptions]="{standalone: true}" 
+                                    aria-labelledby="example-language-label" 
+                                    class="example-listbox">
+                                <li *ngFor="let cr of gr.criteres"
+                                    [cdkOption]="cr" 
+                                    [cdkOptionDisabled]="disabledCritere(cr.type , cr.critere)"
+                                    (click)="onchangeSelect(gr,cr.type , cr.details)"
+                                    class="example-option">
+                                    {{cr.critere}}
+                                </li>
+                              </ul>
+                          </details>
+                      </div>
+                      <div  *ngIf=" critere_selected[0] && critere_selected[0].critere != 'type créance' && critere_selected[0].critere != 'Secteur d\'activité'" class="col-md-6">
+                          <div *ngIf="type_selected == 'multiple_check'">
+                              <table id="list_culomn" class="table_critere table-striped table-bordered dt-responsive nowrap w-100 mt-3 list_culomn">
+                                  <thead>
+                                      <tr class="th_class bg-primary">
+                                          <th class="w-50">Sélectionné</th>
+                                          <th class="w-50">Value</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr *ngFor="let item of details_values">
+                                      <td><mat-checkbox color="primary" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.selected" ></mat-checkbox></td>
+                                      <td>{{item.value}}</td>
+                                  </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                          <div *ngIf="type_selected == 'montant'">
+                              <div class=" div_form_row">
+                                  <div class="div_form_label">
+                                      <mat-label>De :</mat-label>
+                                  </div>
+                                  <div class="div_form_inputs input_div">
+                                      <mat-form-field appearance="outline" >
+                                          <mat-label>Valeur 1</mat-label>
+                                          <input type="text" matInput class="form-control form-control-sm" [(ngModel)]="value1_montant" [ngModelOptions]="{standalone: true}" placeholder="Montant ">                                        
+                                      </mat-form-field>
+                                  </div>
+                              </div>
+                              <div class=" div_form_row">
+                                  <div class="div_form_label">
+                                      <mat-label>à :</mat-label>
+                                  </div>
+                                  <div class="div_form_inputs input_div">
+                                      <mat-form-field appearance="outline" >
+                                          <mat-label>Valeur 2</mat-label>
+                                          <input type="text" matInput class="form-control form-control-sm" [(ngModel)]="value2_montant" [ngModelOptions]="{standalone: true}" placeholder="Montant ">                                        
+                                      </mat-form-field>
+                                  </div>
+                              </div>
+                          </div>
+                          <div *ngIf="type_selected == 'date'">
+                              <div class=" div_form_row">
+                                  <div class="div_form_label">
+                                      <mat-label>De :</mat-label>
+                                  </div>
+                                  <div class="div_form_inputs input_div">
+                                      <mat-form-field appearance="outline">
+                                          <mat-label>Valeur 1</mat-label>
+                                          <input matInput [matDatepicker]="picker" [disabled]="false" [(ngModel)]="value1_date"  [ngModelOptions]="{standalone: true}">
+                                          <mat-hint>MM/DD/YYYY</mat-hint>
+                                          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                          <mat-datepicker #picker></mat-datepicker>
+                                      </mat-form-field>
+                                  </div>
+                              </div>
+                              <div class=" div_form_row">
+                                  <div class="div_form_label">
+                                      <mat-label>à :</mat-label>
+                                  </div>
+                                  <div class="div_form_inputs input_div">
+                                      <mat-form-field appearance="outline">
+                                          <mat-label>Valeur 2</mat-label>
+                                          <input matInput [matDatepicker]="picker1" [disabled]="false" [(ngModel)]="value2_date"  [ngModelOptions]="{standalone: true}">
+                                          <mat-hint>MM/DD/YYYY</mat-hint>
+                                          <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                                          <mat-datepicker #picker1></mat-datepicker>
+                                      </mat-form-field>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div *ngIf="critere_selected[0] && critere_selected[0].critere == 'type créance'" class="col-md-3" >
+                          <details *ngFor="let gr of listeTypeDonneurOrdre" (click)="onchangeSelectType(gr)">
+                              <summary class="text-bold" [ngStyle]="{'background': gr.id === type_dn ? 'rgba(0, 0, 0, 0.2)' : ''}">
+                                {{gr.type}}
+                              </summary>
+                          </details>
+                      </div>
+                      <div *ngIf=" critere_selected[0] && critere_selected[0].critere == 'type créance'" class="col-md-3" >
+                          <details *ngFor="let gr of listeTypeCreance" (click)="onchangeSelectTypeCreance(gr)">
+                              <summary class="text-bold" [ngStyle]="{'background': gr.id === type_creance ? 'rgba(0, 0, 0, 0.2)' : ''}">
+                                {{gr.type}}
+                              </summary>
+                          </details>
+                      </div>  
+                      <div *ngIf="critere_selected[0] && critere_selected[0].critere == 'type créance'" class="col-md-3" >
+                          <div *ngIf="type_creance !== ''">
+                              <table id="list_culomn" class="table_critere table-striped table-bordered dt-responsive nowrap w-100 mt-3 list_culomn">
+                                  <thead>
+                                      <tr class="th_class bg-primary">
+                                          <th class="w-50">Sélectionné</th>
+                                          <th class="w-50">Value</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr *ngFor="let item of details_values">
+                                          <td><mat-checkbox color="primary"  [disabled]="checkDisabledTypeCr(item.id_champ)" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.selected" ></mat-checkbox></td>
+                                          <td>{{item.value}}</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                      <div *ngIf=" critere_selected[0] && critere_selected[0].critere == 'Secteur d\'activité'" class="col-md-5" >
+                          <details *ngFor="let gr of liste_secteur_activite" (click)="onchangeSelectSecteur(gr)">
+                              <summary class="text-bold" [ngStyle]="{'background': gr.id === secteur_activite ? 'rgba(0, 0, 0, 0.2)' : ''}">
+                                {{gr.secteur}}
+                              </summary>
+                          </details>
+                      </div>
+                      <div *ngIf="critere_selected[0] && critere_selected[0].critere == 'Secteur d\'activité'" class="col-md-3" >
+                          <div *ngIf="secteur_activite !== ''">
+                              <table id="list_culomn" class="table_critere table-striped table-bordered dt-responsive nowrap w-100 mt-3 list_culomn">
+                                  <thead>
+                                      <tr class="th_class bg-primary">
+                                          <th class="w-50">Sélectionné</th>
+                                          <th class="w-50">Value</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr *ngFor="let item of details_values">
+                                          <td><mat-checkbox color="primary" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="item.selected" ></mat-checkbox></td>
+                                          <td>{{item.value}}</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                      </div>
+                      <div class="div text-center">
+                          <button mat-button color="primary" (click)="add_critere()" [disabled]="disabledAddBtn()">Ajouter</button>
+                      </div>
+                  </div>
+              </mat-tab>
+              <mat-tab label="Liste"> {{data_checked|json}} </mat-tab>
+          </mat-tab-group>
+          
+      </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+    <button mat-button [mat-dialog-close]="saveDataQueue()" cdkFocusInitial  [disabled]="dissabledSaveBtnForAddQue()">Enreigestrer</button>
+  </mat-dialog-actions> 
+</div>

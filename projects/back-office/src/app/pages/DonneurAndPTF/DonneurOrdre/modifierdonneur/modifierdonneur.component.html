@@ -1,0 +1,226 @@
+<div class="card card-default col-md-12 m-2" style="width: 98%;">
+    <div class="card-header text-primary">Créer un donneur d'ordre</div>
+    <div class="card-body">
+      <form class="form-horizontal" method="POST" enctype="multipart/form-data" (ngSubmit)="UpdateDonneur(
+        rs.value, nom.value, metier.value, compte_bancaire.value,num_rc.value,c_postale.value,
+        date_debut.value,date_fin.value)">
+        <fieldset>
+          <div class="form-group row input_div">
+            <label class="col-md-2 col-form-label" for="input-id-1"
+              >Raison sociale
+              <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Raison sociale </mat-label>
+              <input class="custom-input"matInput name="rs" type="text" value="" #rs [value]="donneur.donneur[0].raison_sociale" />
+              </mat-form-field>
+            </div>
+            <label class="col-md-2 col-form-label" for="input-id-1"
+              >Nom du responsable
+              <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Nom du responsable </mat-label>
+              <input class="custom-input" matInput name="nom" type="text" value=""#nom  [value]="donneur.donneur[0].nom"/>
+              </mat-form-field>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <div class="form-group row input_div">
+            <label class="col-md-2 col-form-label" for="input-id-1"
+              >Metier
+              <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Metier </mat-label>
+              <input class="custom-input" matInput name="metier" type="text" value=""#metier [value]="donneur.donneur[0].metier"/>
+              </mat-form-field>
+            </div>
+            <label class="col-md-2 col-form-label" for="input-id-1"
+              >Compte bancaire
+              <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Compte bancaire </mat-label>
+              <input
+                class="custom-input"
+                matInput
+                name="compte_bancaire"
+                type="text"
+                value=""
+                #compte_bancaire
+                [value]="donneur.donneur[0].compte_bancaire"
+              />
+              </mat-form-field>
+            </div>
+          </div>
+        </fieldset>
+  
+        <fieldset>
+          <div class="form-group row input_div">
+            <label class="col-md-2 col-form-label" for="input-id-1"
+              >Numero rc</label
+            >
+            <div class="col-md-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Numero rc </mat-label>
+              <input class="custom-input"matInput name="num_rc" type="text" value="" #num_rc [value]="donneur.donneur[0].numero_rc"/>
+              </mat-form-field>
+            </div>
+            <label class="col-md-2 col-form-label" for="input-id-1"
+              >code postal
+              <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-4">
+              <mat-form-field appearance="outline">
+                <mat-label>code postal </mat-label>
+              <input class="custom-input"matInput name="c_postale" type="text" value="" #c_postale [value]="donneur.donneur[0].cp"/>
+              </mat-form-field>
+            </div>
+          </div>
+        </fieldset>
+  
+        <fieldset>
+          <div class="form-group row input_div">
+            <label class="col-md-2 col-form-label" for="input-id-1"
+              >Date debut
+              <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Date debut </mat-label>
+              <input
+                class="custom-input"
+                name="date_debut"
+                
+                value=""
+                matInput
+                [matDatepicker]="picker"
+                #date_debut
+                [value]="donneur.donneur[0].date_debut|date:'yyyy-MM-dd'"
+              />
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            </div>
+            <label class="col-md-2 col-form-label" for="input-id-1"
+              >Date fin
+              <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-4">
+              <mat-form-field appearance="outline">
+                <mat-label>Date fin </mat-label>
+              <input class="custom-input"name="date_fin" matInput
+              [matDatepicker]="pickerf" #date_fin [value]="donneur.donneur[0].date_fin|date:'yyyy-MM-dd'" />
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="pickerf"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #pickerf></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </fieldset>
+  
+        <fieldset>
+          <div class="form-group row m-3 input_div" *ngFor="let item of donneur.champs">
+            <label class="col-md-2 col-form-label" for="input-id-1">
+              {{ item.champ_name }}
+              <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-4">
+              <mat-form-field appearance="outline">
+                <mat-label>{{ item.champ_name }}</mat-label>
+              <input
+                class="custom-input"
+                matInput
+                [(ngModel)]="item.value"
+                name="input[{{ item.id }}]"
+                type="{{ item.type_champ }}"
+                [required]="item.required === true"
+                (change)="handleInputChange()"
+                
+              />
+            </mat-form-field>
+            </div>
+          </div>
+        </fieldset>
+  
+        <button
+          type="button"
+          class="btn btn-primary mb-4"
+          data-toggle="modal"
+          data-target="#exampleModal"
+          mat-raised-button color="primary"
+        >
+          Ajouter contacts
+        </button>
+        <table
+          id="example"
+          class="table table-striped table-bordered dt-responsive nowrap"
+        >
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Prenom</th>
+              <th>Adresse</th>
+              <th>email</th>
+              <th>Poste</th>
+              <th>Telephone</th>
+              <th>Mobile</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+  
+              <td>
+                
+                <button type="button" class="btn btn-danger btn-sm m-1">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>Nom</th>
+              <th>Prenom</th>
+              <th>Adresse</th>
+              <th>email</th>
+              <th>Poste</th>
+              <th>Telephone</th>
+              <th>Mobile</th>
+  
+              <th></th>
+            </tr>
+          </tfoot>
+        </table>
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-warning" mat-raised-button color="primary">
+            <i class="fa-solid fa-floppy-disk"></i> Enregistrer
+          </button>
+        </div>
+      </form>
+      
+    </div>
+  </div>
+  

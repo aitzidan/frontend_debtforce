@@ -1,0 +1,57 @@
+<div class="d-flex flex-row">
+    <app-bar-missions class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-missions>
+    <div class=" col-md-8 mt-4" >
+        <div class="card card-default">
+        <div class="card-body">
+            <h4 class="card-description text-primary ">
+                Ajouter missions
+            </h4>
+            <form method="POST" enctype="multipart/form-data">
+                <div class="div_form ">
+                    <div class="div_form_row">
+                      <div class="div_form_label">
+                        <mat-label>Select file  <span class="text-danger">*</span>:</mat-label>
+                      </div>
+                      <div class="div_form_inputs input_div">
+                        <mat-form-field appearance="outline" style="width: 100%">
+                          <mat-label>File import</mat-label>
+                          <mat-select required [(ngModel)]="file_select" [ngModelOptions]="{ standalone: true }" (selectionChange)="getDetailsOneFile($event.value)">
+                            <mat-option *ngFor="let f of liste_file" [value]="f.id">{{ f.titre }}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                </div>
+                <div class="mt-2 class_div" *ngIf="isGetFile">
+                    <h4 class="text-primary"> Information de fichier</h4>
+                    Date creation : {{dataFile.date_creation }} <br/><br/>
+                    Type : <span class="badge badge-secondary">{{dataFile.type_missions.type}}</span><br/><br/>
+                    titre : {{dataFile.titre }}<br/><br/>
+                </div>
+
+                <div class="div_form mt-1">
+                    <div class="div_form_row">
+                      <div class="div_form_label">
+                        <mat-label>Select agent <span class="text-danger">*</span>:</mat-label>
+                      </div>
+                      <div class="div_form_inputs input_div">
+                        <mat-form-field appearance="outline" style="width: 100%">
+                          <mat-label>Agent</mat-label>
+                          <mat-select required [(ngModel)]="agent_select" [ngModelOptions]="{ standalone: true }"  (selectionChange)="getDetailsAgent($event.value)">
+                            <mat-option *ngFor="let f of liste_agent" [value]="f.id" >{{ f.nom }} {{ f.prenom }}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                  <button mat-flat-button color="accent" (click)="checkDetails()">Suivant <mat-icon iconPositionEnd>arrow_right_alt</mat-icon>
+                  </button>
+                </div>
+                
+            </form>
+        </div>
+        </div>
+    </div>
+</div>  

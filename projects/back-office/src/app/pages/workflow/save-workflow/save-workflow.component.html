@@ -1,0 +1,838 @@
+<sqd-designer
+	theme="light"
+	[undoStackSize]="10"
+	[definition]="definition"
+	[toolboxConfiguration]="toolboxConfiguration"
+	[stepsConfiguration]="stepsConfiguration"
+	[validatorConfiguration]="validatorConfiguration"
+	[controlBar]="true"
+	[areEditorsHidden]="false"
+	[stepEditor]="stepEditor"
+	(onReady)="onDesignerReady($event)"
+	(onDefinitionChanged)="onDefinitionChanged($event)"
+	[globalEditor]="globalEditor"
+	[selectedStepId]="selectedStepId"
+	(onSelectedStepIdChanged)="onSelectedStepIdChanged($event)"
+	[isEditorCollapsed]="isEditorCollapsed"
+	>
+</sqd-designer>
+
+<ng-template #globalEditor let-editor>
+	<!-- <div *ngIf="test2 == 'Delay'">
+		<h3 class="title_div">Géneral details </h3>
+		<mat-list>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Titre :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field appearance="outline" style="width: 100%;">
+						<mat-label>Titre :</mat-label>
+						<input type="text" matInput class="form-control form-control-sm" readonly [(ngModel)]="titre_export" [ngModelOptions]="{standalone: true}" placeholder="Titre">                                        
+					</mat-form-field>
+				</div>
+			</div>
+		</mat-list>
+		<div class="text-end">
+			<button mat-raised-button color="primary" (click)="ValiderExportData(editor.step, 'velocity', $event, editor.context,'titre')">Valider</button>
+		</div>
+	</div> -->
+	<!--<h3 class="title_div">Géneral details </h3>
+		<mat-list>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Titre :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field appearance="outline" >
+						<mat-label>Titre :</mat-label>
+						<input type="text" matInput class="form-control form-control-sm"  placeholder="Titre">                                        
+					</mat-form-field>
+				</div>
+			</div>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Description :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+						<textarea id="w3review" name="w3review" rows="4" cols="50" ></textarea>
+				</div>
+			</div>
+		</mat-list>
+	<h3 class="title_div">Saisissez des détails spécifiques</h3>
+	<h3 class="text-primary">Décision basée sur évenement </h3>
+	<mat-tab-group>
+		<mat-tab label="Event based decision"> 
+			<div *ngIf="currentStep === 1" class="mt-3">
+				<div>
+					<h4 class="text-bold">Événement : </h4>
+					<mat-chip-listbox aria-label="Fish selection"  [(ngModel)]="objet_selected" [ngModelOptions]="{standalone: true}" (click)="getDetailListeObjet()"  >
+						<mat-chip-option *ngFor="let obj of liste_objet" color="accent" [value]="obj.id" selected>{{obj.titre }}</mat-chip-option>
+					  </mat-chip-listbox>
+					<h4 class="text-bold">Details d'événement : </h4>
+					<mat-chip-listbox aria-label="Fish selection" [(ngModel)]="objet_detail_selected" [ngModelOptions]="{standalone: true}">
+						<mat-chip-option *ngFor="let obj of liste_detail_objet" color="accent"  [value]="obj.id">{{obj.event }}</mat-chip-option>
+					</mat-chip-listbox>
+				</div>
+				<div class="mt-2 text-end">
+					<button mat-raised-button color="primary" (click)="nextStep()">Suivant</button>
+				</div>
+			</div>
+			<div *ngIf="currentStep === 2" class="mt-3">
+				<h4 class="text-bold">Événement : </h4>
+				<div class="div_form_row">
+					<div class="div_form_label">
+					  <mat-label>Séléctionner une événement :</mat-label>
+					</div>
+					<div class="div_form_inputs input_div">
+					  <mat-form-field appearance="outline" style="width: 100%">
+						<mat-label>Événement</mat-label> 
+						<mat-select [(ngModel)]="objet_selected2"
+						[ngModelOptions]="{ standalone: true }"
+						(selectionChange)="getDetailListeObjet2()">
+							<mat-option *ngFor="let obj of liste_objet ; let i = index" [value]="obj.id">{{ obj.titre }}</mat-option>
+						</mat-select>
+					  </mat-form-field>
+					</div>
+				</div>
+				<h4 class="text-bold">Details d'événement : </h4>
+				<mat-chip-listbox aria-label="Fish selection" [(ngModel)]="objet_detail_selected2" [ngModelOptions]="{standalone: true}" selectable multiple (click)="toggleDetail(objet_detail_selected2)">
+					<mat-chip-option *ngFor="let obj of liste_detail_objet2" color="accent" [value]="obj.id" [disabled]="onDisabled(obj.id)" [selected]="checkEventIfCheck(obj.id)">{{obj.event }} </mat-chip-option>
+				</mat-chip-listbox>
+				<div class="mt-2 text-end">
+					<button mat-flat-button  class="mr-1" (click)="oldStep()">Retour</button>
+					<button mat-raised-button color="primary" (click)="saveEventBased()">Enregeistrer</button>
+				</div>
+			</div>
+		</mat-tab>
+		<mat-tab label="Liste event based">
+			<h4 class="text-bold">Événement : </h4>
+			<mat-accordion>
+				<mat-expansion-panel (opened)="panelOpenState = true"
+									 (closed)="panelOpenState = false" *ngFor="let event of event_based_liste">
+				  <mat-expansion-panel-header>
+					<mat-panel-title *ngIf="event.event_select">
+					  {{event.event_select.idDetailCheck.idObjectWorkflow.titre}}
+					</mat-panel-title>
+					<mat-panel-description *ngIf="event.event_select">
+						{{event.event_select.idDetailCheck.event}}
+					</mat-panel-description>
+				  </mat-expansion-panel-header>
+				  <p *ngFor="let child of event.event_select_child"> 
+					<span class="text-primary">{{child.idDetailCheck.event}}</span>
+				</mat-expansion-panel>
+			</mat-accordion>
+		</mat-tab>
+	</mat-tab-group>-->
+</ng-template>
+
+<ng-template #stepEditor let-editor >
+	<div *ngIf="editor.step.id_element === 'Event Based Decision'">
+		<h3 class="title_div">Géneral details </h3>
+		<mat-list>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Titre :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field appearance="outline" >
+						<mat-label>Titre :</mat-label>
+						<input type="text" matInput class="form-control form-control-sm"  placeholder="Titre">                                        
+					</mat-form-field>
+				</div>
+			</div>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Description :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<textarea id="w3review" name="w3review" rows="4" cols="50" ></textarea>
+				</div>
+			</div>
+		</mat-list>
+	<h3 class="title_div">Saisissez des détails spécifiques</h3>
+	<h3 class="text-primary">Décision basée sur évenement </h3>
+	<mat-tab-group>
+		<mat-tab label="Event based decision"> 
+			<div *ngIf="currentStep === 1" class="mt-3">
+				<div>
+					<h4 class="text-bold">Événement : </h4>
+					<mat-chip-listbox aria-label="Fish selection"  [(ngModel)]="objet_selected" [ngModelOptions]="{standalone: true}" (click)="getDetailListeObjet()"  >
+						<mat-chip-option *ngFor="let obj of liste_objet" color="accent" [value]="obj.id" selected>{{obj.titre }}</mat-chip-option>
+					  </mat-chip-listbox>
+					<h4 class="text-bold">Details d'événement : </h4>
+					<mat-chip-listbox aria-label="Fish selection" [(ngModel)]="objet_detail_selected" [ngModelOptions]="{standalone: true}">
+						<mat-chip-option *ngFor="let obj of liste_detail_objet" color="accent"  [value]="obj.id">{{obj.event }}</mat-chip-option>
+					</mat-chip-listbox>
+				</div>
+				<div class="mt-2 text-end">
+					<button mat-raised-button color="primary" (click)="nextStep()">Suivant</button>
+				</div>
+			</div>
+			<div *ngIf="currentStep === 2" class="mt-3">
+				<h4 class="text-bold">Événement : </h4>
+				<div class="div_form_row">
+					<div class="div_form_label">
+					  <mat-label>Séléctionner une événement :</mat-label>
+					</div>
+					<div class="div_form_inputs input_div">
+					  <mat-form-field appearance="outline" style="width: 100%">
+						<mat-label>Événement</mat-label> 
+						<mat-select [(ngModel)]="objet_selected2"
+						[ngModelOptions]="{ standalone: true }"
+						(selectionChange)="getDetailListeObjet2()">
+							<mat-option *ngFor="let obj of liste_objet ; let i = index" [value]="obj.id">{{ obj.titre }}</mat-option>
+						</mat-select>
+					  </mat-form-field>
+					</div>
+				</div>
+				<h4 class="text-bold">Details d'événement : </h4>
+				<mat-chip-listbox aria-label="Fish selection" [(ngModel)]="objet_detail_selected2" [ngModelOptions]="{standalone: true}" selectable multiple (click)="toggleDetail(objet_detail_selected2)">
+					<mat-chip-option *ngFor="let obj of liste_detail_objet2" color="accent" [value]="obj.id" [disabled]="onDisabled(obj.id)" [selected]="checkEventIfCheck(obj.id)">{{obj.event }} </mat-chip-option>
+				</mat-chip-listbox>
+				<div class="mt-2 text-end">
+					<button mat-flat-button  class="mr-1" (click)="oldStep()">Retour</button>
+					<button mat-raised-button color="primary" (click)="saveEventBased()">Enregeistrer</button>
+				</div>
+			</div>
+			  <!-- Add more steps as needed -->
+		</mat-tab>
+		<mat-tab label="Liste event based"> 
+			<h4 class="text-bold">Événement : </h4>
+			<mat-accordion>
+				<mat-expansion-panel (opened)="panelOpenState = true"
+									 (closed)="panelOpenState = false" *ngFor="let event of event_based_liste">
+				  <mat-expansion-panel-header>
+					<mat-panel-title *ngIf="event.event_select">
+					  {{event.event_select.idDetailCheck.idObjectWorkflow.titre}}
+					</mat-panel-title>
+					<mat-panel-description *ngIf="event.event_select">
+						{{event.event_select.idDetailCheck.event}}
+					</mat-panel-description>
+				  </mat-expansion-panel-header>
+				  <p *ngFor="let child of event.event_select_child"> 
+					<span class="text-primary">{{child.idDetailCheck.event}}</span>
+				</mat-expansion-panel>
+			</mat-accordion>
+		</mat-tab>
+	</mat-tab-group>
+	</div>
+	<div *ngIf="editor.step.id_element === 'Decision step'">
+		<h3 class="title_div">Géneral details </h3>
+		<div class="div_form_row">
+			<div class="div_form_label">
+			  <mat-label>Séléctionner une Activité :</mat-label>
+			</div>
+			<div class="div_form_inputs input_div">
+			  <mat-form-field appearance="outline" style="width: 100%">
+				<mat-label>Activité</mat-label> 
+				<mat-select [(ngModel)]="setDecision"
+				[ngModelOptions]="{ standalone: true }"
+				(selectionChange)="onChangeStepDecision()">
+					<mat-option *ngFor="let item of decision_step ; let i = index" [value]="item">{{ item.name }}</mat-option>
+				</mat-select>
+			  </mat-form-field>
+			</div>
+		</div>
+		<div>
+			<h3 class="title_div">Saisissez des détails spécifiques</h3>
+			<h3>Liste des étapes :</h3>
+			<ul>
+			  <li *ngFor="let etap of etapes; let j = index" style="
+				  background: #8080804d;
+				  margin-right: 6px;  height: 23px;padding: 5px;
+				  margin-bottom:5px;
+				  border-radius: 3px;">
+				<span style="color: #0000006e;   
+				" class="mt-1">Etap {{ j + 1 }}</span>:  {{etap.idParam.type}}
+			  </li>
+			</ul>           
+		</div>
+		<div>
+			<h3>Liste résulatst : </h3>
+			<div class="div_form_row" *ngFor="let res of resultat">
+				<div class="div_form_label">
+				  <mat-label> {{res.parent.idParam.type}}:</mat-label>
+				</div>
+				<!--
+					<div class="div_form_inputs input_div">
+						<button mat-raised-button color="primary" >Critère + </button>
+					</div>
+				-->
+			</div>
+		</div>
+		<div class="text-center">
+			<button mat-raised-button color="primary" (click)="ValiderDecisionStep(editor.step, 'velocity', $event, editor.context,'titre')">Valider</button>
+		</div>
+	</div>
+	<div *ngIf="editor.step.id_element === 'Split flow step'">
+		<h3 class="title_div">Géneral details </h3>
+		<mat-list>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Titre :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field appearance="outline" >
+						<mat-label>Titre</mat-label>
+						<input type="text" matInput class="form-control form-control-sm" [(ngModel)]="titre_split" [ngModelOptions]="{standalone: true}" placeholder="Titre">                                        
+					</mat-form-field>
+				</div>
+			</div>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Description :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field appearance="outline" >
+						<mat-label>Description</mat-label>
+						<input type="text" matInput class="form-control form-control-sm" [(ngModel)]="desc_split" [ngModelOptions]="{standalone: true}" placeholder="Description">                                        
+					</mat-form-field>
+				</div>
+			</div>
+		</mat-list>
+		<h3 class="title_div">Saisissez des détails spécifiques</h3>
+		<div class="row">
+			<div class="div_form_inputs input_div col-md-6">
+				<mat-form-field appearance="outline" >
+					<mat-label>Nombre de flux</mat-label>
+					<input type="number" min="1" max="10" matInput class="form-control form-control-sm" [(ngModel)]="nombre_flux" [ngModelOptions]="{standalone: true}" placeholder="Nombre de flux">                                        
+				</mat-form-field>
+			</div>
+			<div class="col-md-4 text-end mr-2">
+				<button mat-flat-button color="accent" (click)="createNumberOfFlux()">Ajouter </button>
+			</div>
+		</div>
+		<div *ngFor="let flux of flux_list ; let i = index">
+			<div class="row">
+				<div class="col-md-3"><h3>{{flux.titre}}</h3></div>
+				<div class="col-md-9 text-end">
+					<button mat-flat-button color="primary" (click)="openDialogFlux(i , flux.titre)"> + Critéres</button>
+					<button mat-flat-button color="warn"  (click)="deleteFlux(i)"><mat-icon>delete</mat-icon>Flux</button>
+					<button mat-flat-button color="accent" >Modifier</button>
+				</div>
+			</div>
+			<!--<h3><button mat-flat-button color="primary" (click)="openDialogFlux(i)">Ajouter un flux</button></h3>-->
+			
+			<!--<h3>{{flux.description}}</h3>-->
+			<!--<div *ngFor="let dt of flux.data">
+				<p class="text-bold">{{dt.groupe.titre_groupe }}</p>
+				<p class="text-bold ml-2">{{dt.critere.critere }}</p>
+				<div *ngIf="dt.critere.type == 'montant'">
+					De : {{dt.values.value1}}
+					à : {{dt.values.value1}}
+				</div>
+				<div class="ml-5" *ngIf="dt.critere.type == 'multiple_check'">
+					<div *ngFor="let val of dt.values" >
+						<p *ngIf="val.selected && val.selected == true"> - {{val.value}}</p>
+					</div>
+				</div>
+			</div>-->
+		</div>
+		<div class="col-md-12 text-center mt-3" *ngIf="flux_list.length > 0">
+			<button mat-flat-button color="primary" (click)="save_split_flow(editor.step , editor.context)" >Validé</button>
+		</div>
+	</div>
+	<div *ngIf="editor.step.id_element === 'delay'">
+		<h3 class="title_div">Géneral details </h3>
+		<mat-list>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Délai :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field appearance="outline" style="width: 100%;">
+						<mat-label>Délai  :</mat-label>
+						<input type="number"
+						(input)="updateName(editor.step, $event, editor.context)"
+						matInput class="form-control form-control-sm"  placeholder="jour">                                        
+					</mat-form-field>
+				</div>{{day|json }}
+			</div>
+			<div class="text-end">
+				<button mat-raised-button color="primary" (click)="ValiderExportData(editor.step, 'velocity', $event, editor.context,'titre')">Valider</button>
+			</div>
+		</mat-list>
+	</div>
+	<div *ngIf="editor.step.id_element === 'Export data'">
+		<h3 class="title_div">Géneral details </h3>
+		<mat-list>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Titre :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field appearance="outline" style="width: 100%;">
+						<mat-label>Titre :</mat-label>
+						<input type="text" matInput class="form-control form-control-sm" readonly [(ngModel)]="titre_export" [ngModelOptions]="{standalone: true}" placeholder="Titre">                                        
+					</mat-form-field>
+				</div>
+			</div>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Étape Instructions :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<textarea id="w3review" name="w3review" rows="4" cols="50" [(ngModel)]="step_instruction" [ngModelOptions]="{standalone: true}"></textarea>
+				</div>
+			</div>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Sélectionner shéma  : </mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field  appearance="outline" style="width: 100% !important" >
+						<mat-label style="font-size: small;">Schéma </mat-label>
+						<input matInput  class="custom-input" required [disabled]="true" [value]="schema  ? schema.titre : ''">
+						<button  matSuffix mat-icon-button aria-label="Clear" (click)="openDialogSchemaExport()">
+						  <mat-icon>more_vert</mat-icon>
+						</button>
+					</mat-form-field>
+				</div>
+			</div>
+		</mat-list>
+		<h3 class="title_div">Saisissez des détails spécifiques</h3>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Sélectionner schéma  : </mat-label>
+			</div>
+			<div class="div_form_inputs input_div">
+				<mat-form-field  appearance="outline" style="width: 100% !important" >
+					<mat-label style="font-size: small;">Schéma </mat-label>
+					<input matInput  class="custom-input" required [disabled]="true" [value]="schema.titre">
+					<button  matSuffix mat-icon-button aria-label="Clear" (click)="openDialogModalExport()">
+					  <mat-icon>more_vert</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Ignorer le délai d'étape pour les types de relation :</mat-label><mat-slide-toggle [(ngModel)]="delay_step" color="accent"></mat-slide-toggle>
+			</div>
+		</div>
+		<div class="text-end">
+			<button mat-raised-button color="primary" (click)="ValiderExportData(editor.step, 'velocity', $event, editor.context,'titre')">Valider</button>
+		</div>
+	</div>
+	<div *ngIf="editor.step.id_element === 'Call customer'">
+		<h3 class="title_div">Géneral details </h3>
+		<mat-list>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Titre :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field appearance="outline" >
+						<mat-label>Titre :</mat-label>
+						<input type="text" matInput class="form-control form-control-sm" [(ngModel)]="titre_appel_customer" [ngModelOptions]="{standalone: true}" placeholder="Titre">                                        
+					</mat-form-field>
+				</div>
+			</div>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Étape Instructions :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+						<textarea id="w3review" name="w3review" rows="4" cols="50" [(ngModel)]="step_instruction" [ngModelOptions]="{standalone: true}"></textarea>
+				</div>
+			</div>
+			
+		</mat-list>
+		<h3 class="title_div">Saisissez des détails spécifiques</h3>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Sélectionner type agent  : </mat-label>
+			</div>
+			<div class="div_form_inputs input_div">
+				<mat-form-field  appearance="outline" style="width: 100% !important" >
+					<mat-label style="font-size: small;">Agent </mat-label>
+					<input matInput  class="custom-input" required [disabled]="true" [value]="type_agent_selected  ? type_agent_selected.type : ''">
+					<button  matSuffix mat-icon-button aria-label="Clear" (click)="openDialogAppelCustomer('type_agent')">
+					  <mat-icon>more_vert</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Sélectionner type d'appel  : </mat-label>
+			</div>
+			<div class="div_form_inputs input_div">
+				<mat-form-field  appearance="outline" style="width: 100% !important" >
+					<mat-label style="font-size: small;">Type </mat-label>
+					<input matInput  class="custom-input" required [disabled]="true" [value]="type_call_selected  ? type_call_selected.type : ''">
+					<button  matSuffix mat-icon-button aria-label="Clear" (click)="openDialogAppelCustomer('type_call')">
+					  <mat-icon>more_vert</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Limite de jours promis  : </mat-label>
+			</div>
+			<div class="div_form_inputs input_div">
+				<mat-form-field appearance="outline" style="width: 100%;">
+					<mat-label>Limite :</mat-label>
+					<input type="number" min="1" max="100" matInput class="form-control form-control-sm" [(ngModel)]="promise_days_limit" [ngModelOptions]="{standalone: true}" placeholder="Limite">                                        
+				</mat-form-field>
+			</div>
+		</div>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Ignorer le délai d'étape pour les types de relation :</mat-label><mat-slide-toggle [(ngModel)]="delay_step" color="accent"></mat-slide-toggle>
+			</div>
+		</div>
+		<div class="text-end">
+			<button mat-raised-button color="primary" (click)="ValiderExportData(editor.step, 'velocity', $event, editor.context,'titre')">Valider</button>
+		</div>
+	</div>
+	<div *ngIf="editor.step.id_element === 'Send communication'">
+		<h3 class="title_div">Géneral details </h3>
+		<mat-list>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Titre :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field appearance="outline" >
+						<mat-label>Titre :</mat-label>
+						<input type="text" matInput class="form-control form-control-sm" [(ngModel)]="titre_send_communication" [ngModelOptions]="{standalone: true}" placeholder="Titre">                                        
+					</mat-form-field>
+				</div>
+			</div>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Étape Instructions :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+						<textarea id="w3review" name="w3review" rows="4" cols="50" [(ngModel)]="step_instruction_send_communication" [ngModelOptions]="{standalone: true}"></textarea>
+				</div>
+			</div>
+		</mat-list>
+		<h3 class="title_div">Saisissez des détails spécifiques</h3>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Configuration de sortie  : </mat-label>
+			</div>
+			<div class="div_form_inputs input_div">
+				<mat-form-field  appearance="outline" style="width: 100% !important" >
+					<mat-label style="font-size: small;">Type </mat-label>
+					<input matInput  class="custom-input" required [disabled]="true" [value]="type_send_communication_selected  ? type_send_communication_selected.type_communication : ''">
+					<button  matSuffix mat-icon-button aria-label="Clear" (click)="openDialogSendCommunication('type_send')">
+					  <mat-icon>more_vert</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Models  : </mat-label>
+			</div>
+			<div class="div_form_inputs input_div">
+				<mat-form-field  appearance="outline" style="width: 100% !important" >
+					<mat-label style="font-size: small;">Models </mat-label>
+					<input matInput  class="custom-input" required [disabled]="true" [value]="model_send_communication_selected  ? model_send_communication_selected.titre : ''">
+					<button  matSuffix mat-icon-button aria-label="Clear" (click)="openDialogModelSendCommunication('model_send_communication')" [disabled]="type_send_communication_selected ? false : true">
+					  <mat-icon>more_vert</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Ignorer le délai d'étape pour les types de relation :</mat-label><mat-slide-toggle [(ngModel)]="delay_step" color="accent"></mat-slide-toggle>
+			</div>
+		</div>
+		<div class="text-end">
+			<button mat-raised-button color="primary" (click)="ValiderExportData(editor.step, 'velocity', $event, editor.context,'titre')">Valider</button>
+		</div>
+	</div>
+	<div *ngIf="editor.step.id_element === 'Assign to external'">
+		<h3 class="title_div">Géneral details </h3>
+		<mat-list>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Titre :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field appearance="outline" >
+						<mat-label>Titre :</mat-label>
+						<input type="text" matInput class="form-control form-control-sm" [(ngModel)]="titre_send_communication" [ngModelOptions]="{standalone: true}" placeholder="Titre">                                        
+					</mat-form-field>
+				</div>
+			</div>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Étape Instructions :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+						<textarea id="w3review" name="w3review" rows="4" cols="50" [(ngModel)]="step_instruction_send_communication" [ngModelOptions]="{standalone: true}"></textarea>
+				</div>
+			</div>
+		</mat-list>
+		<h3 class="title_div">Saisissez des détails spécifiques</h3>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Assigner à : </mat-label>
+			</div>
+			<div class="div_form_inputs input_div">
+				<mat-form-field  appearance="outline" style="width: 100% !important" >
+					<mat-label style="font-size: small;">Assigner à </mat-label>
+					<input matInput  class="custom-input" required readonly [value]="externe_selected  ? externe_selected.name : ''">
+					<button  matSuffix mat-icon-button aria-label="Clear" (click)="openDialogSendCommunication('assignation_affect')">
+					  <mat-icon>more_vert</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="text-end">
+			<button mat-raised-button color="primary" (click)="ValiderAssignExterne(editor.step, externe_selected, editor.context)">Valider</button>
+		</div>
+	</div>
+	<div *ngIf="editor.step.id_element === 'Approval step'">
+		<h3 class="title_div">Géneral details </h3>
+		<mat-list>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Titre :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field appearance="outline" >
+						<mat-label>Titre :</mat-label>
+						<input type="text" matInput class="form-control form-control-sm" [(ngModel)]="titre_approval_step" [ngModelOptions]="{standalone: true}" placeholder="Titre">                                        
+					</mat-form-field>
+				</div>
+			</div>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Étape Instructions :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+						<textarea id="w3review" name="w3review" rows="4" cols="50" [(ngModel)]="step_instruction_approval_step" [ngModelOptions]="{standalone: true}"></textarea>
+				</div>
+			</div>
+		</mat-list>
+		<h3 class="title_div">Saisissez des détails spécifiques</h3>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Configuration de sortie  : </mat-label>
+			</div>
+			<div class="div_form_inputs input_div">
+				<mat-form-field  appearance="outline" style="width: 100% !important" >
+					<mat-label style="font-size: small;">Type </mat-label>
+					<input matInput  class="custom-input" required [disabled]="true" [value]="type_approval_step_selected  ? type_approval_step_selected.type : ''">
+					<button  matSuffix mat-icon-button aria-label="Clear" (click)="openDialgApprovalStep('type_approval')">
+					  <mat-icon>more_vert</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Ignorer le délai d'étape pour les types de relation :</mat-label><mat-slide-toggle [(ngModel)]="delay_step" color="accent"></mat-slide-toggle>
+			</div>
+		</div>
+		<div class="text-end">
+			<button mat-raised-button color="primary" (click)="ValiderExportData(editor.step, 'velocity', $event, editor.context,'titre')">Valider</button>
+		</div>
+	</div>
+	<div *ngIf="editor.step.id_element === 'Transfer step'">
+		<h3 class="title_div">Géneral details </h3>
+		<mat-list>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Titre :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field appearance="outline" >
+						<mat-label>Titre :</mat-label>
+						<input type="text" matInput class="form-control form-control-sm" [(ngModel)]="titre_transfer_step" [ngModelOptions]="{standalone: true}" placeholder="Titre">                                        
+					</mat-form-field>
+				</div>
+			</div>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Étape Instructions :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+						<textarea id="w3review" name="w3review" rows="4" cols="50" [(ngModel)]="step_instruction_transfer_step" [ngModelOptions]="{standalone: true}"></textarea>
+				</div>
+			</div>
+		</mat-list>
+		<!--<h3 class="title_div">Saisissez des détails spécifiques</h3>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Configuration de sortie  : </mat-label>
+			</div>
+			<div class="div_form_inputs input_div">
+				<mat-form-field  appearance="outline" style="width: 100% !important" >
+					<mat-label style="font-size: small;">Type </mat-label>
+					<input matInput  class="custom-input" required [disabled]="true" [value]="type_approval_step_selected  ? type_approval_step_selected.type : ''">
+					<button  matSuffix mat-icon-button aria-label="Clear" (click)="openDialgTransferStep('type_transfer')">
+					  <mat-icon>more_vert</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>-->
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Ignorer le délai d'étape pour les types de relation :</mat-label><mat-slide-toggle [(ngModel)]="delay_step" color="accent"></mat-slide-toggle>
+			</div>
+		</div>
+		<div class="text-end">
+			<button mat-raised-button color="primary" (click)="ValiderExportData(editor.step, 'velocity', $event, editor.context,'titre')">Valider</button>
+		</div>
+	</div>
+	<div *ngIf="editor.step.id_element === 'CampaignIn'">
+		<h3 class="title_div">Géneral details </h3>
+		<mat-list>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Titre :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field appearance="outline" >
+						<mat-label>Titre :</mat-label>
+						<input type="text" matInput class="form-control form-control-sm" [(ngModel)]="titre_campagne_entrante" [ngModelOptions]="{standalone: true}" placeholder="Titre">                                        
+					</mat-form-field>
+				</div>
+			</div>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Étape Instructions :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+						<textarea id="w3review" name="w3review" rows="4" cols="50" [(ngModel)]="step_instruction_campagne_entrante" [ngModelOptions]="{standalone: true}"></textarea>
+				</div>
+			</div>
+		</mat-list>
+		<h3 class="title_div">Saisissez des détails spécifiques</h3>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Configuration de sortie  : </mat-label>
+			</div>
+			<div class="div_form_inputs input_div">
+				<mat-form-field  appearance="outline" style="width: 100% !important" >
+					<mat-label style="font-size: small;">Type </mat-label>
+					<input matInput  class="custom-input" required [disabled]="true" [value]="type_campagne_entrante_selected  ? type_campagne_entrante_selected.type_campagne : ''">
+					<button  matSuffix mat-icon-button aria-label="Clear" (click)="openDialogCampagneEntrante('campagne_entrante')">
+					  <mat-icon>more_vert</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Models  : </mat-label>
+			</div>
+			<div class="div_form_inputs input_div">
+				<mat-form-field  appearance="outline" style="width: 100% !important" >
+					<mat-label style="font-size: small;">Models </mat-label>
+					<input matInput  class="custom-input" required [disabled]="true" [value]="type_model_campagne_entrante_selected  ? type_model_campagne_entrante_selected.titre : ''">
+					<button  matSuffix mat-icon-button aria-label="Clear" (click)="openDialogCampagneEntrante('model_campagne_entrante')" [disabled]="type_campagne_entrante_selected ? false : true">
+					  <mat-icon>more_vert</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Ignorer le délai d'étape pour les types de relation :</mat-label><mat-slide-toggle [(ngModel)]="delay_step" color="accent"></mat-slide-toggle>
+			</div>
+		</div>
+		<div class="text-end">
+			<button mat-raised-button color="primary" (click)="ValiderExportData(editor.step, 'velocity', $event, editor.context,'titre')">Valider</button>
+		</div>
+	</div>
+	<div *ngIf="editor.step.id_element === 'CampaignOut'">
+		<h3 class="title_div">Géneral details </h3>
+		<mat-list>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Titre :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+					<mat-form-field appearance="outline" >
+						<mat-label>Titre :</mat-label>
+						<input type="text" matInput class="form-control form-control-sm" [(ngModel)]="titre_campagne_entrante" [ngModelOptions]="{standalone: true}" placeholder="Titre">                                        
+					</mat-form-field>
+				</div>
+			</div>
+			<div class=" div_form_row">
+				<div class="div_form_label">
+					<mat-label>Étape Instructions :</mat-label>
+				</div>
+				<div class="div_form_inputs input_div">
+						<textarea id="w3review" name="w3review" rows="4" cols="50" [(ngModel)]="step_instruction_campagne_entrante" [ngModelOptions]="{standalone: true}"></textarea>
+				</div>
+			</div>
+		</mat-list>
+		<h3 class="title_div">Saisissez des détails spécifiques</h3>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Configuration de sortie  : </mat-label>
+			</div>
+			<div class="div_form_inputs input_div">
+				<mat-form-field  appearance="outline" style="width: 100% !important" >
+					<mat-label style="font-size: small;">Type </mat-label>
+					<input matInput  class="custom-input" required [disabled]="true" [value]="type_campagne_entrante_selected  ? type_campagne_entrante_selected.type_campagne : ''">
+					<button  matSuffix mat-icon-button aria-label="Clear" (click)="openDialogCampagneEntrante('campagne_entrante')">
+					  <mat-icon>more_vert</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Models  : </mat-label>
+			</div>
+			<div class="div_form_inputs input_div">
+				<mat-form-field  appearance="outline" style="width: 100% !important" >
+					<mat-label style="font-size: small;">Models </mat-label>
+					<input matInput  class="custom-input" required [disabled]="true" [value]="type_model_campagne_entrante_selected  ? type_model_campagne_entrante_selected.titre : ''">
+					<button  matSuffix mat-icon-button aria-label="Clear" (click)="openDialogCampagneEntrante('model_campagne_entrante')" [disabled]="type_campagne_entrante_selected ? false : true">
+					  <mat-icon>more_vert</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class=" div_form_row">
+			<div class="div_form_label">
+				<mat-label>Ignorer le délai d'étape pour les types de relation :</mat-label><mat-slide-toggle [(ngModel)]="delay_step" color="accent"></mat-slide-toggle>
+			</div>
+		</div>
+		<div class="text-end">
+			<button mat-raised-button color="primary" (click)="ValiderExportData(editor.step, 'velocity', $event, editor.context,'titre')">Valider</button>
+		</div>
+	</div>
+</ng-template>
+
+<div class="block">
+	<button mat-raised-button color="primary" (click)="reloadDefinitionClicked()" style="background-color:#fc8900 ; color:aliceblue">Recharger la définition</button>
+	<!-- <button mat-raised-button color="primary" (click)="toggleSelectedStepClicked()">
+		{{ selectedStepId ? 'Unselect' : 'Select first' }}
+	</button> -->
+	<button  class="ml-1" mat-raised-button color="primary" (click)="assignToQueue()" [disabled]="!disabledValidateQueue()">
+		Validé
+	</button>
+	<!-- <button mat-raised-button color="primary" (click)="toggleEditorClicked()">
+		{{ isEditorCollapsed ? 'Show editor' : 'Hide editor' }}
+	</button> -->
+</div>
+
+
+<!--
+-->
+<div class="block">
+	<mat-form-field class="full-width flex-1s">
+		<textarea matInput cols="120" rows="16" readonly>{{ definitionJSON }}</textarea>
+	</mat-form-field>
+</div>
+<!--
+<div class="block">
+	Créer par
+	<a href="https://proxisoft.ma/" target="_blank">Proxisoft</a>
+</div>
+-->

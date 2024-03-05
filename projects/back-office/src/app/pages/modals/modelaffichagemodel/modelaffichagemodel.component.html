@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Modifier champs</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modalRef.close()"
+    ></button>
+  </div>
+  <form (ngSubmit)="UpdateModel(label.value,objet.value)">
+  <div class="modal-body">
+    <div class="form-group input_div">
+      <label for="Element2"class="mt-2">Label</label>
+      <mat-form-field appearance="outline">
+        <mat-label>Label : </mat-label>
+      <input
+        type="text"
+        class="custom-input"
+        matInput
+        id="Element2"
+        name="Element2"
+        [(ngModel)]="data.Titre"
+        #label
+      />
+      </mat-form-field>
+    </div>
+    
+    <div class="form-group input_div">
+      <label for="Element3"class="mt-2">Objet :</label>
+      <mat-form-field appearance="outline">
+        <mat-label>Objet  </mat-label>
+      <input
+        type="text"
+        class="custom-input"
+        matInput
+        id="objet"
+        name="objet"
+        [(ngModel)]="data.Objet"
+        #objet
+      />
+      </mat-form-field>
+    </div>
+  
+    
+  
+    
+    
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef.close()" mat-stroked-button color="primary">
+      Fermer
+    </button>
+    <button type="submit" class="btn btn-primary" mat-raised-button color="primary">
+      Enreigestrer
+    </button>
+  </div>
+  </form>

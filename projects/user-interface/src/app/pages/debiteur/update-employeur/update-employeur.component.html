@@ -1,0 +1,109 @@
+<div class="d-flex flex-row">
+    <app-bar-debiteur class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-debiteur>
+    <div class=" col-md-8 mt-4">
+        <div class="card card-default">
+            <div class="card-body">
+                
+                <h2 class="card-description text-primary bold">
+                  Emploi
+                </h2>
+                <div>
+                    <div class="form-group row input_div">
+                        <label class="col-md-2 col-form-label" for="input-id-1"
+                          >Employeur
+                          <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-md-4">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Employeur </mat-label>
+                          <input
+                            class="custom-input"
+                            matInput
+                            type="text"
+                            value=""
+                            [(ngModel)]="employeur"
+                            [ngModelOptions]="{ standalone: true }"
+                          />
+                          </mat-form-field>
+                        </div>
+                        <label class="col-md-2 col-form-label" for="input-id-1"
+                        >Entreprise
+                        <span class="text-danger">*</span>
+                      </label>
+                      <div class="col-md-4">
+                          <mat-form-field appearance="outline">
+                              <mat-label>Entreprise </mat-label>
+                        <input
+                          class="custom-input"
+                          matInput
+                          type="text"
+                          value=""
+                          [(ngModel)]="entreprise"
+                          [ngModelOptions]="{ standalone: true }"
+                        />
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="form-group row input_div">
+                        <label class="col-md-2 col-form-label" for="input-id-1"
+                        >Adresse employeur
+                        <span class="text-danger">*</span>
+                      </label>
+                      <div class="col-md-4">
+                          <mat-form-field appearance="outline">
+                              <mat-label>Adresse employeur </mat-label>
+                        <input
+                          class="custom-input"
+                          matInput
+                          type="text"
+                          value=""
+                          [(ngModel)]="adresse_employeur"
+                          [ngModelOptions]="{ standalone: true }"
+                        />
+                        </mat-form-field>
+                      </div>
+                      <label class="col-md-2 col-form-label" for="input-id-1"
+                      >Poste
+                      <span class="text-danger">*</span>
+                    </label>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Poste </mat-label>
+                      <input
+                        class="custom-input"
+                        matInput
+                        type="text"
+                        value=""
+                        [(ngModel)]="poste"
+                        [ngModelOptions]="{ standalone: true }"
+                      />
+                      </mat-form-field>
+                    </div>
+                    </div>
+                    
+                    <div class="form-group row input_div">
+                      
+                      <label class="col-md-2 col-form-label" for="input-id-1">Status</label>
+                      <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Status</mat-label>
+                          <mat-select
+                          [(ngModel)]="status_select" [ngModelOptions]="{ standalone: true }"
+                          >
+                            <mat-option
+                              *ngFor="let p of list_status"
+                              [value]="p.id"
+                              >{{ p.status }}</mat-option
+                            >
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                </div>
+                
+                <button mat-flat-button color="primary" class="height: 31px !important;" (click)="updateEmployeur()">Enreigestrer </button>
+                <button mat-flat-button  class="height: 31px !important;" (click)="redirectT()">Annuler</button>
+              </div>
+        </div>
+    </div>
+</div>

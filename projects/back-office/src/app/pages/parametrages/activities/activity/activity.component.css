@@ -1,0 +1,316 @@
+.mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+  .mat-mdc-form-field {
+    margin-top: 16px;
+  }
+  .button_next{
+    margin-top: 20px;
+    text-align: right;
+  }
+  .decision_div{
+    color:#fff;
+    width:90px;
+    height:50px;
+    line-height: 50px;
+    text-align: center;
+  }
+  .activite_div{
+    background:#7266ba !important;
+  }
+  .resultat_div{
+    background:#08283fa8  !important;
+    /* width: 90px;
+    margin-top:10px;
+    */
+    width:100px;
+    height:100px;
+    line-height: 100px;
+    text-align: center;
+    border-radius: 58px; 
+    padding-left:5px;
+    padding-right:5px;
+  
+  }
+  .btn_plus_res{
+    height: 100px;
+    line-height: 100px;
+  }
+  .btn_plus_act{
+    height: 50px;
+    line-height: 50px;
+  }
+  
+  .div_decision_tree ul {
+  padding-top: 20px;
+  position: relative;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  }
+  
+  .div_decision_tree li {
+  float: left;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 20px 5px 0 5px;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  }
+  
+  .div_decision_tree li::before,
+  .div_decision_tree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 1px solid #ccc;
+  width: 50%;
+  height: 20px;
+  }
+  
+  .div_decision_tree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 1px solid #ccc;
+  }
+  
+  .div_decision_tree li a {
+  display: inline-block;
+  border: 1px solid #ccc;
+  padding: 8px 15px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 5px;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  background:#7266ba;
+  cursor:pointer;
+  }
+  
+  .div_decision_tree li a:hover {
+  background: #c8e4f8;
+  color: #000;
+  border: 1px solid #94a0b4;
+  }
+  
+  .div_decision_tree li a.no-link {
+  cursor: default;
+  pointer-events: none;
+  }
+  
+  .div_decision_tree li a.no-link:hover {
+  background: none;
+  border: 1px solid #ccc;
+  color: #333;
+  }
+  
+  .div_decision_tree li.parent_li > a {
+  background: #f2f2f2;
+  color: #4b4b4b;
+  border: 1px solid #ccc;
+  }
+  
+  .div_decision_tree li.parent_li > a:hover {
+  background: #c8e4f8;
+  color: #000;
+  border: 1px solid #94a0b4;
+  }
+  
+  /* Additional styling for the final results */
+  .div_decision_tree li ul li a {
+  border: none;
+  background: none;
+  /* cursor: default;
+  pointer-events: none;*/
+  cursor:pointer
+  }
+  
+  .div_decision_tree li ul li a::before {
+  content: '';
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  }
+  /* CSS styling for the decision tree */
+  .tree ul {
+  padding-left: 20px;
+  }
+  
+  .tree li {
+  list-style-type: none;
+  position: relative;
+  padding: 5px 0;
+  }
+  
+  .tree li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -10px;
+  border-left: 1px solid #ccc;
+  height: 100%;
+  }
+  
+  .tree a {
+  color: #333;
+  text-decoration: none;
+  }
+  
+  .tree a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  }
+  
+  .tree a.no-link {
+  cursor: default;
+  }
+  
+  .tree ul ul {
+  margin-top: 5px;
+  }
+  .tree ul ul li:before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  border-top: 1px solid #ccc;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #fff;
+  }
+  .result_div{
+  background:#08283fa8  !important;
+  cursor:pointer
+  }
+  details {
+  border: 2px solid var(--stone-4);
+  cursor: pointer;
+  padding: var(--size-2);
+  /* width: 1500px; */
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 15px;
+  border-radius: 9px;
+  margin-bottom: 39px;
+  border-top-width: 3px !important;
+  border-color: #cfdbe2 !important;
+  }
+  
+  summary {
+  /* background: #cfdbe2; */
+  border-bottom-width: 3px;
+  /* border-bottom: 1px solid #cfdbe2; */
+  padding-bottom: 8px;
+  }
+  .ul_list_step .span_act_setp{
+  width:50%;
+  }
+  .ul_list_step i{
+  width:50%;
+  text-align: end;
+  }
+  .delete_etap{
+  width:50%;
+  text-align:end
+  }
+  .div_form{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .div_form_label{
+    width: 20%;
+  }
+  .div_form_inputs{
+    width: 80%;
+  }
+  
+  .mat-mdc-form-field[_ngcontent-fry-c29] {
+    margin-top: 16px;
+    width: 100% !important;
+  }
+  
+  .div_form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .div_form_row {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    margin-bottom: 10px; /* Adjust spacing between rows */
+  }
+  
+  .div_form_label {
+    flex: 1; /* Expand to take available space */
+    margin-right: 10px; /* Adjust spacing between label and input */
+  }
+  
+  .div_form_inputs {
+    flex: 3; /* Expand to take available space */
+  }
+  
+  /* Add more styling as needed */
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  li {  
+    padding: 10px;
+    /* border-bottom: 1px solid #ccc; */
+  }
+  li:last-child {
+    border-bottom: none;
+  }
+  /* Nested list styling */
+  .nested-list {
+    margin-left: 20px;
+  }
+  .child-li{
+    list-style: decimal-leading-zero;
+  }
+  li[_ngcontent-kqj-c31] {
+    padding: 0px !important;
+  }
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  
+  ::ng-deep .mat-mdc-list-option .mdc-radio {
+    display: none !important;
+  }
+  
+  ::ng-deep .mat-mdc-list-base .mdc-list-item__start, .mat-mdc-list-base .mdc-list-item__end, .mat-mdc-list-base .mdc-list-item__content{
+    margin-top: 16px !important;
+  }
+  .custom-spinner {
+    height: 57px !important; /* Adjust the height value as needed */
+    width: 57px !important;  /* Set width to maintain aspect ratio */
+  }
+  ::ng-deep .mdc-list-item.mdc-list-item--with-one-line{
+    margin-bottom: 16px;
+  }
+  .badge-date{
+    color:white;
+    background-color: #03C988; 
+    width: fit-content; 
+    padding-left: 12px; 
+    padding-right: 12px; 
+    border-radius: 10px;
+  }
+  .span_date{
+    font-size: smaller;
+  }
+  
+  
+  .vl {
+    border-left: 6px solid #5c7181;
+    height: 500px;
+  }

@@ -1,0 +1,1166 @@
+<div class="d-flex flex-row">
+  <app-bar-integration class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-integration>
+    <div class=" col-md-8 mt-4" *ngIf="div == 1">
+        <div class="card card-default">
+        <div class="card-body">
+            <h4 class="card-description text-primary ">
+                Importation
+            </h4>
+            <!--Form-->
+            <form method="POST" enctype="multipart/form-data">
+                <div class="div_form mt-5 ">
+                    <div class="div_form_row">
+                        <div class="div_form_label">
+                            <mat-label>Titre <span class="text-danger">*</span>:</mat-label>
+                        </div>
+                        <div class="div_form_inputs input_div">
+                            <mat-form-field  appearance="outline" style="width: 100%">
+                                <mat-label style="font-size: small;">Titre </mat-label>
+                                <input matInput placeholder="Titre" class="custom-input" required [(ngModel)]="titre"  [ngModelOptions]="{standalone: true}">      
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="div_form ">
+                    <div class="div_form_row">
+                        <div class="div_form_label">
+                            <mat-label>Description:</mat-label>
+                        </div>
+                        <div class="div_form_inputs">
+                            <mat-form-field appearance="outline" style="width: 100%">
+                                <mat-label>Description</mat-label>
+                                <textarea matInput placeholder="Description" ></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+                <div class="div_form ">
+                  <div class="div_form_row">
+                    <div class="div_form_label">
+                      <mat-label>Porte feuille <span class="text-danger">*</span>:</mat-label>
+                    </div>
+                    <div class="div_form_inputs input_div">
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <mat-label>Porte feuille</mat-label>
+                        <mat-select required [(ngModel)]="ptf_select" [ngModelOptions]="{ standalone: true }"  >
+                          <mat-option *ngFor="let f of liste_ptf" [value]="f.id" >{{ f.titre }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <!--<div class="div_form ">
+                  <div class="div_form_row">
+                    <div class="div_form_label">
+                      <mat-label>Modèle d'affichage :</mat-label>
+                    </div>
+                    <div class="div_form_inputs input_div">
+                        <mat-form-field appearance="outline" style="width: 100%">
+                            <mat-label>Nom de modèle</mat-label>
+                            <mat-select
+                              [(ngModel)]="selectedModelAffichage"
+                              [ngModelOptions]="{ standalone: true }"
+                            >
+                              <mat-option
+                                *ngFor="let item of models_affichage"
+                                [value]="item.id"
+                                >{{ item.Titre }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                  </div>
+                </div>-->
+                <div class="div_form ">
+                  <div class="div_form_row">
+                      <div class="div_form_label">
+                          <mat-label>Sélectionner des entités <span class="text-danger">*</span> :</mat-label>
+                      </div>
+                      <div class="div_form_inputs input_div chips">
+                          <mat-form-field appearance="outline" class="example-chip-list" style="width: 100%">
+                              <mat-label>Tables</mat-label>
+                              <mat-chip-grid #chipGrid aria-label="">
+                                <mat-chip-row *ngFor="let fruit of fruits" (removed)="remove(fruit)" >
+                                  {{fruit}}
+                                  <button matChipRemove [attr.aria-label]="'remove ' + fruit">
+                                    <mat-icon>cancel</mat-icon>
+                                  </button>
+                                </mat-chip-row>
+                              </mat-chip-grid>
+                                <input placeholder="Novelle élement..." #fruitInput [formControl]="fruitCtrl"
+                                  [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                  (matChipInputTokenEnd)="add($event)"/>
+                              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                <mat-option color="primary" *ngFor="let fruit of filteredFruits | async" [value]="fruit" [disabled]="isDisableChip(fruit)">
+                                  {{fruit}}
+                                </mat-option>
+                              </mat-autocomplete>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                </div>
+                <div class="text-center mt-5">
+                  <button mat-flat-button  (click)="nextStep()" color="accent">Suivant <mat-icon iconPositionEnd>arrow_right_alt</mat-icon>
+                  </button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    <div class=" col-md-8 mt-4" *ngIf="div == 2">
+      <div class="card card-default">
+      <div class="card-body">
+          <h3 class="card-description text-primary ">
+            Importation 
+          </h3>
+          <!--Form-->
+                <mat-stepper  [linear]="false"  #stepper>
+                <mat-step *ngFor="let fr of fruits ; let last = last;" [label]="fr" state="phone"  (click)="$event.stopPropagation()" >
+                    <div *ngIf="fr == 'creance'">
+                      <div class="div_form mt-5">
+                        <div class="div_form_row">
+                          <div class="div_form_label">
+                            <mat-label>Fichier :  </mat-label>
+                          </div>
+                          <div class="div_form_inputs input_div">
+                              <button type="button" mat-raised-button (click)="fileInput.click()" >Choose File <mat-icon> insert_drive_file</mat-icon></button>
+                              <input class="form-control " name="img" type="file" #fileInput hidden (change)="onFileSelected($event,fr)" required>   <span style="color: #63d1f3;">{{file_creance?.name}}</span>                        
+                          </div>
+                          <div class="div_form_label">
+                            <button type="button" mat-raised-button   [disabled]="!disabled_generate_creance" (click)="onButtonClickCreance()" color="accent"><mat-icon> attach_file</mat-icon></button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card card-default col-md-12" id="block1" style="display:block;" *ngIf="data_creance.verify == 1" >
+                        <div class="card-header text-primary"> Mapping de fichier :</div>
+                        <div class="card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Entétes de fichier</h4> 
+                                        <mat-form-field class="div_form_inputs input_div" appearance="outline" style="width: 100%">
+                                            <mat-select [(ngModel)]="column_file_select_creance" [ngModelOptions]="{ standalone: true }" >
+                                                <mat-option *ngFor="let table of data_creance.columns.data" [value]="table"  [disabled]="is_disable_file_creance(table)">
+                                                    {{ table }} 
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Infos dans la base de données</h4>
+                                        <div class="div_form_inputs input_div">
+                                            <mat-form-field appearance="outline" style="width: 100%">
+                                                <mat-select  [(ngModel)]="column_db_select_creance"   [ngModelOptions]="{standalone: true}">
+                                                    <mat-optgroup *ngFor="let group of list_columns_db_creance" [label]="group.name" class="test"
+                                                        [disabled]="group.disabled">
+                                                        <mat-option  *ngFor="let item of group.items"  [value]="item" [disabled]="is_disable_column_creance(item.id)">
+                                                            <ng-container *ngIf="item.table_bdd">
+                                                                {{item.titre_col}}
+                                                            </ng-container>
+                                                            <ng-container *ngIf="item.table_name" >
+                                                                {{item.champ_name}}
+                                                            </ng-container>
+                                                        </mat-option>
+                                                    </mat-optgroup>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"><br/><br/>
+                                        <button mat-raised-button color="primary" type="button" id="addCol" (click)="addColToTableCreance()" class="btn btn-block" ><i class="fa fa-paperclip"></i></button>
+                                    </div>
+                                </div>
+                                <br/><br/>
+
+                                <div class="table-responsive" id="tableDetails">
+                                    <table id="tableColumns" class="table table-striped table-bordered nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr> 
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="list_data_creance.length == 0">
+                                                <td colspan="4" class="text-center">Veuillez choisir une colonne!</td>
+                                            </tr>
+                                            <tr *ngFor="let item of list_data_creance ; let i = index">
+                                                <td>{{item.column_file}}</td>
+                                                <td>{{item.column_db_name}}</td>
+                                                <!-- <td>  <mat-checkbox class="example-margin" [checked]="item.required" color="primary"  (change)="onCheckboxChangeCreance(item, $event)"
+                                                    ></mat-checkbox>
+                                                </td> -->
+                                                <td>
+                                                    <div class="example-button-container">
+                                                        <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="delet_inTable_creance(i)">
+                                                            <mat-icon>delete</mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div *ngIf="fr == 'emploi'">
+                        <div class="div_form mt-5">
+                          <div class="div_form_row">
+                            <div class="div_form_label">
+                              <mat-label>Fichier :  </mat-label>
+                            </div>
+                            <div class="div_form_inputs input_div">
+                                <button type="button" mat-raised-button (click)="fileInput.click()" >Choose File <mat-icon> insert_drive_file</mat-icon></button>
+                                <input class="form-control " name="img" type="file" #fileInput hidden (change)="onFileSelected($event,fr)" required>   <span style="color: #63d1f3;">{{file_emploi?.name}}</span>                        
+                            </div>
+                            <div class="div_form_label">
+                              <button type="button" mat-raised-button   [disabled]="!disabled_generate_emploi" (click)="onButtonClickEmploi()" color="accent"><mat-icon> attach_file</mat-icon></button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card card-default col-md-12" id="block1" style="display:block;" *ngIf="data_emploi.verify == 1" >
+                          <div class="card-header text-primary"> Mapping de fichier :</div>
+                          <div class="card-body">
+                              <div>
+                                  <div class="row">
+                                      <div class="col-md-5">
+                                          <h4 class="sub-title">Entétes de fichier</h4> 
+                                          <mat-form-field class="div_form_inputs input_div" appearance="outline" style="width: 100%">
+                                              <mat-select [(ngModel)]="column_file_select_emploi" [ngModelOptions]="{ standalone: true }" >
+                                                  <mat-option *ngFor="let table of data_emploi.columns.data" [value]="table"  [disabled]="is_disable_file_emploi(table)">
+                                                      {{ table }} 
+                                                  </mat-option>
+                                              </mat-select>
+                                          </mat-form-field>
+                                      </div>
+                                      <div class="col-md-5">
+                                          <h4 class="sub-title">Infos dans la base de données</h4>
+                                          <div class="div_form_inputs input_div">
+                                              <mat-form-field appearance="outline" style="width: 100%">
+                                                  <mat-select  [(ngModel)]="column_db_select_emploi"   [ngModelOptions]="{standalone: true}">
+                                                      <mat-optgroup *ngFor="let group of list_columns_db_emploi" [label]="group.name" class="test"
+                                                          [disabled]="group.disabled">
+                                                          <mat-option  *ngFor="let item of group.items"  [value]="item" [disabled]="is_disable_column_emploi(item.id)">
+                                                              <ng-container *ngIf="item.table_bdd">
+                                                                  {{item.titre_col}}
+                                                              </ng-container>
+                                                              <ng-container *ngIf="item.table_name" >
+                                                                  {{item.champ_name}}
+                                                              </ng-container>
+                                                          </mat-option>
+                                                      </mat-optgroup>
+                                                  </mat-select>
+                                              </mat-form-field>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-2"><br/><br/>
+                                          <button mat-raised-button color="primary" type="button" id="addCol" (click)="addColToTableEmploi()" class="btn btn-block" ><i class="fa fa-paperclip"></i></button>
+                                      </div>
+                                  </div>
+                                  <br/><br/>
+  
+                                  <div class="table-responsive" id="tableDetails">
+                                      <table id="tableColumns" class="table table-striped table-bordered nowrap">
+                                          <thead>
+                                              <tr>
+                                                  <th>Colonne dans la base de données</th>
+                                                  <th>Colonne dans le fichier</th>
+                                                  <!-- <th>Champ obligatoire</th> -->
+                                                  <th></th>
+                                              </tr> 
+                                          </thead>
+                                          <tbody>
+                                              <tr *ngIf="list_data_emploi.length == 0">
+                                                  <td colspan="4" class="text-center">Veuillez choisir une colonne!</td>
+                                              </tr>
+                                              <tr *ngFor="let item of list_data_emploi ; let i = index">
+                                                  <td>{{item.column_file}}</td>
+                                                  <td>{{item.column_db_name}}</td>
+                                                  <!-- <td>  <mat-checkbox class="example-margin" [checked]="item.required" color="primary"  (change)="onCheckboxChangeCreance(item, $event)"
+                                                      ></mat-checkbox>
+                                                  </td> -->
+                                                  <td>
+                                                      <div class="example-button-container">
+                                                          <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="delet_inTable_emploi(i)">
+                                                              <mat-icon>delete</mat-icon>
+                                                          </button>
+                                                      </div>
+                                                  </td>
+                                              </tr>
+                                          </tbody>
+                                          <tfoot>
+                                              <tr>
+                                                  <th>Colonne dans la base de données</th>
+                                                  <th>Colonne dans le fichier</th>
+                                                  <!-- <th>Champ obligatoire</th> -->
+                                                  <th></th>
+                                              </tr>
+                                          </tfoot>
+                                      </table>
+                                  </div>
+                                  <div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div *ngIf="fr == 'employeur'">
+                        <div class="div_form mt-5">
+                          <div class="div_form_row">
+                            <div class="div_form_label">
+                              <mat-label>Fichier :  </mat-label>
+                            </div>
+                            <div class="div_form_inputs input_div">
+                                <button type="button" mat-raised-button (click)="fileInput.click()" >Choose File <mat-icon> insert_drive_file</mat-icon></button>
+                                <input class="form-control " name="img" type="file" #fileInput hidden (change)="onFileSelected($event,fr)" required>   <span style="color: #63d1f3;">{{file_employeur?.name}}</span>                        
+                            </div>
+                            <div class="div_form_label">
+                              <button type="button" mat-raised-button   [disabled]="!disabled_generate_employeur" (click)="onButtonClickEmployeur()" color="accent"><mat-icon> attach_file</mat-icon></button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card card-default col-md-12" id="block1" style="display:block;" *ngIf="data_employeur.verify == 1" >
+                          <div class="card-header text-primary"> Mapping de fichier :</div>
+                          <div class="card-body">
+                              <div>
+                                  <div class="row">
+                                      <div class="col-md-5">
+                                          <h4 class="sub-title">Entétes de fichier</h4> 
+                                          <mat-form-field class="div_form_inputs input_div" appearance="outline" style="width: 100%">
+                                              <mat-select [(ngModel)]="column_file_select_employeur" [ngModelOptions]="{ standalone: true }" >
+                                                  <mat-option *ngFor="let table of data_employeur.columns.data" [value]="table"  [disabled]="is_disable_file_employeur(table)">
+                                                      {{ table }} 
+                                                  </mat-option>
+                                              </mat-select>
+                                          </mat-form-field>
+                                      </div>
+                                      <div class="col-md-5">
+                                          <h4 class="sub-title">Infos dans la base de données</h4>
+                                          <div class="div_form_inputs input_div">
+                                              <mat-form-field appearance="outline" style="width: 100%">
+                                                  <mat-select  [(ngModel)]="column_db_select_employeur"   [ngModelOptions]="{standalone: true}">
+                                                      <mat-optgroup *ngFor="let group of list_columns_db_employeur" [label]="group.name" class="test"
+                                                          [disabled]="group.disabled">
+                                                          <mat-option  *ngFor="let item of group.items"  [value]="item" [disabled]="is_disable_column_employeur(item.id)">
+                                                              <ng-container *ngIf="item.table_bdd">
+                                                                  {{item.titre_col}}
+                                                              </ng-container>
+                                                              <ng-container *ngIf="item.table_name" >
+                                                                  {{item.champ_name}}
+                                                              </ng-container>
+                                                          </mat-option>
+                                                      </mat-optgroup>
+                                                  </mat-select>
+                                              </mat-form-field>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-2"><br/><br/>
+                                          <button mat-raised-button color="primary" type="button" id="addCol" (click)="addColToTableEmployeur()" class="btn btn-block" ><i class="fa fa-paperclip"></i></button>
+                                      </div>
+                                  </div>
+                                  <br/><br/>
+  
+                                  <div class="table-responsive" id="tableDetails">
+                                      <table id="tableColumns" class="table table-striped table-bordered nowrap">
+                                          <thead>
+                                              <tr>
+                                                  <th>Colonne dans la base de données</th>
+                                                  <th>Colonne dans le fichier</th>
+                                                  <!-- <th>Champ obligatoire</th> -->
+                                                  <th></th>
+                                              </tr> 
+                                          </thead>
+                                          <tbody>
+                                              <tr *ngIf="list_data_employeur.length == 0">
+                                                  <td colspan="4" class="text-center">Veuillez choisir une colonne!</td>
+                                              </tr>
+                                              <tr *ngFor="let item of list_data_employeur ; let i = index">
+                                                  <td>{{item.column_file}}</td>
+                                                  <td>{{item.column_db_name}}</td>
+                                                  <!-- <td>  <mat-checkbox class="example-margin" [checked]="item.required" color="primary"  (change)="onCheckboxChangeEmployeur(item, $event)"
+                                                      ></mat-checkbox>
+                                                  </td> -->
+                                                  <td>
+                                                      <div class="example-button-container">
+                                                          <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="delet_inTable_employeur(i)">
+                                                              <mat-icon>delete</mat-icon>
+                                                          </button>
+                                                      </div>
+                                                  </td>
+                                              </tr>
+                                          </tbody>
+                                          <tfoot>
+                                              <tr>
+                                                  <th>Colonne dans la base de données</th>
+                                                  <th>Colonne dans le fichier</th>
+                                                  <!-- <th>Champ obligatoire</th> -->
+                                                  <th></th>
+                                              </tr>
+                                          </tfoot>
+                                      </table>
+                                  </div>
+                                  <div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="fr == 'débiteur'">
+                      <div class="div_form mt-5">
+                        <div class="div_form_row">
+                          <div class="div_form_label">
+                            <mat-label>Fichier :  </mat-label>
+                          </div>
+                          <div class="div_form_inputs input_div">
+                              <button type="button" mat-raised-button (click)="fileInput.click()" >Choose File <mat-icon> insert_drive_file</mat-icon></button>
+                              <input class="form-control " name="img" type="file" #fileInput hidden (change)="onFileSelected($event , fr)" required>   <span style="color: #63d1f3;">{{file_debiteur?.name}}</span>                        
+                          </div>
+                          
+                          <div class="div_form_label">
+                            <button type="button" mat-raised-button color="primary"  [disabled]="!disabled_generate_debiteur" (click)="onButtonClickDebiteur()" color="accent"><mat-icon> attach_file</mat-icon></button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card card-default col-md-12" id="block1" style="display:block;" *ngIf="data_debiteur.verify == 1" >
+                        <div class="card-header text-primary"> Mapping de fichier :</div>
+                        <div class="card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Entétes de fichier</h4> 
+                                        <mat-form-field class="div_form_inputs input_div" appearance="outline" style="width: 100%">
+                                            <mat-select [(ngModel)]="column_file_select_debiteur" [ngModelOptions]="{ standalone: true }" >
+                                                <mat-option *ngFor="let table of data_debiteur.columns.data" [value]="table"  [disabled]="is_disable_file_debiteur(table)">
+                                                    {{ table }} 
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Infos dans la base de données</h4>
+                                        <div class="div_form_inputs input_div">
+                                            <mat-form-field appearance="outline" style="width: 100%">
+                                                <mat-select  [(ngModel)]="column_db_select_debiteur"   [ngModelOptions]="{standalone: true}">
+                                                    <mat-optgroup *ngFor="let group of list_columns_db_debiteur" [label]="group.name" class="test"
+                                                        [disabled]="group.disabled">
+                                                        <mat-option  *ngFor="let item of group.items"  [value]="item" [disabled]="is_disable_column_debiteur(item.id)">
+                                                            <ng-container *ngIf="item.table_bdd">
+                                                                {{item.titre_col}}
+                                                            </ng-container>
+                                                            <ng-container *ngIf="item.table_name" >
+                                                                {{item.champ_name}}
+                                                            </ng-container>
+                                                        </mat-option>
+                                                    </mat-optgroup>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"><br/><br/>
+                                        <button mat-raised-button color="primary" type="button" id="addCol" (click)="addColToTableDebiteur()" class="btn btn-block" ><i class="fa fa-paperclip"></i></button>
+                                    </div>
+                                </div>
+                                <br/><br/>
+                                <div class="table-responsive" id="tableDetails">
+                                    <table id="tableColumns" class="table table-striped table-bordered nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr> 
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="list_data_debiteur.length == 0">
+                                                <td colspan="4" class="text-center">Veuillez choisir une colonne.</td>
+                                            </tr>
+                                            <tr *ngFor="let item of list_data_debiteur ; let i = index">
+                                                <td>{{item.column_file}}</td>
+                                                <td>{{item.column_db_name}}</td>
+                                                <!-- <td>  <mat-checkbox class="example-margin" [checked]="item.required" color="primary"  (change)="onCheckboxChangeDebiteur(item, $event)"
+                                                    ></mat-checkbox>
+                                                </td> -->
+                                                <td>
+                                                    <div class="example-button-container">
+                                                        <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="delet_inTable_debiteur(i)">
+                                                            <mat-icon>delete</mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="fr == 'dossier'">
+                      <div class="div_form mt-5">
+                        <div class="div_form_row">
+                          <div class="div_form_label">
+                            <mat-label>Fichier :  </mat-label>
+                          </div>
+                          <div class="div_form_inputs input_div">
+                              <button type="button" mat-raised-button (click)="fileInput.click()" >Choose File <mat-icon> insert_drive_file</mat-icon></button>
+                              <input class="form-control " name="img" type="file" #fileInput hidden (change)="onFileSelected($event , fr)" required>   <span style="color: #63d1f3;">{{file_dossier?.name}}</span>                        
+                          </div>
+                          
+                          <div class="div_form_label">
+                            <button type="button" mat-raised-button color="primary"  [disabled]="!disabled_generate_dossier" (click)="onButtonClickDossier()" color="accent"><mat-icon> attach_file</mat-icon></button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card card-default col-md-12" id="block1" style="display:block;" *ngIf="data_dossier.verify == 1" >
+                        <div class="card-header text-primary"> Mapping de fichier :</div>
+                        <div class="card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Entétes de fichier</h4> 
+                                        <mat-form-field class="div_form_inputs input_div" appearance="outline" style="width: 100%">
+                                            <mat-select [(ngModel)]="column_file_select_dossier" [ngModelOptions]="{ standalone: true }" >
+                                                <mat-option *ngFor="let table of data_dossier.columns.data" [value]="table"  [disabled]="is_disable_file_dossier(table)">
+                                                    {{ table }} 
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Infos dans la base de données</h4>
+                                        <div class="div_form_inputs input_div">
+                                            <mat-form-field appearance="outline" style="width: 100%">
+                                                <mat-select  [(ngModel)]="column_db_select_dossier"   [ngModelOptions]="{standalone: true}">
+                                                    <mat-optgroup *ngFor="let group of list_columns_db_dossier" [label]="group.name" class="test"
+                                                        [disabled]="group.disabled">
+                                                        <mat-option  *ngFor="let item of group.items"  [value]="item" [disabled]="is_disable_column_dossier(item.id)">
+                                                            <ng-container *ngIf="item.table_bdd">
+                                                                {{item.titre_col}}
+                                                            </ng-container>
+                                                            <ng-container *ngIf="item.table_name" >
+                                                                {{item.champ_name}}
+                                                            </ng-container>
+                                                        </mat-option>
+                                                    </mat-optgroup>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"><br/><br/>
+                                        <button mat-raised-button color="primary" type="button" id="addCol" (click)="addColToTableDossier()" class="btn btn-block" ><i class="fa fa-paperclip"></i></button>
+                                    </div>
+                                </div>
+                                <br/><br/>
+                                <div class="table-responsive" id="tableDetails">
+                                    <table id="tableColumns" class="table table-striped table-bordered nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="list_data_dossier.length == 0">
+                                                <td colspan="4" class="text-center">Veuillez choisir une colonne.</td>
+                                            </tr>
+                                            <tr *ngFor="let item of list_data_dossier ; let i = index">
+                                                <td>{{item.column_file}}</td>
+                                                <td>{{item.column_db_name}}</td>
+                                                <!-- <td>  <mat-checkbox class="example-margin" [checked]="item.required" color="primary"  (change)="onCheckboxChangeDossier(item, $event)"
+                                                    ></mat-checkbox>
+                                                </td> -->
+                                                <td>
+                                                    <div class="example-button-container">
+                                                        <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="delet_inTable_dossier(i)">
+                                                            <mat-icon>delete</mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="fr == 'garantie'">
+                      <div class="div_form mt-5">
+                        <div class="div_form_row">
+                          <div class="div_form_label">
+                            <mat-label>Fichier :  </mat-label>
+                          </div>
+                          <div class="div_form_inputs input_div">
+                              <button type="button" mat-raised-button (click)="fileInput.click()" >Choose File <mat-icon> insert_drive_file</mat-icon></button>
+                              <input class="form-control " name="img" type="file" #fileInput hidden (change)="onFileSelected($event , fr)" required>   <span style="color: #63d1f3;">{{file_garantie?.name}}</span>                        
+                          </div>
+                          
+                          <div class="div_form_label">
+                            <button type="button" mat-raised-button color="primary"  [disabled]="!disabled_generate_garantie" (click)="onButtonClickGarantie()" color="accent"><mat-icon> attach_file</mat-icon></button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card card-default col-md-12" id="block1" style="display:block;" *ngIf="data_garantie.verify == 1" >
+                        <div class="card-header text-primary"> Mapping de fichier :</div>
+                        <div class="card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Entétes de fichier</h4> 
+                                        <mat-form-field class="div_form_inputs input_div" appearance="outline" style="width: 100%">
+                                            <mat-select [(ngModel)]="column_file_select_garantie" [ngModelOptions]="{ standalone: true }" >
+                                                <mat-option *ngFor="let table of data_garantie.columns.data" [value]="table"  [disabled]="is_disable_file_garantie(table)">
+                                                    {{ table }} 
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Infos dans la base de données</h4>
+                                        <div class="div_form_inputs input_div">
+                                            <mat-form-field appearance="outline" style="width: 100%">
+                                                <mat-select  [(ngModel)]="column_db_select_garantie"   [ngModelOptions]="{standalone: true}">
+                                                    <mat-optgroup *ngFor="let group of list_columns_db_garantie" [label]="group.name" class="test"
+                                                        [disabled]="group.disabled">
+                                                        <mat-option  *ngFor="let item of group.items"  [value]="item" [disabled]="is_disable_column_garantie(item.id)">
+                                                            <ng-container *ngIf="item.table_bdd">
+                                                                {{item.titre_col}}
+                                                            </ng-container>
+                                                            <ng-container *ngIf="item.table_name" >
+                                                                {{item.champ_name}}
+                                                            </ng-container>
+                                                        </mat-option>
+                                                    </mat-optgroup>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"><br/><br/>
+                                        <button mat-raised-button color="primary" type="button" id="addCol" (click)="addColToTableGarantie()" class="btn btn-block" ><i class="fa fa-paperclip"></i></button>
+                                    </div>
+                                </div>
+                                <br/><br/>
+                                <div class="table-responsive" id="tableDetails">
+                                    <table id="tableColumns" class="table table-striped table-bordered nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="list_data_garantie.length == 0">
+                                                <td colspan="4" class="text-center">Veuillez choisir une colonne.</td>
+                                            </tr>
+                                            <tr *ngFor="let item of list_data_garantie ; let i = index">
+                                                <td>{{item.column_file}}</td>
+                                                <td>{{item.column_db_name}}</td>
+                                                <!-- <td>  <mat-checkbox class="example-margin" [checked]="item.required" color="primary"  (change)="onCheckboxChangeGarantie(item, $event)"
+                                                    ></mat-checkbox>
+                                                </td> -->
+                                                <td>
+                                                    <div class="example-button-container">
+                                                        <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="delet_inTable_garantie(i)">
+                                                            <mat-icon>delete</mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="fr == 'procedure_judicaire'">
+                      <div class="div_form mt-5">
+                        <div class="div_form_row">
+                          <div class="div_form_label">
+                            <mat-label>Fichier :  </mat-label>
+                          </div>
+                          <div class="div_form_inputs input_div">
+                              <button type="button" mat-raised-button (click)="fileInput.click()" >Choose File <mat-icon> insert_drive_file</mat-icon></button>
+                              <input class="form-control " name="img" type="file" #fileInput hidden (change)="onFileSelected($event , fr)" required>   <span style="color: #63d1f3;">{{file_procedure_judicaire?.name}}</span>                        
+                          </div>
+                          
+                          <div class="div_form_label">
+                            <button type="button" mat-raised-button color="primary"  [disabled]="!disabled_generate_procedure_judicaire" (click)="onButtonClickProc()" color="accent"><mat-icon> attach_file</mat-icon></button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card card-default col-md-12" id="block1" style="display:block;" *ngIf="data_procedure_judicaire.verify == 1" >
+                        <div class="card-header text-primary"> Mapping de fichier :</div>
+                        <div class="card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Entétes de fichier</h4> 
+                                        <mat-form-field class="div_form_inputs input_div" appearance="outline" style="width: 100%">
+                                            <mat-select [(ngModel)]="column_file_select_procedure_judicaire" [ngModelOptions]="{ standalone: true }" >
+                                                <mat-option *ngFor="let table of data_procedure_judicaire.columns.data" [value]="table"  [disabled]="is_disable_file_procedure_judicaire(table)">
+                                                    {{ table }} 
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Infos dans la base de données</h4>
+                                        <div class="div_form_inputs input_div">
+                                            <mat-form-field appearance="outline" style="width: 100%">
+                                                <mat-select  [(ngModel)]="column_db_select_procedure_judicaire"   [ngModelOptions]="{standalone: true}">
+                                                    <mat-optgroup *ngFor="let group of list_columns_db_procedure_judicaire" [label]="group.name" class="test"
+                                                        [disabled]="group.disabled">
+                                                        <mat-option  *ngFor="let item of group.items"  [value]="item" [disabled]="is_disable_column_procedure_judicaire(item.id)">
+                                                            <ng-container *ngIf="item.table_bdd">
+                                                                {{item.titre_col}}
+                                                            </ng-container>
+                                                            <ng-container *ngIf="item.table_name" >
+                                                                {{item.champ_name}}
+                                                            </ng-container>
+                                                        </mat-option>
+                                                    </mat-optgroup>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"><br/><br/>
+                                        <button mat-raised-button color="primary" type="button" id="addCol" (click)="addColToTableProc()" class="btn btn-block" ><i class="fa fa-paperclip"></i></button>
+                                    </div>
+                                </div>
+                                <br/><br/>
+                                <div class="table-responsive" id="tableDetails">
+                                    <table id="tableColumns" class="table table-striped table-bordered nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="list_data_procedure_judicaire.length == 0">
+                                                <td colspan="4" class="text-center">Veuillez choisir une colonne.</td>
+                                            </tr>
+                                            <tr *ngFor="let item of list_data_procedure_judicaire ; let i = index">
+                                                <td>{{item.column_file}}</td>
+                                                <td>{{item.column_db_name}}</td>
+                                                <!-- <td>  <mat-checkbox class="example-margin" [checked]="item.required" color="primary"  (change)="onCheckboxChangeProc(item, $event)"
+                                                    ></mat-checkbox>
+                                                </td> -->
+                                                <td>
+                                                    <div class="example-button-container">
+                                                        <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="delet_inTable_procedure_judicaire(i)">
+                                                            <mat-icon>delete</mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="fr == 'telephone'">
+                      <div class="div_form mt-5">
+                        <div class="div_form_row">
+                          <div class="div_form_label">
+                            <mat-label>Fichier :  </mat-label>
+                          </div>
+                          <div class="div_form_inputs input_div">
+                              <button type="button" mat-raised-button (click)="fileInput.click()" >Choose File <mat-icon> insert_drive_file</mat-icon></button>
+                              <input class="form-control " name="img" type="file" #fileInput hidden (change)="onFileSelected($event , fr)" required>   <span style="color: #63d1f3;">{{file_telephone?.name}}</span>                        
+                          </div>
+                          
+                          <div class="div_form_label">
+                            <button type="button" mat-raised-button color="primary"  [disabled]="!disabled_generate_telephone" (click)="onButtonClickTelephone()" color="accent"><mat-icon> attach_file</mat-icon></button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card card-default col-md-12" id="block1" style="display:block;" *ngIf="data_telephone.verify == 1" >
+                        <div class="card-header text-primary"> Mapping de fichier :</div>
+                        <div class="card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Entétes de fichier</h4> 
+                                        <mat-form-field class="div_form_inputs input_div" appearance="outline" style="width: 100%">
+                                            <mat-select [(ngModel)]="column_file_select_telephone" [ngModelOptions]="{ standalone: true }" >
+                                                <mat-option *ngFor="let table of data_telephone.columns.data" [value]="table"  [disabled]="is_disable_file_telephone(table)">
+                                                    {{ table }} 
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Infos dans la base de données</h4>
+                                        <div class="div_form_inputs input_div">
+                                            <mat-form-field appearance="outline" style="width: 100%">
+                                                <mat-select  [(ngModel)]="column_db_select_telephone"   [ngModelOptions]="{standalone: true}">
+                                                    <mat-optgroup *ngFor="let group of list_columns_db_telephone" [label]="group.name" class="test"
+                                                        [disabled]="group.disabled">
+                                                        <mat-option  *ngFor="let item of group.items"  [value]="item" [disabled]="is_disable_column_telephone(item.id)">
+                                                            <ng-container *ngIf="item.table_bdd">
+                                                                {{item.titre_col}}
+                                                            </ng-container>
+                                                            <ng-container *ngIf="item.table_name" >
+                                                                {{item.champ_name}}
+                                                            </ng-container>
+                                                        </mat-option>
+                                                    </mat-optgroup>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"><br/><br/>
+                                        <button mat-raised-button color="primary" type="button" id="addCol" (click)="addColToTableTelephone()" class="btn btn-block" ><i class="fa fa-paperclip"></i></button>
+                                    </div>
+                                </div>
+                                <br/><br/>
+                                <div class="table-responsive" id="tableDetails">
+                                    <table id="tableColumns" class="table table-striped table-bordered nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="list_data_telephone.length == 0">
+                                                <td colspan="4" class="text-center">Veuillez choisir une colonne.</td>
+                                            </tr>
+                                            <tr *ngFor="let item of list_data_telephone ; let i = index">
+                                                <td>{{item.column_file}}</td>
+                                                <td>{{item.column_db_name}}</td>
+                                                <!-- <td>  <mat-checkbox class="example-margin" [checked]="item.required" color="primary"  (change)="onCheckboxChangeTelephone(item, $event)"
+                                                    ></mat-checkbox>
+                                                </td> -->
+                                                <td>
+                                                    <div class="example-button-container">
+                                                        <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="delet_inTable_telephone(i)">
+                                                            <mat-icon>delete</mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="fr == 'adresse'">
+                      <div class="div_form mt-5">
+                        <div class="div_form_row">
+                          <div class="div_form_label">
+                            <mat-label>Fichier :  </mat-label>
+                          </div>
+                          <div class="div_form_inputs input_div">
+                              <button type="button" mat-raised-button (click)="fileInput.click()" >Choose File <mat-icon> insert_drive_file</mat-icon></button>
+                              <input class="form-control " name="img" type="file" #fileInput hidden (change)="onFileSelected($event , fr)" required>   <span style="color: #63d1f3;">{{file_adresse?.name}}</span>                        
+                          </div>
+                          
+                          <div class="div_form_label">
+                            <button type="button" mat-raised-button color="primary"  [disabled]="!disabled_generate_adresse" (click)="onButtonClickAdresse()" color="accent"><mat-icon> attach_file</mat-icon></button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card card-default col-md-12" id="block1" style="display:block;" *ngIf="data_adresse.verify == 1" >
+                        <div class="card-header text-primary"> Mapping de fichier :</div>
+                        <div class="card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Entétes de fichier</h4> 
+                                        <mat-form-field class="div_form_inputs input_div" appearance="outline" style="width: 100%">
+                                            <mat-select [(ngModel)]="column_file_select_adresse" [ngModelOptions]="{ standalone: true }" >
+                                                <mat-option *ngFor="let table of data_adresse.columns.data" [value]="table"  [disabled]="is_disable_file_adresse(table)">
+                                                    {{ table }} 
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Infos dans la base de données</h4>
+                                        <div class="div_form_inputs input_div">
+                                            <mat-form-field appearance="outline" style="width: 100%">
+                                                <mat-select  [(ngModel)]="column_db_select_adresse"   [ngModelOptions]="{standalone: true}">
+                                                    <mat-optgroup *ngFor="let group of list_columns_db_adresse" [label]="group.name" class="test"
+                                                        [disabled]="group.disabled">
+                                                        <mat-option  *ngFor="let item of group.items"  [value]="item" [disabled]="is_disable_column_adresse(item.id)">
+                                                            <ng-container *ngIf="item.table_bdd">
+                                                                {{item.titre_col}}
+                                                            </ng-container>
+                                                            <ng-container *ngIf="item.table_name" >
+                                                                {{item.champ_name}}
+                                                            </ng-container>
+                                                        </mat-option>
+                                                    </mat-optgroup>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"><br/><br/>
+                                        <button mat-raised-button color="primary" type="button" id="addCol" (click)="addColToTableAdresse()" class="btn btn-block" ><i class="fa fa-paperclip"></i></button>
+                                    </div>
+                                </div>
+                                <br/><br/>
+                                <div class="table-responsive" id="tableDetails">
+                                    <table id="tableColumns" class="table table-striped table-bordered nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="list_data_adresse.length == 0">
+                                                <td colspan="4" class="text-center">Veuillez choisir une colonne.</td>
+                                            </tr>
+                                            <tr *ngFor="let item of list_data_adresse ; let i = index">
+                                                <td>{{item.column_file}}</td>
+                                                <td>{{item.column_db_name}}</td>
+                                                <!-- <td>  <mat-checkbox class="example-margin" [checked]="item.required" color="primary"  (change)="onCheckboxChangeAdresse(item, $event)"
+                                                    ></mat-checkbox>
+                                                </td> -->
+                                                <td>
+                                                    <div class="example-button-container">
+                                                        <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="delet_inTable_adresse(i)">
+                                                            <mat-icon>delete</mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="fr == 'email'">
+                      <div class="div_form mt-5">
+                        <div class="div_form_row">
+                          <div class="div_form_label">
+                            <mat-label>Fichier :  </mat-label>
+                          </div>
+                          <div class="div_form_inputs input_div">
+                              <button type="button" mat-raised-button (click)="fileInput.click()" >Choose File <mat-icon> insert_drive_file</mat-icon></button>
+                              <input class="form-control " name="img" type="file" #fileInput hidden (change)="onFileSelected($event , fr)" required>   <span style="color: #63d1f3;">{{file_email?.name}}</span>                        
+                          </div>
+                          <div class="div_form_label">
+                            <button type="button" mat-raised-button color="primary"  [disabled]="!disabled_generate_email" (click)="onButtonClickEmail()" color="accent"><mat-icon> attach_file</mat-icon></button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card card-default col-md-12" id="block1" style="display:block;" *ngIf="data_email.verify == 1" >
+                        <div class="card-header text-primary"> Mapping de fichier :</div>
+                        <div class="card-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Entétes de fichier</h4> 
+                                        <mat-form-field class="div_form_inputs input_div" appearance="outline" style="width: 100%">
+                                            <mat-select [(ngModel)]="column_file_select_email" [ngModelOptions]="{ standalone: true }" >
+                                                <mat-option *ngFor="let table of data_email.columns.data" [value]="table"  [disabled]="is_disable_file_email(table)">
+                                                    {{ table }} 
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h4 class="sub-title">Infos dans la base de données</h4>
+                                        <div class="div_form_inputs input_div">
+                                            <mat-form-field appearance="outline" style="width: 100%">
+                                                <mat-select  [(ngModel)]="column_db_select_email"   [ngModelOptions]="{standalone: true}">
+                                                    <mat-optgroup *ngFor="let group of list_columns_db_email" [label]="group.name" class="test"
+                                                        [disabled]="group.disabled">
+                                                        <mat-option  *ngFor="let item of group.items"  [value]="item" [disabled]="is_disable_column_email(item.id)">
+                                                            <ng-container *ngIf="item.table_bdd">
+                                                                {{item.titre_col}}
+                                                            </ng-container>
+                                                            <ng-container *ngIf="item.table_name" >
+                                                                {{item.champ_name}}
+                                                            </ng-container>
+                                                        </mat-option>
+                                                    </mat-optgroup>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"><br/><br/>
+                                        <button mat-raised-button color="primary" type="button" id="addCol" (click)="addColToTableEmail()" class="btn btn-block" ><i class="fa fa-paperclip"></i></button>
+                                    </div>
+                                </div>
+                                <br/><br/>
+                                <div class="table-responsive" id="tableDetails">
+                                    <table id="tableColumns" class="table table-striped table-bordered nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="list_data_email.length == 0">
+                                                <td colspan="4" class="text-center">Veuillez choisir une colonne.</td>
+                                            </tr>
+                                            <tr *ngFor="let item of list_data_email ; let i = index">
+                                                <td>{{item.column_file}}</td>
+                                                <td>{{item.column_db_name}}</td>
+                                                <!-- <td>  <mat-checkbox class="example-margin" [checked]="item.required" color="primary"  (change)="onCheckboxChangeEmail(item, $event)"
+                                                    ></mat-checkbox>
+                                                </td> -->
+                                                <td>
+                                                    <div class="example-button-container">
+                                                        <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" (click)="delet_inTable_email(i)">
+                                                            <mat-icon>delete</mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Colonne dans la base de données</th>
+                                                <th>Colonne dans le fichier</th>
+                                                <!-- <th>Champ obligatoire</th> -->
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="button_next">
+                      <button *ngIf="fr == 'débiteur'" mat-button  mat-raised-button  (click)="div = 1" class="mr-1">Retour <mat-icon >navigate_before</mat-icon></button>
+                      <button *ngIf="fr != 'débiteur'" mat-button  mat-raised-button matStepperPrevious  class="mr-1">Retour <mat-icon >navigate_before</mat-icon></button>
+                      <button mat-button  mat-raised-button color="primary" (click)="goForward(stepper , fr)" *ngIf="!last">Suivant <mat-icon iconPositionEnd>navigate_next</mat-icon></button>
+                      <button mat-button  mat-raised-button color="primary"  (click)="createIntegration(stepper , fr , last)" *ngIf="last">Créer <mat-icon iconPositionEnd>create</mat-icon></button>
+                    </div>
+                    <div class="button_previous">
+                    </div>
+                  </mat-step>
+                  <mat-step label="Validation" >
+                    <div *ngIf="!data_integration" class="d-flex justify-content-center align-items-center">
+                        <mat-spinner class="custom-spinner"></mat-spinner>
+                      </div>    
+                    <div *ngIf="data_integration">
+                        <div class="task-dates col-md-6" *ngIf="data_integration">
+                            <div class="task-date"><span>Titre :</span>{{data_integration.titre}}</div>
+                            <div class="task-date">
+                                <span>L'état: 
+                                    <span *ngIf="data_integration.etat == 1" class="badge bg-warning">Planifiée</span>
+                                    <span *ngIf="data_integration.etat == 2" class="badge badge-priamry">En cours</span>
+                                    <span *ngIf="data_integration.etat == 3 " class="badge badge-inverse" >Terminé l'intégration dans DBI</span>
+                                    <span *ngIf="data_integration.etat == 4 " class="badge badge-success1" >Terminé</span>
+                                    <span *ngIf="data_integration.etat == 5 " class="badge badge-succes" >Validé</span>
+                                    <span *ngIf="data_integration.etat == 6 " class="badge badge-warning" >Annulé</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="task-dates col-md-6">
+                          <div class="task-date"><span>Date création:</span> {{data_integration.dateCreation | date:'dd-MM-yyyy HH:mm'}}</div>
+                          <div class="task-date">
+                            <span class="badge bg-inverse">{{data_integration.status.status}}</span>
+                            
+                          </div>
+                        </div>
+                    </div>
+                    <div class="button_next">
+                        <button mat-raised-button matStepperPrevious class="text-primary mr-2" class="text-primary" (click)="onReload()">Nouvelle intégration </button>
+                      <button mat-raised-button matStepperNext  color="primary" (click)="redirectToProgress()">Details <mat-icon iconPositionEnd>list_alt</mat-icon></button>
+                    </div>
+                  </mat-step>
+                </mat-stepper>
+      </div>
+      </div>
+  </div>
+</div>

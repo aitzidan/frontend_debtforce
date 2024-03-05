@@ -1,0 +1,118 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Modifier champs</h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="modalRef.close()"
+    
+  ></button>
+</div>
+<form (ngSubmit)="UpdateDeatilModel(table_name.value,champ_name.name,type_champ.value,length.value,
+type_creance.value)">
+<div class="modal-body">
+
+  
+  <div class="form-group input_div">
+    <label for="Element1" class="mr-5">Entitié : </label>
+    <mat-form-field appearance="outline">
+      <mat-label>Entité : </mat-label>
+    <mat-select
+      class="custom-input"
+      matInput
+      id="table"
+      name="table_name"
+      [(ngModel)]="data.table_name"
+      #table_name
+    >
+      <mat-option value="creance" >Creance</mat-option>
+      <mat-option value="dossier" >Dossier</mat-option>
+      <mat-option value="portefeuille" >Porte feuille</mat-option>
+      <mat-option value="detail_creance" >Detail creance</mat-option>
+      <mat-option value="donneur_ordre" >Donneur ordre</mat-option>
+    </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="form-group input_div">
+    <label for="Element2"class="mt-2">Label</label>
+    <mat-form-field appearance="outline">
+      <mat-label>Label : </mat-label>
+    <input
+      type="text"
+      class="custom-input"
+      matInput
+      id="Element2"
+      name="Element2"
+      [(ngModel)]="data.champ_name"
+      #champ_name
+    />
+    </mat-form-field>
+  </div>
+  
+  <div class="form-group input_div">
+    <label for="Element3"class="mt-2">Type :</label>
+    <mat-form-field appearance="outline">
+      <mat-label>Type : </mat-label>
+    <mat-select class="custom-input"matInput id="type_val" [(ngModel)]="data.type" #type_champ [ngModelOptions]="{standalone: true}">
+      <mat-option value="text">Text</mat-option>
+      <mat-option value="number">Number</mat-option>
+    </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="form-group input_div">
+    <label for="Element3"class="mt-2">Lentgh :</label>
+    <mat-form-field appearance="outline">
+      <mat-label>Length  </mat-label>
+    <input
+      type="number"
+      class="custom-input"
+      matInput
+      id="lentgh"
+      name="lentgh"
+      [(ngModel)]="data.length"
+      #length
+    />
+    </mat-form-field>
+  </div>
+
+  <div class="form-group input_div">
+    <label for="Element4" class="mt-2">Active : </label>
+
+    
+    <mat-radio-group [(ngModel)]="active"[ngModelOptions]="{standalone: true}">
+      <mat-radio-button color="primary" value="1"(change)="onActiveChange('1')">Oui</mat-radio-button>
+      <mat-radio-button color="primary" value="0"(change)="onActiveChange('0')">Non</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="form-group input_div">
+    <label for="Element5" class="">Type de creance : </label>
+    <mat-form-field appearance="outline">
+      <mat-label>Type creance  </mat-label>
+    <mat-select class="custom-input"matInput id="type_creance" [(ngModel)]="data.type_creance" #type_creance [ngModelOptions]="{standalone: true}">
+      <mat-option value="segmentation" >
+        Segmentation
+      </mat-option>
+      <mat-option value="creance" >Creance</mat-option>
+    </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="form-group input_div">
+    <label for="Element6" class="mt-2">Required : </label>
+
+   
+    <mat-radio-group [(ngModel)]="required"[ngModelOptions]="{standalone: true}">
+      <mat-radio-button color="primary" value="1"(change)="Required(true)">Oui</mat-radio-button>
+      <mat-radio-button color="primary" value="0"(change)="Required(false)">Non</mat-radio-button>
+    </mat-radio-group>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="modalRef.close()" mat-stroked-button color="primary">
+    Close
+  </button>
+  <button type="submit" class="btn btn-primary" mat-raised-button color="primary">
+    Save changes
+  </button>
+</div>
+</form>

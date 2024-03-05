@@ -1,0 +1,161 @@
+<div class="card card-default col-md-12 m-2"style="width:96%;">
+    <div class="card-header text-primary"> Liste des Utilisateurs</div>
+    <div class=" text-right">
+      <a class="btn btn-info py-3" href="/User" mat-raised-button color="primary" >Nouveau Utilistaeurs</a>
+    </div>
+    <div class="card-body table-responsive">
+        <!-- <table id="example" class="table table-striped table-bordered dt-responsive nowrap">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Image</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Cin</th>
+                <th>Tel</th>
+                <th>Mobile</th>
+                <th>Ville</th>
+                <th>Adresse</th>
+                <th>Status</th>
+                <th>Group</th>
+                <th>Imei</th>
+                <th>Rayon</th>
+                <th>pays</th>
+                
+                
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of users">
+                    <td>{{item.id}}</td>
+                    <td><img src="http://localhost:8001{{item.img}}" class="img-fluid w-50 h-50" alt=""></td>
+                    <td>{{item.nom}}</td>
+                    <td>{{item.prenom}}</td>
+                    <td>{{item.cin}}</td>
+                    <td>{{item.tel}}</td>
+                    <td>{{item.mobile}}</td>
+                    <td>{{item.ville}}</td>
+                    <td>{{item.adresse}}</td>
+                    <td>{{item.status}}</td>
+                    <td>{{item.titre}}</td>
+                    <td>{{item.imei}}</td>
+                    <td>{{item.rayon}}</td>
+                    <td>{{item.pays}}</td>
+                    <td>
+                        <a type="button" class="btn btn-warning btn-sm m-1" [routerLink]="['/ModifierUser', item.id]"><i class="fa fa-pencil-alt"></i></a>
+                        <button type="button" class="btn btn-danger btn-sm m-1" (click)="DeleteUser(item.id)" o><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>#</th>
+                <th>Image</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Cin</th>
+                <th>Tel</th>
+                <th>Mobile</th>
+                <th>Ville</th>
+                <th>Adresse</th>
+                <th>Status</th>
+                <th>Group</th>
+                <th>Imei</th>
+                <th>Rayon</th>
+                <th>pays</th>
+                
+                
+
+                <th></th>
+            </tr>
+            </tfoot>
+        </table> -->
+        <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="chercher()"
+        class="form-control m-2 p-2 w-50"
+        #cherchInput
+        placeholder="Search items"
+        
+      />
+        <mat-table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Position Column -->
+            <ng-container matColumnDef="#">
+              <th mat-header-cell *matHeaderCellDef> # </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+        
+            <!-- Name Column -->
+            <!-- <ng-container matColumnDef="image">
+              <th mat-header-cell *matHeaderCellDef> Profile </th>
+              <td mat-cell *matCellDef="let element"> <img src="http://localhost:8001{{element.img}}" class="img-fluid w-50 h-50" alt=""> </td>
+            </ng-container>
+         -->
+            <ng-container matColumnDef="nom">
+                <th mat-header-cell *matHeaderCellDef> Nom </th>
+                <td mat-cell *matCellDef="let element"> {{element.nom}}</td>
+              </ng-container>
+              <ng-container matColumnDef="prenom">
+                <th mat-header-cell *matHeaderCellDef> Prenom </th>
+                <td mat-cell *matCellDef="let element"> {{element.prenom}} </td>
+              </ng-container>
+              <ng-container matColumnDef="cin">
+                <th mat-header-cell *matHeaderCellDef> CIN </th>
+                <td mat-cell *matCellDef="let element"> {{element.cin}} </td>
+              </ng-container>
+              <ng-container matColumnDef="tel">
+                <th mat-header-cell *matHeaderCellDef> Telephone </th>
+                <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
+              </ng-container>
+              <ng-container matColumnDef="mobile">
+                <th mat-header-cell *matHeaderCellDef> Mobile </th>
+                <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
+              </ng-container>
+              <ng-container matColumnDef="ville">
+                <th mat-header-cell *matHeaderCellDef> Ville </th>
+                <td mat-cell *matCellDef="let element"> {{element.ville}} </td>
+              </ng-container>
+              <ng-container matColumnDef="adresse">
+                <th mat-header-cell *matHeaderCellDef> Adresse</th>
+                <td mat-cell *matCellDef="let element"> {{element.adresse}} </td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status</th>
+                <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+              </ng-container>
+              <ng-container matColumnDef="group">
+                <th mat-header-cell *matHeaderCellDef> Groupe</th>
+                <td mat-cell *matCellDef="let element"> {{element.titre}} </td>
+              </ng-container>
+              <ng-container matColumnDef="imei">
+                <th mat-header-cell *matHeaderCellDef> IMEI</th>
+                <td mat-cell *matCellDef="let element"> {{element.imei}} </td>
+              </ng-container>
+              <ng-container matColumnDef="rayon">
+                <th mat-header-cell *matHeaderCellDef> Rayon</th>
+                <td mat-cell *matCellDef="let element"> {{element.rayon}} </td>
+              </ng-container>
+              <ng-container matColumnDef="pays">
+                <th mat-header-cell *matHeaderCellDef> Pays</th>
+                <td mat-cell *matCellDef="let element"> {{element.pays}} </td>
+              </ng-container>
+
+            <ng-container matColumnDef="operation">
+              <th mat-header-cell *matHeaderCellDef> Opération </th>
+              <td mat-cell *matCellDef="let element"> 
+                <a type="button" class="btn btn-warning btn-sm m-1" ><i class="fa fa-pencil-alt"></i></a>
+                <button type="button" class="btn btn-danger btn-sm m-1"   o><i class="fa fa-trash"></i></button>   
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </mat-table>
+        
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                         showFirstLastButtons
+                         aria-label="Select page of periodic elements">
+          </mat-paginator>
+    </div>
+</div>

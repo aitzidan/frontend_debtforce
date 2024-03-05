@@ -1,0 +1,147 @@
+<div class="content-wrapper row">
+    <div class="card card-default col-md-3 mr-5 ml-4">
+        <div class="d-flex align-items-center justify-content-between">
+            <a onclick="history.back()" class="p-2 fw-normal " style="color:grey !important;cursor:pointer">
+                <i class="fa-solid fa fa-less-than"></i>
+                Retour</a>
+            <a href="" class="p-2 fw-normal " style="color:grey !important;">
+                <i class="fa-solid fa fa fa-bars p-1"></i>
+                Actions</a>
+        </div>
+        <a href="/parametrages/activite" class="p-2 fw-normal ">Compétences
+        </a>
+        <div class="card  card-default" style="border-top:solid #CFDBE2;">
+            <div class="p-2 fw-normal mt-0 ">
+                <span>
+                    Nombre des compétences</span>
+                <span class="badge rounded-pill text-bg-success ml-2">XXXX</span>
+            </div>
+            <div id="accordion">
+                <div class="text-center">
+                    <a class="float-end " href="/profils" style="color:grey;">
+                        Afficher Plus
+                        <i class="ml-2 fa-solid fa fa-eye "></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" col-md-8">
+        <div class=" col-md-12">
+            <div class="card card-default ">
+            <form   #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>    
+                <div class="card-body">
+                    <p class="card-description text-primary ">
+                        Créer une compétence
+                    </p>
+                    <fieldset>
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Titre</mat-label>
+                                    <input matInput placeholder="Titre competence"  [(ngModel)]="titreValue" name="titreValue">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-5">
+                                <mat-form-field>
+                                    <mat-label>Familles</mat-label>
+                                    <mat-select  required >
+                                        <mat-option  *ngFor="let f of familles" value="{{f.id}}">{{f.titre }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label" for="input-id-1">List des paramétrages
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="form-group groupe_checkbox col-md-10" id="param_list">
+                                <div class="form-check mr-2 form-check-primary" >
+                                    <label class="form-check-label">
+                                        <p><mat-checkbox *ngFor="let p of sousFamilles"  
+                                            name="{{ p.param.id }}"
+                                            [(ngModel)]="p.check"
+                                            color="primary" [checked]="true">{{p.param.type}}</mat-checkbox></p>
+                                        <i class="input-helper"></i>
+                                        <p  *ngFor="let p of sousFamilles">
+                                        </p>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-group row">
+                        <div class="col-md-6 offset-2">
+                            <table id="selectedParamsTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody><tr></tr></tbody>
+                            </table>
+                        </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <button mat-flat-button class="btn btn-primary "  (click)="onSubmit(f)" [disabled]="isDisabled">
+                                    <i class="fa-solid fa fa-plus"></i>
+                                    Ajouter</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+            
+            </div>
+            <div class="card card-default card card-default ">
+                <div class="card-body ">
+                    <p class="card-description text-primary">
+                        Liste des compétences
+                    </p>
+                    <div class="table-responsive">
+                        <table class=" table-data-table table table-hover" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Numéro
+                                    </th>
+                                    <th>
+                                        Titre
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>
+                                        Numéro
+                                    </th>
+                                    <th>
+                                        Titre
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

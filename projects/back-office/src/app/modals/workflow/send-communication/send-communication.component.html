@@ -1,0 +1,127 @@
+<div *ngIf="data.type == 'type_send'">
+    <h2 mat-dialog-title >Communication</h2>
+    <mat-dialog-content class="mat-typography" style="width: 700px;">
+        <h3 class="text-primary">Type de communication </h3>
+        <mat-selection-list #shoes [multiple]="false" >
+            <mat-list-option  *ngFor="let item of liste_type_comuunication" 
+                [ngStyle]="{'padding-bottom': '12px', 'border-left':item === type_selected ? '4px solid grey' : '1px solid grey' ,   'background-color': item === type_selected ? 'rgb(128 128 128 / 14%)' : 'rgb(128 129 128 / 3%)'}"
+                (click)="onItemSelectionChange(item)" [value]="item.id" >
+              <p style="padding-top: 8px;">
+                <span>
+                  <i class="fa-solid fa-diagram-project" style="color: #808284;"></i> {{ item.type_communication }}
+                </span>
+              </p>
+              <p class="badge-date" style="background-color: #03C988;">
+                <span class="span_date">
+                </span>
+              </p>
+            </mat-list-option>
+        </mat-selection-list>
+    </mat-dialog-content>   
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+      <button mat-button [mat-dialog-close]="type_selected" cdkFocusInitial [disabled]="disabledSaveBtnTypeCommunication()">Enreigestrer</button>
+    </mat-dialog-actions> 
+</div>
+<div *ngIf="data.modales == 'campagne_entrante'">
+  <h2 mat-dialog-title >Campagne</h2>
+  <mat-dialog-content class="mat-typography" style="width: 700px;">
+      <h3 class="text-primary">Type de campgane </h3>
+      <mat-selection-list #shoes [multiple]="false" >
+          <mat-list-option  *ngFor="let item of liste_type_campagne" 
+              [ngStyle]="{'padding-bottom': '12px', 'border-left':item === type_selected ? '4px solid grey' : '1px solid grey' ,   'background-color': item === type_selected ? 'rgb(128 128 128 / 14%)' : 'rgb(128 129 128 / 3%)'}"
+              (click)="onItemSelectionChange(item)" [value]="item.id" >
+            <p style="padding-top: 8px;">
+              <span>
+                <i class="fa-solid fa-diagram-project" style="color: #808284;"></i> {{ item.type_campagne }}
+              </span>
+            </p>
+            <p class="badge-date" style="background-color: #03C988;">
+              <span class="span_date">
+              </span>
+            </p>
+          </mat-list-option>
+      </mat-selection-list>
+  </mat-dialog-content>   
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+    <button mat-button [mat-dialog-close]="type_selected" cdkFocusInitial [disabled]="disabledSaveBtnTypeCommunication()">Enreigestrer</button>
+  </mat-dialog-actions> 
+</div>
+<div *ngIf="data.modales == 'model_campagne_entrante'">
+  <h2 mat-dialog-title >Liste modèles</h2>
+  <mat-dialog-content class="mat-typography" style="width: 700px;">
+      <h3 class="text-primary">Type de communication </h3>
+      <mat-selection-list #shoes [multiple]="false" >
+          <mat-list-option  *ngFor="let item of liste_models_campagne" 
+              [ngStyle]="{'padding-bottom': '12px', 'border-left':item === type_selected ? '4px solid grey' : '1px solid grey' ,   'background-color': item === type_selected ? 'rgb(128 128 128 / 14%)' : 'rgb(128 129 128 / 3%)'}"
+              (click)="onItemSelectionChange(item)" [value]="item.id" >
+            <p style="padding-top: 8px;">
+              <span>
+                <i class="fa-solid fa-diagram-project" style="color: #808284;"></i> {{ item.titre }}
+              </span>
+            </p>
+            <p class="badge-date" style="background-color: #03C988;">
+              <span class="span_date">
+              </span>
+            </p>
+          </mat-list-option>
+      </mat-selection-list>
+  </mat-dialog-content>   
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+    <button mat-button [mat-dialog-close]="type_selected" cdkFocusInitial [disabled]="disabledSaveBtnTypeCommunication()">Enreigestrer</button>
+  </mat-dialog-actions> 
+</div>
+
+<div *ngIf="data.type == 'model_send_communication'">
+  <h2 mat-dialog-title >Communication</h2>
+  <mat-dialog-content class="mat-typography" style="width: 700px;">
+      <h3 class="text-primary">Model de l'envoi </h3>
+      <mat-selection-list #shoes [multiple]="false" >
+          <mat-list-option  *ngFor="let item of liste_model_type" 
+              [ngStyle]="{'padding-bottom': '12px', 'border-left':item === type_selected ? '4px solid grey' : '1px solid grey' ,   'background-color': item === type_selected ? 'rgb(128 128 128 / 14%)' : 'rgb(128 129 128 / 3%)'}"
+              (click)="onItemSelectionChangeModel(item)" [value]="item.id" >
+            <p style="padding-top: 8px;">
+              <span>
+                <i class="fa-solid fa-diagram-project" style="color: #808284;"></i> {{ item.titre }}
+              </span>
+            </p>
+            <p class="badge-date" style="background-color: #03C988;">
+              <span class="span_date">
+              </span>
+            </p>
+          </mat-list-option>
+      </mat-selection-list>
+  </mat-dialog-content>   
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+    <button mat-button [mat-dialog-close]="model_selected" cdkFocusInitial [disabled]="disabledSaveBtnModelTypeCommunication()">Enreigestrer</button>
+  </mat-dialog-actions> 
+</div>
+<div *ngIf="data.type == 'assignation_affect'">
+  <h2 mat-dialog-title >Assigner à un externe</h2>
+  <mat-dialog-content class="mat-typography" style="width: 700px;">
+      <h3 class="text-primary"> Sélectioner qui assigner </h3>
+      <mat-selection-list #shoes [multiple]="false" >
+          <mat-list-option  *ngFor="let item of liste_type_externe" 
+              [ngStyle]="{'padding-bottom': '12px', 'border-left':item === type_selected ? '4px solid grey' : '1px solid grey' ,   'background-color': item === type_selected ? 'rgb(128 128 128 / 14%)' : 'rgb(128 129 128 / 3%)'}"
+              (click)="onItemSelectionChange(item)" [value]="item.id" >
+            <p style="padding-top: 8px;">
+              <span>
+                <i class="fa-solid fa-diagram-project" style="color: #808284;"></i> {{ item.name }}
+              </span>
+            </p>
+            <p class="badge-date" style="background-color: #03C988;">
+              <span class="span_date">
+              </span>
+            </p>
+          </mat-list-option>
+      </mat-selection-list>
+  </mat-dialog-content>   
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+    <button mat-button [mat-dialog-close]="type_selected" cdkFocusInitial [disabled]="disabledSaveBtnTypeCommunication()">Enreigestrer</button>
+  </mat-dialog-actions> 
+</div>
+

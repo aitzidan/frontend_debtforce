@@ -1,0 +1,68 @@
+<div class="card card-default col-md-12 m-2" style="width:96%;">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title text-primary">Portefeuilles</h4>
+        <!-- <p class="card-description">
+          Liste des portefeuilles
+        </p> -->
+        <div class=" text-right">
+              <a class="btn btn-info" routerLink="/portefeuille/ajout" mat-raised-button color="primary" >Nouveau porte feuille</a>
+            </div>
+        <div class="table-responsive mt-5">
+          <!--<input
+          type="text"
+          [(ngModel)]="searchTerm"
+          (input)="chercher()"
+          class="form-control m-2 p-2 w-50"
+          #cherchInput
+          placeholder="Search items"
+          
+        />-->
+          <table class="table table-hover" id="myTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Titre</th>
+                    <th>Numèro de porte feuille</th>
+                    <th>Durée gestion</th>
+                    <th>Date debut gestion</th>
+                    <th>Date fin gestion</th>
+                    <th>Type mission</th>
+                    <th>Type créancce</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr *ngFor="let item of portefeuille">
+                      <td>{{item.id}}</td>
+                      <td>{{item.titre}}</td>
+                      <td>{{item.numero_ptf}}</td>
+                      <td>{{item.duree_gestion }}</td>
+                      <td>{{item.date_debut_gestion |date:'longDate'}}</td>
+                      <td>{{item.date_fin_gestion |date:'longDate'}}</td>
+                      <td>{{item.type_mission}}</td>
+                      <td>{{item.type_creance}}</td>
+                      <td>
+                        <a type="button" class="btn btn-warning btn-sm m-1" [routerLink]="['/ModifierPtf', item.id]"><i class="fa fa-pencil-alt"></i></a>
+                        <button type="button" class="btn btn-danger btn-sm m-1" (click)="DeletePtf(item.id)" o><i class="fa fa-trash"></i></button>
+                       </td>
+                    </tr>
+            </tbody> 
+            <thead>
+               <tr>
+                    <th>#</th>
+                    <th>Titre</th>
+                    <th>Numèro de porte feuille</th>
+                    <th>Durée gestion</th>
+                    <th>Date debut gestion</th>
+                    <th>Date fin gestion</th>
+                    <th>Type mission</th>
+                    <th>Type créancce</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+</div>

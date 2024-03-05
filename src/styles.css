@@ -1,0 +1,258 @@
+/* You can add global styles to this file, and also import other style files */
+@import './assets/backTemplate/css/app-rtl.css';
+@import './assets/backTemplate/vendor/@fortawesome/fontawesome-free/css/brands.css';
+@import './assets/backTemplate/vendor/@fortawesome/fontawesome-free/css/regular.css';
+@import './assets/backTemplate/vendor/@fortawesome/fontawesome-free/css/solid.css';
+@import './assets/backTemplate/vendor/@fortawesome/fontawesome-free/css/fontawesome.css';
+@import './assets/backTemplate/vendor/simple-line-icons/css/simple-line-icons.css';
+@import './assets/backTemplate/vendor/animate.css/animate.css';
+@import './assets/backTemplate/vendor/whirl/dist/whirl.css';
+@import './assets/backTemplate/vendor/weather-icons/css/weather-icons.css';
+@import './assets/backTemplate/css/bootstrap.css';
+@import './assets/backTemplate/css/app.css';
+@import './assets/backTemplate/css/datatables.css';
+@import './assets/backTemplate/css/style.css';
+@import './assets/backTemplate/css/select2.min.css';
+
+.wrapper .aside-container .aside-inner {
+  padding-top: 0px;
+}
+.loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+    }
+
+    .loader-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .loader-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: loader-spin 2s linear infinite;
+    margin-bottom: 10px;
+    margin: 20px auto;
+    }
+    .loader-text {
+    font-weight: bold;
+    }
+
+    @keyframes loader-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.text-grey{
+  color:rgb(194, 186, 186)
+}
+.text-primary {
+    color: #3f51b5!important;
+}
+.text-primary2 {
+  color: #23b7e5!important;
+}
+.text-grey {
+  color: #808080b3!important;
+}
+.text-danger {
+    color: #f44336!important;
+}
+.text-orange {
+  color: #fc8900!important;
+}
+.bold{
+  font-weight: 500 !important;
+}
+.btn-success{
+  background-color: #03C988;
+}
+.btn-danger {
+  background-color: #f44336;
+}
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+    border-bottom-color: rgb(63 81 181);
+  }
+.input-file{
+    background: whitesmoke;
+    padding: 10px;
+    border-bottom: 1px solid #3f51b5;
+    
+    margin-bottom: 23px;
+
+}
+/* For input design */
+.input_div .mat-mdc-text-field-wrapper {
+height: 40px !important;
+}
+.input_div .mat-mdc-form-field-flex {
+margin-top: -7px !important;
+}
+.mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label {
+top: 22px !important;
+}
+.mat-mdc-form-field .mat-mdc-floating-label.mdc-floating-label {
+    font-size: small;
+}
+.div_form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.div_form_row {
+display: flex;
+align-items: center; /* Align items vertically */
+margin-bottom: 10px; /* Adjust spacing between rows */
+}
+
+.div_form_label {
+flex: 1; /* Expand to take available space */
+margin-right: 10px; /* Adjust spacing between label and input */
+}
+  
+.div_form_inputs {
+flex: 3; /* Expand to take available space */
+}
+
+
+/*---Groupe select*/
+.mat-mdc-optgroup-label {
+    font-size: medium;
+    font-weight: bold;
+}
+
+/**Liste groupe */
+ /* Nested list styling */
+ .nested-list {
+    margin-left: 20px;
+  }
+  .child-li{
+    list-style: decimal-leading-zero;
+  }
+  li[_ngcontent-kqj-c31] {
+    padding: 0px !important;
+  }
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  
+   .mat-mdc-list-option .mdc-radio {
+    display: none !important;
+  }
+  
+   .mat-mdc-list-base .mdc-list-item__start, .mat-mdc-list-base .mdc-list-item__end, .mat-mdc-list-base .mdc-list-item__content{
+    margin-top: 16px !important;
+  }
+  .custom-spinner {
+    height: 57px !important; /* Adjust the height value as needed */
+    width: 57px !important;  /* Set width to maintain aspect ratio */
+  }
+   .mdc-list-item.mdc-list-item--with-one-line{
+    margin-bottom: 16px;
+  }
+  .badge-date{
+    color:white;
+    background-color: #03C988; 
+    width: fit-content; 
+    padding-left: 12px; 
+    padding-right: 12px; 
+    border-radius: 10px;
+  }
+  .span_date{
+    font-size: smaller;
+  }
+
+  /*toast style*/
+  .toast-error{
+    background-color: #f44336 !important;
+  }
+  .toast-success{
+    background-color: #03C988 !important;
+  }
+
+  /*Retour */
+  .retour-title{
+    color: grey !important;
+  }
+  .badge-priamry{
+    background-color: #3498db;
+  }
+  
+
+  /*Work flow design*/
+  /* body,
+input,
+textarea,
+button {
+	font: 13px/1.3em Arial, Verdana, Serif;
+}
+body {
+	margin: 0;
+	padding: 0;
+} */
+a {
+	color: #2c18df;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+.full-width {
+	width: 100%;
+}
+textarea {
+	font-size: 9pt !important;
+	line-height: 1.2em !important;
+}
+
+.sqd-designer-angular {
+	width: 100vw;
+	height: 50vh;
+}
+.sqd-editor {
+	padding: 10px;
+}
+
+.block {
+	text-align: center;
+	margin: 10px;
+}
+.sqd-layout-desktop .sqd-smart-editor {
+  /* position: relative; */
+  width: 482px !important;
+}
+.sqd-step-task.sqd-type-time .sqd-step-task-rect.sqd-selected{
+  stroke: #83181800 !important;
+  stroke-width: 2 !important;
+  fill: #9b2c1d00
+}
+.sqd-step-task.sqd-type-time .sqd-step-task-rect{
+  stroke: #83181800 !important;
+  stroke-width: 2 !important;
+  fill: #9b2c1d00
+}
+.text-accent{
+  color:#ff4081
+}

@@ -1,0 +1,45 @@
+ /* Nested list styling */
+ .nested-list {
+    margin-left: 20px;
+  }
+  .child-li{
+    list-style: decimal-leading-zero;
+  }
+  li[_ngcontent-kqj-c31] {
+    padding: 0px !important;
+  }
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  
+  ::ng-deep .mat-mdc-list-option .mdc-radio {
+    display: none !important;
+  }
+  
+  ::ng-deep .mat-mdc-list-base .mdc-list-item__start, .mat-mdc-list-base .mdc-list-item__end, .mat-mdc-list-base .mdc-list-item__content{
+    margin-top: 16px !important;
+  }
+  .custom-spinner {
+    height: 57px !important; /* Adjust the height value as needed */
+    width: 57px !important;  /* Set width to maintain aspect ratio */
+  }
+  ::ng-deep .mdc-list-item.mdc-list-item--with-one-line{
+    margin-bottom: 16px;
+  }
+  .badge-date{
+    color:white;
+    background-color: #03C988; 
+    width: fit-content; 
+    padding-left: 12px; 
+    padding-right: 12px; 
+    border-radius: 10px;
+  }
+  .span_date{
+    font-size: smaller;
+  }
+  .lineHeight70{
+    height: auto;
+    line-height: 70px;
+  }

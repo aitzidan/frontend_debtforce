@@ -1,0 +1,88 @@
+<div class="card card-default col-md-12 m-2"style="width:96%;">
+    <div class="card">
+      <div class="card-body">
+        <div class="div_header">
+              <div class="title">
+                <h4 class="card-title">Donneur ordre Contact Update</h4>
+              </div> 
+              <div>
+
+              </div>
+        </div>
+        <div id="container" style="padding-bottom: 0vh;">
+          <div id="">
+                <p class="card-description mt-4">
+                    Modifier contact donneur d'ordre
+                </p>  
+                <form class="" method="POST" (ngSubmit)="UpdateContact(nom.value,prenom.value,poste.value,email.value,tel.value,fix.value,adresse.value)">
+                  <div class="form-group row input_div">
+                    <label class="col-sm-2 col-form-label">Nom <span class="text-danger">*</span></label>
+                    <div class="col-sm-10">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Nom </mat-label>
+                    <input type="text"matInput class="custom-input" name="nom"#nom [value]="contact[0].nom"  >
+                    </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="form-group row input_div">
+                    <label class="col-sm-2 col-form-label">Prenom <span class="text-danger">*</span></label>
+                    <div class="col-sm-10">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Prenom </mat-label>
+                    <input type="text"matInput class="custom-input" name="prenom"#prenom [value]="contact[0].prenom">
+                    </mat-form-field>
+                    </div>
+                  </div>
+                   <div class="form-group row input_div">
+                  <label class="col-sm-2 col-form-label">Poste <span class="text-danger">*</span> </label>
+                   <div class="col-sm-10">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Poste </mat-label>
+                    <input type="text"matInput class=" custom-input" name="poste" #poste [value]="contact[0].poste" >
+                    </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="form-group row input_div">
+                  <label class="col-sm-2 col-form-label">Email <span class="text-danger">*</span></label>
+                   <div class="col-sm-10">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Email </mat-label>
+                    <input type="email"matInput class="custom-input" name="email"#email [value]="contact[0].email">
+                    </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="form-group row input_div">
+                  <label class="col-sm-2 col-form-label">Téléphone <span class="text-danger">*</span></label>
+                   <div class="col-sm-10">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Telephone </mat-label>
+                    <input type="text"matInput class="custom-input" name="tel" #tel [value]="contact[0].tel">
+                    </mat-form-field>
+                  </div>
+                  </div>
+                    <div class="form-group row input_div">
+                  <label class="col-sm-2 col-form-label">Fix </label>
+                   <div class="col-sm-10">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Fix </mat-label>
+                    <input type="text"matInput class=" custom-input" name="fix"   #fix [value]="contact[0].mobile">
+                   </mat-form-field> 
+                  </div>
+                  </div>
+                  <div class="form-group row input_div">
+                  <label class="col-sm-2 col-form-label">Adresse </label>
+                   <div class="col-sm-10">
+                    <mat-form-field appearance="outline">
+                                      <mat-label>Adresse </mat-label>
+                    <input type="text"matInput class=" custom-input" name="adresse"  #adresse  [value]="contact[0].adresse">
+                   </mat-form-field> 
+                  </div>
+                  </div>
+                  <div class="form-group row div_btn">
+                    <button type="submit" class=" btn btn-success   col-sm-12  form-control-sm"mat-raised-button color="primary" > Ajouter</button>
+                  </div>
+                </form>
+          </div>
+        </div>
+
+</div>

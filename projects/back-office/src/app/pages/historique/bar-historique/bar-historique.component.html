@@ -1,0 +1,17 @@
+<div class="d-flex align-items-center justify-content-between">
+    <a href="" class="p-2 fw-normal retour-title" ><i class="fa fa-solid fa-less-than "></i> Retour</a>
+  </div>  
+  <h4 class="card-header text-primary" >Historique </h4>
+  
+  <mat-selection-list #shoes [multiple]="false" style="overflow-x: auto;height: 900px;" class="">
+    <mat-list-option style="height:70px" *ngFor="let shoe of listes_histo"  (click)="updateVariable(shoe.id)"
+    [ngStyle]="{'height': '70px' , 'border-left':'3px solid #ff4081' ,'background-color': shoe === histo_selected ? 'rgb(128 128 128 / 14%)' : 'rgb(128 129 128 / 3%)'}"
+      [value]="shoe.id" [disabled]="shoe.isDisabled" >
+      <p style="padding-top: 8px;" class="text-bold">
+        <span>
+        {{ shoe.name }}
+        </span>
+      </p>
+      
+    </mat-list-option>
+  </mat-selection-list> 

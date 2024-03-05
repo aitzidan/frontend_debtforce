@@ -1,0 +1,50 @@
+<div *ngIf="data.type == 'type_agent'">
+    <h2 mat-dialog-title >Agent</h2>
+    <mat-dialog-content class="mat-typography" style="width: 700px;">
+        <h3 class="text-primary">Type agent : </h3>
+        <mat-selection-list #shoes [multiple]="false" >
+            <mat-list-option style="" *ngFor="let item of liste_type_agent" 
+                [ngStyle]="{'padding-bottom': '12px', 'border-left':item === type_agent_selected ? '4px solid grey' : '1px solid grey' ,   'background-color': item === type_agent_selected ? 'rgb(128 128 128 / 14%)' : 'rgb(128 129 128 / 3%)'}"
+                (click)="onItemSelectionChange(item)" [value]="item.id" >
+              <p style="padding-top: 8px;">
+                <span>
+                  <i class="fa-solid fa-diagram-project" style="color: #808284;"></i> {{ item.type }}
+                </span>
+              </p>
+              <p class="badge-date" style="background-color: #03C988;">
+                <span class="span_date">
+                </span>
+              </p>
+            </mat-list-option>
+        </mat-selection-list>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+      <button mat-button [mat-dialog-close]="type_agent_selected" cdkFocusInitial [disabled]="disabledSaveBtnTypeAgent()">Enreigestrer</button>
+    </mat-dialog-actions> 
+</div>
+<div *ngIf="data.type == 'type_call'">
+    <h2 mat-dialog-title >Appel</h2>
+    <mat-dialog-content class="mat-typography" style="width: 700px;">
+        <h3 class="text-primary">Type d'appel : </h3>
+        <mat-selection-list #shoes [multiple]="false" >
+            <mat-list-option  *ngFor="let item of liste_type_call" 
+                [ngStyle]="{'padding-bottom': '12px', 'border-left':item === type_agent_selected ? '4px solid grey' : '1px solid grey' ,   'background-color': item === type_agent_selected ? 'rgb(128 128 128 / 14%)' : 'rgb(128 129 128 / 3%)'}"
+                (click)="onItemSelectionChangeTypeCall(item)" [value]="item.id" >
+              <p style="padding-top: 8px;">
+                <span>
+                  <i class="fa-solid fa-diagram-project" style="color: #808284;"></i> {{ item.type }}
+                </span>
+              </p>
+              <p class="badge-date" style="background-color: #03C988;">
+                <span class="span_date">
+                </span>
+              </p>
+            </mat-list-option>
+        </mat-selection-list>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+      <button mat-button [mat-dialog-close]="type_call_selected" cdkFocusInitial [disabled]="disabledSaveBtnTypeCall()">Enreigestrer</button>
+    </mat-dialog-actions> 
+</div>

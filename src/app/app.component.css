@@ -1,0 +1,4 @@
+.mat_list_scroll {
+    overflow-y: scroll !important;
+    height: 600px !important;
+}

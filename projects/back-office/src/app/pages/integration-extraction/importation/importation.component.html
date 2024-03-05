@@ -1,0 +1,151 @@
+<style>
+  .parent_flex{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .div_child_flex{
+    width: 50%;
+  }
+</style>
+<div class="d-flex flex-row">
+<!--
+-->
+   <app-bar-integration class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-integration>
+ <div class=" col-md-8 mt-4">
+  <div class="card card-default">
+    <div class="card-body">
+      <h4 class="card-description text-primary ">
+          Importation
+      </h4>
+      <!--Form-->
+      <form >
+        <div class="div_form mt-5">
+          <div class="div_form_row">
+            <div class="div_form_label">
+              <mat-label>Porte feuille <span class="text-danger">*</span>:</mat-label>
+            </div>
+            <div class="div_form_inputs input_div">
+              <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Porte feuille</mat-label>
+                <mat-select required [(ngModel)]="ptf_select" [ngModelOptions]="{ standalone: true }"  >
+                  <mat-option *ngFor="let f of liste_ptf" [value]="f.id">{{ f.titre }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="div_form_row">
+            <div class="div_form_label">
+                <mat-label>Titre <span class="text-danger">*</span>:</mat-label>
+            </div>
+            <div class="div_form_inputs input_div">
+                <mat-form-field  appearance="outline" style="width: 100%">
+                <mat-label>Titre</mat-label>
+                <input matInput class="custom-input" [ngModelOptions]="{ standalone: true }" placeholder="Titre" [(ngModel)]="titre_integration"  required>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="div_form ">
+          <div class="div_form_row">
+            <div class="div_form_label">
+              <mat-label>Schéma <span class="text-danger">*</span>:</mat-label>
+            </div>
+            <div class="div_form_inputs input_div">
+              <mat-form-field appearance="outline" style="width: 100%">
+                <mat-label>Schéma</mat-label>
+                <mat-select required [(ngModel)]="model_select" [ngModelOptions]="{ standalone: true }"  >
+                  <mat-option *ngFor="let f of liste_models" [value]="f.id">{{ f.titre }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="div_form_row">
+          <div class="ml-1 div_form_label">
+              <mat-label>Fichier  <span class="text-danger">*</span>:</mat-label>
+          </div>
+          <div class="div_form_inputs input_div">
+              <input  type="file" class="" (change)="onFileSelected($event)">
+          </div>
+        </div>
+        <div class="text-center mt-3">
+          <button mat-flat-button   (click)="saveIntegration()"  color="primary"><i class="fa fa-save text-white"></i> Enrigestrer</button>
+        </div>
+          <!--
+            <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+              {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+            </button>-->
+            <!--<mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+              <mat-step [stepControl]="firstFormGroup">
+                <form [formGroup]="firstFormGroup">
+                    <ng-template matStepLabel>Créance</ng-template>
+                    <div class="mt-1 parent_flex">
+                      <div class="div_child_flex">
+                        <label class="col-md-2 col-form-label" for="input-id-1">Modèle  </label>
+                        <mat-form-field appearance="outline">
+                          <mat-label>Tables</mat-label>
+                          <mat-select  [(ngModel)]="creance_module" [ngModelOptions]="{ standalone: true }">
+                              <mat-option *ngFor="let table of list_modules_creance" [value]="table.id" >{{ table.titre }}</mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      </div>
+                      <div class="div_child_flex" style="text-align: right;">
+                        <button mat-raised-button id="toggle-linear" (click)="openDialog()">
+                          Créer un modèle
+                        </button>
+                      </div>
+                    </div>
+                    <div class="mt-1 parent_flex">
+                      <div class="div_child_flex">
+                        <label class="col-md-2 col-form-label" for="input-id-1">Fichier  <span class="text-danger">*</span></label>
+                        <input  type="file" class="input-file" (change)="onFileSelectedCreance($event)" >
+                      </div>
+                    </div>
+                  <div class="mt-2">
+                    <button mat-flat-button  color="primary" matStepperNext (click)="setActionCreance()">Suivant</button>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step [stepControl]="secondFormGroup">
+                <form [formGroup]="secondFormGroup">
+                  <ng-template matStepLabel>Donneur ordre</ng-template>
+                    <div class="mt-1 parent_flex">
+                      <div class="div_child_flex">
+                        <label class="col-md-2 col-form-label" for="input-id-1">Modèle  </label>
+                        <mat-form-field appearance="outline" >
+                          <mat-label>Tables</mat-label>
+                          <mat-select  [(ngModel)]="donneur_ordre_module" [ngModelOptions]="{ standalone: true }">
+                              <mat-option *ngFor="let table of list_modules_donneur_ordre" [value]="table.id" >{{ table.titre }}</mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      </div>
+                      <div class="div_child_flex" style="text-align: right;">
+                        <button mat-raised-button id="toggle-linear" (click)="openDialog()">
+                          Créer un modèle
+                        </button>
+                      </div>
+                    </div>
+                    <div class="mt-1 parent_flex">
+                      <div class="div_child_flex">
+                        <label class="col-md-2 col-form-label" for="input-id-1">Fichier  <span class="text-danger">*</span></label>
+                        <input  type="file" class="input-file" (change)="onFileSelectedDonneurOrdre($event)" >
+                      </div>
+                    </div>
+                  <div class="mt-2">
+                    <button mat-flat-button  color="primary" matStepperNext (click)="setActionDonneur_ordre()">Suivant</button>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step>
+                <ng-template matStepLabel>Validation</ng-template>
+                <div>
+                  <button mat-flat-button  color="warn" (click)="save_importation()">Enreigestrer</button>
+                </div>
+              </mat-step>
+            </mat-stepper>-->
+           
+    </form>
+    </div>
+  </div>
+</div>
+</div>

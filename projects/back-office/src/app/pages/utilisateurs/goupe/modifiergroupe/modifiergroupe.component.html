@@ -1,0 +1,67 @@
+<div class="card card-default col-md-12 m-2" style="width:98%;">
+    <div class="card-header">
+        Modification du groupe</div>
+    <div class="card-body">
+        <form class="form-horizontal" method="POST" (ngSubmit)="UpdateGroupe(titre.value,status.value)">
+            <fieldset>
+                <div class="form-group row input_div">
+                    <label class="col-md-2 col-form-label" for="input-id-1">Titre</label>
+                    <div class="col-md-10">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Titre </mat-label>
+                        <input class="custom-input"matInput name="titre" type="text" [value]="group.groupe[0].titre" #titre>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="last-child">
+                <div class="form-group row input_div">
+                    <label class="col-md-2 col-form-label">Status</label>
+                    <div class="col-md-10">
+
+                        <!-- <select class="custom-select custom-select-sm" name="status" [(ngModel)]="group.groupe[0].status" #status>
+                            <option selected disabled hidden>Séléctionner le statut</option>
+                            <option value="1" [selected]="group.status == 1">One</option>
+                            <option value="2" [selected]="group.status == 2">Two</option>
+                            <option value="3" [selected]="group.status == 3">Three</option>
+                        </select> -->
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Status</mat-label>
+                            <mat-select class="custom-input" [(value)]="group.groupe[0].status" #status>
+                                <mat-option value="1" >One</mat-option>
+                                <mat-option value="2" >Two</mat-option>
+                                <mat-option value="3" >Three</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-group row input_div">
+                    <label class="col-md-2 col-form-label">Profils</label>
+                    <div class="col-md-10">
+                        <!-- <select class="custom-select" name="ary[]" multiple [(ngModel)]="ary">
+                                <option *ngFor="let item of profils" value="{{item.id}}"  [selected]="group.id_profil_id == item.id">{{item.titre}}</option>
+                        </select> -->
+
+                        <mat-form-field appearance="outline">
+                            <mat-label>Profils</mat-label>
+                            <mat-select class="custom-input" name="ary[]" multiple [(ngModel)]="ary">
+                              <mat-option *ngFor="let item of profils" [value]="item.id" >
+                                {{ item.titre }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          
+                          
+                          
+                          
+                          
+                    </div>
+                </div>
+            </fieldset>
+            <button type="submit" class="btn btn-primary" value="Créer le groupe" mat-raised-button color="primary">Enregistrer les modifications</button>
+        </form>
+    </div>
+</div>

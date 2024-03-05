@@ -1,0 +1,15 @@
+
+  <h1 mat-dialog-title>Liste de paramétrages d'activité </h1>
+  <div mat-dialog-content>
+  <p>Sélect une {{data.type}} : </p>
+  <mat-form-field class="mr-1">
+    <mat-label>Liste de paramétrages</mat-label>
+    <mat-select  required [(ngModel)]="data.param_select_from_dialog">
+      <mat-option  *ngFor="let f of data.params" [value]="f.id">{{ f.type }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">Annuler</button>
+  <button mat-button [mat-dialog-close]="(data.param_select_from_dialog)"  cdkFocusInitial>Ajouter</button>
+</div>

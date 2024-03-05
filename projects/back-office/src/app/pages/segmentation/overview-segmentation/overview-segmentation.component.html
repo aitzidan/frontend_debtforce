@@ -1,0 +1,46 @@
+<div class="d-flex flex-row">
+    <app-bar-segmentation class="card card-default col-md-3 mr-5 ml-4 mt-4">
+          </app-bar-segmentation>
+    <div class=" col-md-8 mt-4">
+        <div class="card card-default">
+        <div class="card-body">
+            <h4 class="card-description text-primary ">
+                Segmentation
+            </h4> 
+            <div class="text-end" style="padding-right: 2rem;">
+                <button type="button" mat-flat-button color="primary"  routerLink="/create-segment" >
+                    Segmentation 
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+        </div>
+        <form class="forms-sample"  #f="ngForm" class="mt-5" >
+            <div class="div_form_inputs input_div">
+                <mat-form-field  appearance="outline" style="width: 100% !important" style="padding: 2rem;">
+                  <mat-label style="font-size: small;">Recherche </mat-label>
+                  <input matInput placeholder="Titre" class="custom-input" required >
+                  <button  matSuffix mat-icon-button aria-label="Clear" >
+                    <mat-icon>search</mat-icon>
+                  </button>
+                </mat-form-field>
+                </div>
+                <div class="grid">
+                  <div *ngFor="let item of list_segment; let i = index"
+                        class="item"
+                        [ngClass]="{
+                          'item--1x1': i % 4 === 0,
+                          'item--1x2': i % 4 === 1,
+                          'item--2x2': i % 4 === 2,
+                          'item--2x1': i % 4 === 3
+                        }"
+                        routerLink="/update-segment/{{item.id}}"
+                        >
+                        {{ item.nomSegment }}<br>
+                        Nombre  creance 515<br>
+                        Nombre Débiteur 1000
+                  </div>
+                </div>
+            </form>
+        </div>
+        </div>
+  </div>
+</div>

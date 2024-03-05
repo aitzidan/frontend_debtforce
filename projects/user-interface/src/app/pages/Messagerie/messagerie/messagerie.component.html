@@ -1,0 +1,60 @@
+<div class="d-flex flex-row">
+    <app-bar-messagerie class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-messagerie>
+    <div class="col-md-8 mt-4">
+      <div class="card card-default" style="height: 98%;"  *ngIf="conversationId != 0">
+        <div  class="card-body">
+          <h4 class="card-description text-primary">
+            Conversation
+          </h4>
+          <div class="chat-window">
+            <div class="message-container" *ngFor="let message of list_messages">
+              <div class="message {{ message.senderType }}">
+                {{ message.messageContent }}
+              </div>
+              <div class="message-timestamp-{{message.senderType}}">
+                {{ message.date | date: 'HH:mm' }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="new-message">
+            <input type="text" placeholder="Type your message" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()"/>
+            <button (click)="sendMessage()">Envoyer</button>
+          </div>
+  
+      </div>
+
+      <div class="card card-default" style="height: 98%;" *ngIf="conversationId == 0">
+        <!-- Existing code for conversation -->
+        <!-- ... -->
+        <div class="new-message">
+          <textarea placeholder="Type your message" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()"></textarea>
+
+        <div class="recipient-container">
+          <select [(ngModel)]="recipients" multiple>
+            <option *ngFor="let user of listUsers" [ngValue]="user.id">{{ user.nom }} {{user.prenom}}</option>
+          </select>
+        </div>
+        
+        <div *ngIf="showUserList" class="user-list">
+          <ul>
+            <li *ngFor="let user of listUsers">
+              <input type="checkbox" [(ngModel)]="user.selected" (change)="toggleRecipient(user)">
+              {{ user.full_name }}
+            </li>
+          </ul>
+        </div>
+
+
+          <button (click)="sendMessageAll()">Envoyer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  

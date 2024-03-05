@@ -1,0 +1,82 @@
+
+
+<div class="d-flex align-items-center justify-content-between">
+    <a href="" class="p-2 fw-normal retour-title" ><i class="fa fa-solid fa-less-than "></i> Retour</a>
+  </div>  
+  <div class="card mt-2p-2 " >
+    <div *ngIf="!isDeb; else deb">
+      <div  class="d-flex justify-content-center align-items-center">
+        <mat-spinner class="custom-spinner"></mat-spinner>
+      </div>  
+    </div>
+    <ng-template #deb>
+      <div class="d-flex justify-content-start p-3" #deb>
+        <div class="d-flex flex-column">
+          <div class="d-flex flex-row align-items-center">
+              <div class="icon"> <i class="fa-solid fa-user"></i></div>
+              <div id="dot" class=" mx-2"></div>
+              <div class="ms-2 c-details">
+                  <!-- <h5 class="mb-0 p-2 fs-7 text-primary">{{debiteur.nom}} {{debiteur.prenom}} <span class="text-grey"style=" ;font-size: x-small;"></span></h5>  -->
+              </div>
+          </div>
+          <div class="mx-5">
+            <!-- <p class="heading fw-lighter text-grey">{{formatDate(debiteur.date_naissance) }},{{debiteur.lieu_naissance }}</p> -->
+          </div>
+        </div>
+        <div class="d-flex flex-column">
+          <div class="">
+            <p class="heading fw-lighter ">
+              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon color="warn">more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item >
+                  <mat-icon color="primary">folder_shared</mat-icon>
+                  <span>Détails</span>
+                </button>
+                <button mat-menu-item color="accent" >
+                  <mat-icon color="warn">list_alt</mat-icon>
+                  <span>Details créance</span>
+                </button>
+              </mat-menu>
+            </p>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <div class="">
+      <div class="row mt-3">
+        <div class="col-md-9">
+          <h3 href="" class="p-2 fw-normal text-primary" >Details de contact </h3>
+        </div>
+        <div class="col-md-3">
+          <div class="example-button-container">
+            <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+              <mat-icon>remove_red_eye</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card  card-default" >
+        <!-- <div *ngIf="contacts.telephone" class="p-2 fw-normal mt-0" style="display: inline-grid;" ><span><i class="fa-solid fa-mobile"></i> {{contacts.telephone.numero }}</span> <span class="mt-0 text-grey">{{contacts.telephone.type.code_type }}</span></div>
+        <div *ngIf="contacts.adresse" class="p-2 fw-normal mt-0" style="display: inline-grid;" ><span><i class="fa-solid fa-map-location-dot"></i> {{contacts.adresse.adresse_complet }}</span> <span class="mt-0 text-grey">{{contacts.adresse.type.code_type }}</span></div>
+        <div *ngIf="contacts.email" class="p-2 fw-normal mt-0" style="display: inline-grid;" ><span><i class="fa-solid fa-envelope"></i> {{contacts.email.email }}</span> <span class="mt-0 text-grey">{{contacts.email.type.code_type }}</span></div> -->
+      </div>
+      <div class="row mt-3 " >
+        <div class="col-md-9">
+          <h3 href="" class="p-2 fw-normal text-primary" >Relations</h3>
+        </div>
+        <div class="col-md-3">
+          <div class="example-button-container">
+            <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+              <mat-icon>remove_red_eye</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card  card-default" >
+        <!-- <div *ngFor="let p of personnes" class="p-2 fw-normal mt-0" style="display: inline-grid;" ><span><i class="fa-solid fa-user"></i> {{p.nom }} {{p.prenom }} </span><span class="mt-0 ">{{p.date_naissance }} ,{{p.lieu_naissance }} <span class="text-grey">{{p.relation.type }}</span></span></div> -->
+      </div>
+    </div>
+  </div>  
+  

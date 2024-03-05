@@ -1,0 +1,6 @@
+::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+}
+::ng-deep .mdc-card{
+    margin-bottom: 10px;
+}

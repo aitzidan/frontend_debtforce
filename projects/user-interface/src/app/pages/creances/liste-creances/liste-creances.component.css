@@ -1,0 +1,19 @@
+.text-bold-1{
+    font-weight: 500;
+    font-size: larger;
+}
+.div_card{
+    display: flex;
+    flex-wrap: flex;
+    padding: 14px;
+}
+.chunk1{
+    width: 30%;
+}
+.chunk2{
+    width: 70%;
+}
+.card_doss{
+    cursor: pointer;
+    border-left: 4px solid #fc8900;
+}

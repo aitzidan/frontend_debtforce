@@ -1,0 +1,50 @@
+<div class="d-flex flex-row">
+    <app-bar-workflow class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-workflow>
+    <div class=" col-md-8 mt-4">
+        <div class="card card-default">
+        <div class="card-body">
+            <h3 class="card-description text-primary ">Workflow details :
+            </h3>
+            <div class="row">
+                <div class="task-dates col-md-6">
+                    <div class="task-date"><span>Titre :</span>{{data.workflow.titre}}</div>
+                    <div class="task-date">
+                        <span>L'état: 
+                            <span *ngIf="data.workflow.etat == 0" class="badge bg-warning">En attende de configuration </span>
+                            <span *ngIf="data.workflow.etat == 1" class="badge badge-success1">Configuré</span>
+                        </span>
+                    </div>
+                    <div class="task-date">
+                        <span>Type : 
+                            <span  class="badge bg-primary">{{data.interm.type}} </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="task-dates col-md-6">
+                  <div class="task-date"><span>Date création:</span> 
+                    <span class="badge bg-success">{{data.workflow.date_creation | date:'dd-MM-yyyy HH:mm'}}</span>
+                  </div>
+                  <div class="task-date"><span>Création par :</span> <span   >{{data.user.nom}}  {{data.user.prenom}}</span></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <h3 class="card-description text-primary mt-1">Liste file d'attende :
+                </h3>
+                <mat-card class="col-md-4" class="example-card" *ngFor="let q of data.queue ; let i = index">
+                    <mat-card-header>
+                      <mat-card-title class="text-primary2">{{q.titre}}</mat-card-title>
+                      <mat-card-subtitle>{{q.date_creation | date:'dd-MM-yyyy HH:mm'}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        
+                    </mat-card-content>
+                  </mat-card>
+            </div>
+            <div class="row">
+                
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

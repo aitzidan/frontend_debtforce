@@ -1,0 +1,42 @@
+
+
+<div class=" mt-5">
+    <div class="login-page">
+        <div class=" wrapper ">
+            <div class=" offset-2 w-50 h-100 mt-5 " style="width:80%;" >
+                <!-- START card-->
+                <div class="card card-flat">
+                    <div class="card-header text-center bg-dark"><a href="#"><img class="block-center rounded" src="./../../../../assets/backTemplate/img/logo.png" alt="Image" style="max-width: 60%;"></a></div>
+                    <div class="card-body">
+                        <p class="text-center py-2">Connectez-vous pour continuer.</p>
+                        <form class="mb-3" method="POST" (ngSubmit)="Login(name.value,pass.value)">
+                            <div class="form-group input_div">
+                                <div class="input-group with-focus">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Email </mat-label>
+                                    <input class="custom-input border-right-0"matInput  type="text" name="name" #name  >
+                                    </mat-form-field>
+                                    <!-- <div class="custom-input"><span class="input-group-text  text-muted bg-transparent border-left-0"><em class="fa fa-envelope"></em></span></div> -->
+                                </div>
+                            </div>
+                            <div class="form-group input_div">
+                                <div class="input-group with-focus">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Mot de Passe</mat-label>
+                                        <input matInput [type]="hide ? 'password' : 'text'" #pass>
+                                        <button  type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        </button>
+                                      </mat-form-field>
+                                <!-- <div class="input-group-append"><span class="input-group-text text-muted bg-transparent border-left-0"><em class="fa fa-lock"></em></span></div> -->
+                                </div>
+                            </div>
+                            <button class="btn btn-block btn-primary mt-3" type="submit" mat-raised-button color="primary" [disabled]="isDisable">Connexion</button>
+                        </form>
+                    </div>
+                </div><!-- END card-->
+            </div>
+        </div>
+    </div>
+</div>
+

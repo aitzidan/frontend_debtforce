@@ -1,0 +1,55 @@
+.div_title{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .input_title{
+    width: 85%;
+  }
+  .label_title{
+    width: 15%;
+  }
+  .btn-material-size {
+    font-size: small;
+  }
+  .custom-input {
+    height: 20px; /* Set the desired height here */
+  }
+  input.mat-input-element {height:105px}
+  .mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
+  }
+  ::ng-deep .mat-mdc-form-field {
+    /* margin-left: 8px; */
+}
+.btn{
+  text-align: right;
+  padding: 0;
+}
+::ng-deep .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  line-height: 38px;
+}
+.class_action_critere{
+  display: inline-block;
+  width: 180px;
+}
+::ng-deep .div_value .mat-mdc-text-field-wrapper {
+  width: 73% !important;
+}
+.div_value {
+  display: inline-block;
+  width: 146px;
+}
+.column_detail{
+  margin-left: 54px !important;
+}
+
+::ng-deep  .value_critere.date .mat-mdc-form-field {
+  width: 215px;
+}
+
+.detail_ofCritere{
+  margin-left: 180px;
+  background: #80808008;
+    padding: 5px;
+    border-radius: 7px;
+}

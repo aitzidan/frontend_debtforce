@@ -1,0 +1,208 @@
+<div class="card card-default col-md-12 m-2 " style="width:96%;">
+    <div class="card-header"> Créer un utilisateur</div>
+    <div class="card-body">
+        <form class="form-horizontal" method="POST" enctype="multipart/form-data" (ngSubmit)="UpdateUser(nom.value,
+        prenom.value,
+        cin.value,
+        tel.value,
+        mobile.value,
+        adresse.value,
+        ville.value,
+        pays.value,
+        grpr.value,
+        supp.value,
+        imei.value,
+        rayon.value,
+        pass.value,
+        pass1.value)">
+            <fieldset>
+                <div class="form-group row input_div">
+                    <label class="col-md-2 col-form-label" for="input-id-1">Nom</label>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nom </mat-label>
+                        <input class="custom-input" matInput name="nom" type="text" [value]="user[0].nom" #nom>
+                        </mat-form-field>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="input-id-1">Prénom</label>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Prénom </mat-label>
+                        <input class="custom-input" matInput name="prenom" type="text"[value]="user[0].prenom" #prenom>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-group row input_div">
+                    <label class="col-md-2 col-form-label" for="input-id-1">CIN</label>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>CIN </mat-label>
+                        <input class="custom-input"matInput name="cin" type="text"[value]="user[0].cin" #cin>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-group row input_div">
+                    <label class="col-md-2 col-form-label" for="input-id-1">Tel</label>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Tel </mat-label>
+                        <input class="custom-input"matInput name="tel" type="text"[value]="user[0].tel" #tel>
+                        </mat-form-field>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="input-id-1">Mobile</label>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Mobile </mat-label>
+                        <input class="custom-input"matInput name="mobile" type="text"[value]="user[0].mobile" #mobile>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class=" py-3">
+                <div class="form-group row ">
+                    <label class="col-md-2 col-form-label" for="input-id-1">Adresse</label>
+                    <div class="col-md-10">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Adresse</mat-label> 
+                        <textarea class="custom-input"matInput name="adresse" type="text"[value]="user[0].adresse"  #adresse></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="mt-5">
+                <div class="form-group row input_div">
+                    <label class="col-md-2 col-form-label" for="input-id-1">Ville</label>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Ville </mat-label>
+                        <input class="custom-input"matInput name="ville" type="text"[value]="user[0].ville" #ville>
+                        </mat-form-field>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="input-id-1">Pays</label>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Pays </mat-label>
+                        <input class="custom-input"matInput name="pays" type="text"[value]="user[0].pays" #pays>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-group row input_div">
+                    <label class="col-md-2 col-form-label" for="input-id-1">Groupe-Profil</label>
+                    <div class="col-md-4">
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Groupe-Profil</mat-label>
+                            <mat-select
+                              #grpr
+                              [value]="user[0].id_group_id"
+                            >
+                              <mat-option
+                                *ngFor="let groupe of groupes"
+                                [value]="groupe.id"
+                                >{{ groupe.titre }} - {{ groupe.status }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="input-id-1">Supérieur</label>
+                    <div class="col-md-4">
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Superieur</mat-label>
+                            <mat-select
+                              #supp
+                            >
+                              <mat-option
+                                *ngFor="let user of users"
+                                [value]="user.id"
+                                >{{ user.nom }} - {{user.prenom}}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-group row input_div">
+                    <label class="col-md-2 col-form-label" for="input-id-1">IMEI</label>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>IMEI </mat-label>
+                        <input class="custom-input"matInput name="imei" type="text"[value]="user[0].imei" #imei>
+                        </mat-form-field>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="input-id-1">Rayon</label>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rayon </mat-label>
+                        <input class="custom-input"matInput name="rayon" type="text"[value]="user[0].rayon" #rayon>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-group row input_div">
+                    <label class="col-md-2 col-form-label" for="input-id-1">Mot de passe</label>
+                    <div class="col-md-4">
+                        <!-- <mat-form-field appearance="outline">
+                            <mat-label>Pass </mat-label>
+                        <input class="custom-input"matInput name="pass" type="password" #pass>
+                        </mat-form-field> -->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Pass</mat-label>
+                            <input matInput [type]="hide ? 'password' : 'text'"  #pass>
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                          </mat-form-field>
+                    </div>
+                    <label class="col-md-2 col-form-label" for="input-id-1">Confirmation du mot de passe</label>
+                    <div class="col-md-4">
+                        <!-- <mat-form-field appearance="outline">
+                            <mat-label>Confirmer Pass </mat-label>
+                        <input class="custom-input"matInput name="pass1" type="password" #pass1>
+                        </mat-form-field> -->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Confirmer votre pass</mat-label>
+                            <input matInput [type]="hide1 ? 'password' : 'text'" #pass1>
+                            <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                          </mat-form-field>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-group row input_div">
+                    <label class="col-md-2 col-form-label" for="input-id-1">Type d'utilisateur</label>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Type d'utilisateur</mat-label>
+                            <mat-select
+                              #type
+                            >
+                            <mat-option *ngFor="let type of listeType" [value]="type.id">{{ type.type  }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                    <label class="col-md-2 col-form-label">Image de profil</label>
+                    <div class="col-md-4">
+                        
+                        <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+                        <input class="form-control " name="img" type="file" #fileInput hidden (change)="onFileSelected($event)">
+                        <!-- <input hidden (change)="onFileSelected($event)" #fileInput type="file"> -->
+                        <span class="file-name">{{file?.name}}</span>
+                    </div>
+                </div>
+            </fieldset>
+            <!-- <input type="submit" class="btn btn-primary" value=""> -->
+            <button type="submit" mat-raised-button color="primary" class="px-3 py-2">Enregistrer les modifications</button>
+        </form>
+    </div>
+</div>

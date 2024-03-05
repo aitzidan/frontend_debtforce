@@ -1,0 +1,64 @@
+<div class="d-flex align-items-center justify-content-between">
+    <a href=""  class="p-2 fw-normal  retour-title" ><i class="fa fa-solid fa-less-than "></i> Retour</a>
+  </div>  
+  <div class="card-header text-primary" style="display: flex;justify-content: space-between;align-items: center;">
+    <h4  >Utilisateurs </h4>
+    <button (click)="goToNewMessage()">
+       Nouvelle message
+    </button>
+  </div>
+  <div class=" input_div">
+    <mat-form-field appearance="outline" style="width: 100% !important">
+      <mat-label style="font-size: small;">Recherche</mat-label>
+      <input matInput placeholder="Titre" class="custom-input" 
+     
+        [(ngModel)]="filterValue" (ngModelChange)="filterData()"
+        >
+      <button matSuffix mat-icon-button aria-label="Clear" disabled="true">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  
+  <div *ngIf="list_users.length === 0" class="d-flex justify-content-center align-items-center">
+    <mat-spinner class="custom-spinner"></mat-spinner>
+  </div>    
+  <mat-selection-list #shoes [multiple]="false" style="overflow-y: scroll; height:600px;">
+    <mat-list-option style="height: 70px" *ngFor="let shoe of filteredData" [disabled]="shoe.isDisabled" (click)="GetConversation(shoe.user_id)">
+      <div class="row">
+      <div class="col-md-12" style="height: 80px;">
+        <div class="message-card">
+          <div style="display: flex;justify-content: space-between;align-items: center;">
+            <p style="padding-top: 8px;">
+              <span>
+                <i class="fa-solid fa-user"></i> {{ shoe.user_name }}
+              </span>
+            </p>
+            <p class="badge-date" style="background-color: #03C988;">
+              <span class="span_date">
+                {{ formatMessengerDate(shoe.date_envoi) }}
+              </span>
+            </p>
+
+          </div>
+    
+          <div class="message-content">
+            <span class="circle" *ngIf="shoe.CountMessage > 0">{{ shoe.CountMessage }}</span>
+            <span *ngIf="shoe.ifRecu == 0 && shoe.ifLu == 0">
+              ✔
+            </span>
+            <span *ngIf="shoe.ifRecu == 1 && shoe.ifLu == 0">
+              ✔✔
+            </span>
+            <span *ngIf="shoe.ifRecu == 1 && shoe.ifLu == 1" style="color:blue">
+              ✔✔
+            </span>    
+
+             {{ shoe.sender_name }} : {{ shoe.messageContent }}
+          </div>
+        </div>
+      </div>
+    </div>
+   
+    </mat-list-option>
+  </mat-selection-list> 

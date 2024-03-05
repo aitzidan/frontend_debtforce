@@ -1,0 +1,105 @@
+<style>
+  .parent_flex{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .div_child_flex{
+    width: 50%;
+  }
+</style>
+<div class="d-flex flex-row">
+  <!--
+  --> 
+  <app-bar-integration class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-integration>
+
+ <div class=" col-md-8 mt-4">
+  <div class="card card-default">
+    <div class="card-body">
+        <h4 class="card-description text-primary ">
+          Liste des actions
+        </h4>
+            <!--Form-->
+        <div class="row">
+          <div class="task-dates col-md-6">
+              <div class="task-date"><span>Titre :</span>{{list_data.integration.titre}}</div>
+              <div class="task-date"><span>Action:</span> {{list_data.actions.titre}}</div>
+              <div class="task-date">
+              <span>L'état: 
+                  <span *ngIf="list_data.integration.etat == 1" class="badge bg-warning">Planifiée</span>
+                  <span *ngIf="list_data.integration.etat == 2" class="badge badge-priamry">En cours</span>
+                  <span *ngIf="list_data.integration.etat == 3 " class="badge badge-inverse" >Terminé avec exeptions</span>
+                  <span *ngIf="list_data.integration.etat == 4 " class="badge badge-success1" >Terminé</span>
+                  <span *ngIf="list_data.integration.etat == 5 " class="badge badge-succes" >Validé</span>
+                  <span *ngIf="list_data.integration.etat == 6 " class="badge badge-warning" >Annulé</span>
+              </span> 
+              </div>
+          </div>
+          <div class="task-dates col-md-6">
+            <div class="task-date"><span>Date création:</span> {{list_data.integration.dateCreation | date:'dd-MM-yyyy HH:mm'}}</div>
+              <div class="task-date"><span>Date exécution:</span> <span *ngIf="list_data.integration.dateExecution">{{list_data.integration.dateExecution | date:'dd-MM-yyyy HH:mm'}}</span></div>
+              <div class="task-date"><span>Date fin exécution:</span>{{list_data.integration.dateFinExecution | date:'dd-MM-yyyy HH:mm'}}</div>
+          </div>
+        </div>
+        <div class="row"  *ngIf="list_data.integration.etat != 1">
+          <div class="col-md-12 mt-5">
+            <mat-card class="example-card" style="    box-shadow: rgb(3 201 95) 0px 1px 8px;">
+              <mat-card-header>
+                <mat-card-title style="color:#03C988">Actions avec succès</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div *ngFor="let r of list_data.rapport">
+                  => {{ r.nombrefrom }} {{ r.rapport }}<br/>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="col-md-12 mt-5">
+            <mat-tab-group>
+              <mat-tab label="Details créance"> Details créance </mat-tab>
+              <mat-tab label="Details créance 2"> Details créance 2 </mat-tab>
+            </mat-tab-group>  
+          </div>
+          <div class="col-md-12 mt-5">
+            <mat-card class="example-card" style="    box-shadow: #ff902b  0px 1px 8px;">
+              <mat-card-header>
+                <mat-card-title style="color:#ff902b ">Actions avec avertissement</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                  <p style="font-weight:bold">
+                    {{ list_data.warning.length }} alerts trouvées.
+                  </p>
+                  <div *ngFor="let r of list_data.warning">
+                    <p> {{ r.rapport }}</p>
+                  </div>
+              </mat-card-content>
+          </mat-card>
+          </div>
+          <div class="col-md-12 mt-5">
+            <mat-card class="example-card" style="    box-shadow: #f44336  0px 1px 8px;     overflow-y: auto;
+              height: 700px;">
+              <mat-card-header>
+                <mat-card-title style="color:#f44336">Actions avec erreurs</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p style="font-weight:bold">
+                  {{ list_data.error.length }} erreurs trouvées.
+                </p>
+                <div *ngFor="let r of list_data.error">
+                  <p> {{ r.rapport }}</p>
+                </div>
+              </mat-card-content>
+          </mat-card>
+          </div>
+          <div class="col-md-12 mt-5 text-center">
+            <button mat-flat-button color="primary" class="mr-1" *ngIf="list_data.integration.etat != 5 ">Validé
+            </button>
+            <button mat-flat-button color="warn" *ngIf="list_data.integration.etat != 6 ">Annulé
+            </button>
+          <!--
+          -->
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+</div>

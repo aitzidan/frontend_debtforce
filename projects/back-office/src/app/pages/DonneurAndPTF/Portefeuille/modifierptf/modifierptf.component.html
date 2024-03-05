@@ -1,0 +1,157 @@
+<div class="card card-default col-md-12 m-2"style="width:96%;">
+    <div class="card">
+        <div class="card-body">
+            <div class="div_header">
+                <div class="title">
+                    <h4 class="card-title">Portefeuille</h4>
+                </div>
+                <div></div>
+            </div>
+            <div id="container" style="padding-bottom: 0vh;">
+                <div id="">
+                    <p class="card-description mt-4">
+                        Ajouter un porte feuille
+                    </p>
+                    <form class="" method="POST"  (ngSubmit)="UpdatePortefeuille(titre.value,numPtf.value,dureeGestion.value,
+                    dateDebutGestion.value,dateFinGestion.value,typeMission.value,typeCreance.value,dn.value)">
+
+                        <fieldset>
+                            <div class="form-group row input_div">
+                                <label class="col-md-2 col-form-label" for="input-id-1">Donneur d'ordre
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-md-4">
+                                    <!-- <select class="form-control" id="" name="dn" #dn>
+                                        <option *ngFor="let item of donneur" [value]="item.id" [selected]="item.id == ptf['ptf'][0].id_donneur_ordre_id">{{ item.nom }}</option>
+                                      </select> -->
+                                      <mat-form-field appearance="outline">
+                                        <mat-label>Donneur d'ordre</mat-label>
+                                        <mat-select #dn class="custom-input" [(value)]="ptf['ptf'][0].id_donneur_ordre_id">
+                                          <mat-option *ngFor="let item of donneur" [value]="item.id">{{ item.nom }}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                      
+                                      
+                                </div>
+                                <label class="col-md-2 col-form-label" for="input-id-1">Titre
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-md-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Titre </mat-label>
+                                    <input class="custom-input"matInput name="titre" value="" type="text" #titre [value]="ptf['ptf'][0].titre">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <div class="form-group row input_div">
+                                <label class="col-md-2 col-form-label" for="input-id-1">Numèro°
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-md-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Numero </mat-label>
+                                    <input class="custom-input"matInput name="numPtf" type="text" value=""#numPtf [value]="ptf['ptf'][0].numero_ptf">
+                                    </mat-form-field>
+                                </div>
+                                <label class="col-md-2 col-form-label" for="input-id-1">Durée du gestion
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-md-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Durée du gestion </mat-label>
+                                    <input class="custom-input"matInput name="dureeGestion" type="text" value=""#dureeGestion [value]="ptf['ptf'][0].duree_gestion">
+                                     </mat-form-field>   
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group row input_div">
+                                <label class="col-md-2 col-form-label" for="input-id-1">Date debut gestion
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-md-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Date debut </mat-label>
+                                    <input class="custom-input"matInput [matDatepicker]="picker" name="dateDebutGestion" value=""#dateDebutGestion [value]="ptf['ptf'][0].date_debut_gestion|date:'yyyy-MM-dd'">
+                                    <mat-hint>MM/DD/YYYY</mat-hint>
+                                    <mat-datepicker-toggle
+                                      matIconSuffix
+                                      [for]="picker"
+                                    ></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                                </div>
+                                <label class="col-md-2 col-form-label" for="input-id-1">Date fin gestion
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-md-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Date fin </mat-label>
+                                    <input class="custom-input"matInput  name="dateFinGestion" [matDatepicker]="pickerf"  value=""#dateFinGestion [value]="ptf['ptf'][0].date_fin_gestion|date:'yyyy-MM-dd'">
+                                    <mat-hint>MM/DD/YYYY</mat-hint>
+                                    <mat-datepicker-toggle
+                                      matIconSuffix
+                                      [for]="pickerf"
+                                    ></mat-datepicker-toggle>
+                                    <mat-datepicker #pickerf></mat-datepicker>  
+                                </mat-form-field>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group row input_div">
+                                <label class="col-md-2 col-form-label" for="input-id-1">Type mission
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-md-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Type mission </mat-label>
+                                    <input class="custom-input" matInput name="typeMission" type="text" value=""#typeMission [value]="ptf['ptf'][0].type_mission">
+                                    </mat-form-field>
+                                </div>
+                                <label class="col-md-2 col-form-label" for="input-id-1">Type créance
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-md-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Type créance </mat-label>
+                                    <input class="custom-input"name="typeCreance"matInput type="text" value=""#typeCreance [value]="ptf['ptf'][0].type_creance">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group row m-3 input_div" *ngFor="let item of ptf['champs']">
+                                <label class="col-md-2 col-form-label" for="input-id-1">
+                                  {{ item.champ_name }}
+                                  <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-md-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Date fin </mat-label>
+                                  <input
+                                    class="custom-input"
+                                    matInput
+                                    [(ngModel)]="item.value"
+                                    name="input[{{ item.id }}]"
+                                    type="{{ item.type_champ }}"
+                                    [required]="item.required === true"
+                                    (change)="handleInputChange()"
+                                    
+                                  />
+                                  </mat-form-field>
+                                </div>
+                              </div>
+                        </fieldset>
+                        <div class="form-group row div_btn">
+                            <button type="submit" class=" btn btn-success   col-sm-12  form-control-sm" mat-raised-button color="primary">
+                                Ajouter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>

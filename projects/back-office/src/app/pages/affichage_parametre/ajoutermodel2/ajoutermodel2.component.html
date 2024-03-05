@@ -1,0 +1,58 @@
+
+    <div class="d-flex flex-row">
+    
+      <app-bar-affichage class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-affichage>
+
+      <div class=" col-md-8 mt-4">
+        <div class="card card-default">
+          <div class="card-body">
+            <p class="card-description text-primary ">
+                Créer un modèle des infos complémentaires
+            </p> 
+            <form method="POST" (ngSubmit)="AddModal(titre.value,status.value)">
+              <fieldset class="p-4">
+                <div class="form-group ">
+                  <div class="row mt-4">
+                    <label class="col-md-2 col-form-label" for="input-id-1">Titre <span class="text-danger">*</span></label>
+                    <div class="col-md-10 input_div">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Titre</mat-label>
+                            <input type="text" class="custom-input " matInput #titre  id="titre" name="titre" id="exampleInputName1" >
+                            </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <label class="col-md-2 col-form-label" for="input-id-1">Porte feuille <span class="text-danger">*</span></label>
+                    <div class="col-md-10 input_div">
+                      <mat-form-field appearance="outline" style="width: 100%">
+                        <mat-label>Porte feuille</mat-label>
+                        <mat-select required [(ngModel)]="ptf_select" [ngModelOptions]="{ standalone: true }"  >
+                          <mat-option *ngFor="let f of liste_ptf" [value]="f.id" >{{ f.titre }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <label class="col-md-2 col-form-label" for="input-id-1">Objet</label>
+                    <div class="col-md-10 input_div">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Objet</mat-label>
+                        <input type="text" class="custom-input"matInput #status id="objet" name="objet"  >
+                        </mat-form-field>
+                    </div>
+                    </div>
+                  
+                </div>
+              </fieldset>
+              <fieldset>
+                <div class="form-group row text-center">
+                    <div class="col-md-12">
+                      <button class="btn btn-warning p-2 px-3 " type="submit" mat-raised-button color="primary"><i class="fa-solid fa fa-save"></i> Enreigestrer</button>
+                    </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>

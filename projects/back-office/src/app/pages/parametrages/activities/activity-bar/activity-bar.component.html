@@ -1,0 +1,25 @@
+
+  <div class="d-flex align-items-center justify-content-between">
+    <a href="" class="p-2 fw-normal" style="color:grey !important;"><i class="fa fa-solid fa-less-than"></i> Retour</a>
+  </div>  
+  <h4 class="card-header text-primary" >Activités </h4>
+  <div *ngIf="list_parent.length === 0 && !isReload" class="d-flex justify-content-center align-items-center">
+    <mat-spinner class="custom-spinner"></mat-spinner>
+  </div>
+  <mat-selection-list #shoes [multiple]="false" style="overflow-x: auto;height: 600px;">
+    <mat-list-option style="height:70px" *ngFor="let shoe of list_parent" 
+    [ngStyle]="{'height': '70px' ,     'padding-bottom': '12px', 'border-left':'3px solid #03C988' , 'background-color': shoe.id === activity_selected ? 'rgb(128 128 128 / 14%)' : 'rgb(128 129 128 / 3%)'}"
+    (click)="onShoeSelectionChange(shoe.id)" [value]="shoe.id" [disabled]="shoe.isDisabled">
+      <p style="padding-top: 8px;">
+        <span>
+          <i class="fa-solid fa-diagram-project" style="color: #808284;"></i> {{ shoe.titre }}
+        </span>
+      </p>
+      <p class="badge-date" style="background-color: #03C988;">
+        <span class="span_date">
+          Le: {{ shoe.dateCreation | date:'dd-MM-yyyy HH:mm' }}
+        </span> 
+      </p>
+    </mat-list-option>
+  </mat-selection-list>
+ 

@@ -1,0 +1,132 @@
+  .chat-window {
+    overflow-y: auto; /* Enable vertical scrolling when content exceeds the maximum height */
+    max-height: 900px;
+  }
+  
+  .message-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  .message {
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+    margin-bottom: 5px;
+  }
+  
+  .user {
+    background-color: #f2f2f2;
+    align-self: flex-start;
+  }
+  
+  .you {
+    background-color: #03c988;
+    color: #fff;
+    align-self: flex-end;
+  }
+  
+  .message-timestamp-you {
+    font-size: 12px;
+    color: #999;
+    text-align: right;
+  }
+
+  .message-timestamp-user {
+    font-size: 12px;
+    color: #999;
+    text-align: left;
+  }
+
+
+  /* Styles for the new message input and send button */
+  .new-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 0% 5%;
+  }
+  
+  .new-message input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .new-message button {
+    background-color: #03c988;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+  
+  .new-message button:hover {
+    background-color: #028f78;
+  }
+
+  .recipient-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    display: inline-block;
+    width: 40%;
+  }
+  
+  /* Styling for the select element */
+  select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Styling for the user list */
+  .user-list {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    width: 40%;
+  }
+  
+  /* Styling for list items (users) */
+  .user-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .user-list li {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  /* Style list items on hover */
+  .user-list li:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Styling for the checkboxes */
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+
+
+  textarea {
+    width: 100%; /* Set the width to 100% to fill the container */
+    height: 100px; /* Set the desired height */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }

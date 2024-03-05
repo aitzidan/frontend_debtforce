@@ -1,0 +1,68 @@
+<div *ngIf="this.data_overiew_predefined.type == 'view_critere'">
+    <h2 mat-dialog-title >Critères de file d'attente</h2>
+    <mat-dialog-content  style="width: 700px;">
+        <p><span>Titre file d'attende : </span><span style="color:rgba(0, 0, 0, 0.87)">{{queue.titre }}</span></p>
+        <p><span>Type file d'attende : </span><span style="color:rgba(0, 0, 0, 0.87)"> {{data_overiew_predefined.type_queue }}</span></p>
+        <p><span>Date creation : </span><span style="color:rgba(0, 0, 0, 0.87)"> {{queue.dateCreation  | date: 'yyyy-MM-dd H:m'  }}</span></p>
+        <div *ngFor="let cr of data_criteres">
+            <p class="text-bold">{{cr.groupe }}</p>
+            <div *ngFor="let dt of cr.criteres">
+                <p class="text-bold ml-2">{{dt.critere }}</p>
+                <div *ngIf="dt.type == 'montant'" class="text-bold ml-5">
+                    De : {{dt.details[0].value1}} <br/>
+                    à : {{dt.details[0].value2}}
+                </div>
+                <div class="ml-5 text-bold" *ngIf="dt.type == 'multiple_check'">
+                    <div *ngFor="let val of dt.details" >
+                        <p> - {{val.value1}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+    </mat-dialog-actions> 
+</div>
+<div *ngIf="this.data_overiew_predefined.type == 'view_critere_seg'">
+    <h2 mat-dialog-title >Critères de segmentation</h2>
+    <mat-dialog-content  style="width: 700px;">
+        <!--
+            <p><span>Titre file d'attende : </span><span style="color:rgba(0, 0, 0, 0.87)">{{queue.titre }}</span></p>
+            <p><span>Type file d'attende : </span><span style="color:rgba(0, 0, 0, 0.87)"> {{data_overiew_predefined.type_queue }}</span></p>
+            <p><span>Date creation : </span><span style="color:rgba(0, 0, 0, 0.87)"> {{queue.dateCreation  | date: 'yyyy-MM-dd H:m'  }}</span></p>
+        -->
+        <div *ngFor="let cr of data_criteres">
+            <p class="text-bold">{{cr.groupe }}</p>
+            <div *ngFor="let dt of cr.criteres">
+                <p class="text-bold ml-2">{{dt.critere }}</p>
+                <div *ngIf="dt.type == 'montant'" class="text-bold ml-5">
+                    De : {{dt.details[0].value1}} <br/>
+                    à : {{dt.details[0].value2}}
+                </div>
+                <div class="ml-5 text-bold" *ngIf="dt.type == 'multiple_check'">
+                    <div *ngFor="let val of dt.details" >
+                        <p> - {{val.value_view}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close  [mat-dialog-close]="false">Annuler</button>
+    </mat-dialog-actions> 
+</div>
+
+
+<div *ngIf="this.data_overiew_predefined.type == 'priority_queue'">
+    <h2 mat-dialog-title >Priorité de file d'attente</h2>
+    <mat-dialog-content  style="width: 700px;">
+        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of list_queue ; let i =index" cdkDrag><span>{{item.titre}}--{{item.description}}</span><span class="text-bold">Priorité : {{item.priority }}</span></div>
+          </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close [mat-dialog-close]="false">Annuler</button>
+      <button mat-button mat-dialog-close [mat-dialog-close]="list_queue">Enreigestrer</button>
+    </mat-dialog-actions> 
+</div>

@@ -1,0 +1,10 @@
+.btn-material-size {
+  font-size: small;
+}
+.custom-input {
+  height: 20px; 
+}
+input.mat-input-element {height:105px}
+.mat-mdc-form-field + .mat-mdc-form-field {
+margin-left: 8px;
+}

@@ -1,0 +1,19 @@
+::ng-deep .input_div.chips .mat-mdc-text-field-wrapper {
+    height: 100px !important;
+    width: 100% !important;
+}
+.button_next{
+    margin-top: 50px;
+    text-align: right;
+}
+.button_previous{
+    margin-top: 50px;
+    text-align: left;
+}
+
+::ng-depp .test .mdc-list-item__primary-text{
+    color:beige !important
+}
+::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+}

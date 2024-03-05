@@ -1,0 +1,141 @@
+<div class="card card-default col-md-12 m-2" style="width: 96%">
+  <h3 class="card-header text-primary">Liste des donneurs d'ordre</h3>
+  <div class="text-right">
+    <a
+      class="btn btn-info py-3"
+      routerLink="/donneur"
+      mat-raised-button
+      color="primary"
+      >Donneur d'ordre <i class="fa fa-plus"></i></a>
+  </div>
+  <div class="card-body table-responsive div_form_inputs input_div">
+    <mat-form-field  appearance="outline" class="mb-3">
+      <mat-label>Recherche </mat-label>
+      <input
+        type="text" 
+        [(ngModel)]="searchTerm"
+        (input)="chercher()"
+        class=""
+        #cherchInput
+        matInput
+        placeholder="Search"
+        
+      />
+      <button matSuffix mat-icon-button aria-label="Clear" disabled="true">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource">
+        <!-- Position Column -->
+        <!-- Name Column -->
+  
+        <ng-container matColumnDef="nom">
+            <th mat-header-cell *matHeaderCellDef> Nom </th>
+            <td mat-cell *matCellDef="let element"> {{element.dn.nom}}</td>
+          </ng-container>
+          <ng-container matColumnDef="metier">
+            <th mat-header-cell *matHeaderCellDef> Matier </th>
+            <td mat-cell *matCellDef="let element"> {{element.dn.metier}} </td>
+          </ng-container>
+          <ng-container matColumnDef="raison_sociale">
+            <th mat-header-cell *matHeaderCellDef> raison_sociale </th>
+            <td mat-cell *matCellDef="let element"> {{element.dn.raison_sociale}} </td>
+          </ng-container>
+          <ng-container matColumnDef="numero_rc">
+            <th mat-header-cell *matHeaderCellDef> numero_rc </th>
+            <td mat-cell *matCellDef="let element"> {{element.dn.numero_rc}} </td>
+          </ng-container>
+          <ng-container matColumnDef="cp">
+            <th mat-header-cell *matHeaderCellDef> Code postale </th>
+            <td mat-cell *matCellDef="let element"> {{element.dn.cp}} </td>
+          </ng-container>
+          <ng-container matColumnDef="operation">
+            <th mat-header-cell *matHeaderCellDef> Opération </th>
+            <td mat-cell *matCellDef="let element"> 
+              <a type="button" class="btn btn-warning btn-sm m-1" ><i class="fa fa-pencil-alt"></i></a>
+              <button type="button" class="btn btn-danger btn-sm m-1"   o><i class="fa fa-trash"></i></button>   
+            </td>
+          </ng-container>
+    
+       <!--
+       --> 
+       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    <!--
+    -->
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements">
+  </mat-paginator>
+    <!-- <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="#">
+        <th mat-header-cell *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="raison_sociale">
+        <th mat-header-cell *matHeaderCellDef>Raison sociale</th>
+        <td mat-cell *matCellDef="let element">{{ element.rs }}</td>
+      </ng-container>
+      <ng-container matColumnDef="responsable">
+        <th mat-header-cell *matHeaderCellDef>Responsable</th>
+        <td mat-cell *matCellDef="let element">{{ element.nom }}</td>
+      </ng-container>
+      <ng-container matColumnDef="metier">
+        <th mat-header-cell *matHeaderCellDef>Metier</th>
+        <td mat-cell *matCellDef="let element">{{ element.metier }}</td>
+      </ng-container>
+      <ng-container matColumnDef="rc">
+        <th mat-header-cell *matHeaderCellDef>N° RC</th>
+        <td mat-cell *matCellDef="let element">{{ element.numero_rc }}</td>
+      </ng-container>
+      <ng-container matColumnDef="cp">
+        <th mat-header-cell *matHeaderCellDef>Code postale</th>
+        <td mat-cell *matCellDef="let element">{{ element.cp }}</td>
+      </ng-container>
+      <ng-container matColumnDef="cb">
+        <th mat-header-cell *matHeaderCellDef>Compte bancaire</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.compte_bancaire }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="date_creation">
+        <th mat-header-cell *matHeaderCellDef>Date creation</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.dateCreation.date | date : "longDate" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="date_debut">
+        <th mat-header-cell *matHeaderCellDef>Date debut</th>
+        <td mat-cell *matCellDef="let element">{{ element.dateDebut.date |date:'longDate' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="date_fin">
+        <th mat-header-cell *matHeaderCellDef>Date fin</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.dateFin.date | date : "longDate" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="operation">
+        <th mat-header-cell *matHeaderCellDef>Opération</th>
+        <td mat-cell *matCellDef="let element">
+          <a type="button" class="btn btn-warning btn-sm m-1"
+            ><i class="fa fa-pencil-alt"></i
+          ></a>
+          <button type="button" class="btn btn-danger btn-sm m-1" o>
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator> -->
+  </div>
+</div>

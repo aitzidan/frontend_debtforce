@@ -1,0 +1,37 @@
+<div class="d-flex flex-row">
+    <div class=" col-md-12 mt-4">
+        <div class="card card-default">
+        <div class="card-body">
+            <h4 class="card-description">
+              <section>
+                <h2 class="text-primary">Segmentation</h2>
+              </section>
+              <section class="text-end">
+                <button mat-raised-button (click)="updateSegmentation()" class="mr-2" style="background:#fc8900 ; color:white" > Modifier </button>
+                <button mat-raised-button  (click)="openDialogForShowCritere()">Voir critère <mat-icon iconPositionEnd color="primary" >remove_red_eye</mat-icon></button>
+              </section>
+            </h4> 
+            <h3 class="text-primary">Details:</h3>
+            <div class="row">
+                <div class="task-dates col-md-6">
+                  <div class="task-date"><span class="">Date création:</span> <span class="badge badge-success">{{list_data.segmentation.date_creation }}</span></div>
+                  <div class="task-date"><span class="">Titre:</span><span class=" text-size">{{list_data.segmentation.nom_segment }}</span></div>
+                </div>
+                <div class="task-dates col-md-6">
+                  <div class="task-date"><span class="">Assignée queue:</span> 
+                    <ng-container *ngIf="list_data.assigneToQueue; else nonAssigneeBlock">
+                      <span class="badge badge-success">Assignée</span>
+                    </ng-container>
+                    
+                    <ng-template #nonAssigneeBlock>
+                      <span class="badge badge-danger">Non Assignée</span>
+                    </ng-template>
+                  </div>
+                  <div class="task-date"><span class="">Assignée workflow:</span></div>
+                  <div class="task-date"><span class="">Status:</span><span class="badge badge-secondary">{{ list_data.status.status }}</span></div>
+                </div>
+            </div>
+        </div>
+        </div>
+  </div>
+</div>

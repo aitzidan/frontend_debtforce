@@ -1,0 +1,51 @@
+<div class="d-flex flex-row">
+    <div class=" col-md-3 mt-4 ">
+        <div class="card card-default">
+            <div class="card-body">
+                <h2 class="card-description text-primary bold">
+                    Créances
+                </h2>
+                <div class="row mb-3 mt-1">
+                    <div class="col-md-12  text-primary h1">{{nbr_total_creance}}</div>
+                    <div class="col-md-12 text-grey">Nombre total de créance</div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row mb-3 mt-1">
+                    <div class="col-md-12  text-danger h1">{{creance_non_success}}</div>
+                    <div class="col-md-12 text-grey">Nombre créances non payée</div>
+                </div>
+                <mat-divider> </mat-divider>
+                <div class="row mb-3 mt-1">
+                    <div class="col-md-12  text-primary h1">{{creance_success}}</div>
+                    <div class="col-md-12 text-grey">Nombre créances payée</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" col-md-3 mt-4 ">
+        <div class="card card-default">
+            <div class="card-body">
+                <h2 class="card-description text-primary bold">
+                    Process
+                </h2>
+                <div class="row mb-3 mt-1">
+                    <div class="col-md-6 text-primary2">Groupes</div>
+                    <div class="col-md-6 text-end text-primary h2">{{nbr_process_groupe}}</div>
+                </div>
+                
+                <mat-divider> </mat-divider>
+                <div class="row mb-3 mt-1">
+                    <div class="col-md-6 text-primary2">Votre process</div>
+                    <div class="col-md-6 text-end text-primary h2">{{nbr_process_by_user}}</div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class=" col-md-6 mt-4">
+        <div class="card card-default">
+            <div class="card-body">
+            </div>
+        </div>
+    </div>
+</div>
