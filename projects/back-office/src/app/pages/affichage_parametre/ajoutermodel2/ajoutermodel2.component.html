@@ -1,12 +1,24 @@
-
-    <div class="d-flex flex-row">
-    
-      <app-bar-affichage class="card card-default col-md-3 mr-5 ml-4 mt-4"></app-bar-affichage>
-
+    <div class="page-title">
+      <div class="row" id="block_header">
+          <div class="col-12 col-md-8 order-md-1 order-last mt-4">
+              <h3>Paramétrage</h3>
+              <p>Créer un modèle des infos complémentaires</p>
+          </div>
+          <!-- <div class="col-12 col-md-4 order-md-2 order-last">
+              <nav aria-label="breadcrumb" class="breadcrumb-header float-end float-lg-end float-right">
+                  <ol class="breadcrumb">
+                      <li class="breadcrumb-item active" aria-current="page">Créer un activité</li>
+                  </ol>
+              </nav>
+          </div> -->
+      </div>
+    </div>
+    <div class="d-flex flex-row mr-2">
+      <app-bar-affichage class="card card-default col-md-3 ml-4 mt-4"></app-bar-affichage>
       <div class=" col-md-8 mt-4">
-        <div class="card card-default">
+        <div class="card card-default" style="width: 110%;">
           <div class="card-body">
-            <p class="card-description text-primary ">
+            <p class="titre">
                 Créer un modèle des infos complémentaires
             </p> 
             <form method="POST" (ngSubmit)="AddModal(titre.value,status.value)">

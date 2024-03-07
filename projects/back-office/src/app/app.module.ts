@@ -161,7 +161,7 @@ import { HistoriquePaiementComponent } from './pages/historique/historique-paiem
 import { ListeUsersComponent } from './modals/general/liste-users/liste-users.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ConfigureWorkflowComponent } from './pages/workflow/configure-workflow/configure-workflow.component';
-
+import { ChampModalAddComponent } from './modals/parametrages/champ-modal-add/champ-modal-add.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token'); 
@@ -289,6 +289,7 @@ export function tokenGetter() {
     HistoriquePaiementComponent,
     ListeUsersComponent,
     ConfigureWorkflowComponent,
+    ChampModalAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -336,7 +337,7 @@ export function tokenGetter() {
       {path: 'modifier_model_affichage/:ModelId', component: ModifiermodelComponent},//
       {path: 'modifier_model_affichage2/:ModelId', component: Modifiermodel2Component},///
       {path: 'addCompetence', component: AddCompetenceComponent},
-      {path: 'updateCompetence', component: UpdateCompetenceComponent},
+      {path: 'updateCompetence/:competenceId', component: UpdateCompetenceComponent},
       {path: 'AddModelFacturation', component: AddModelFacturationComponent},      
       {path: 'updateModelFacturation', component: UpdateModelFacturationComponent},
 
@@ -346,7 +347,7 @@ export function tokenGetter() {
       {path: 'create-integration', component: CreateIntegrationComponent},
       {path: 'details-integration/:id_integration', component: DetailsIntegrationComponent},
 
-      {path: 'facture', component: NouvellefactureComponent},///
+      {path: 'nouvelle-facture', component: NouvellefactureComponent},///
       {path: 'Listefacture', component: ListefactureComponent},///
       {path: 'model_sms', component: AjoutmodelsmsComponent},///
       {path: 'modifier_model_sms/:modelSmsId', component: ModifiermodelsmsComponent},///
@@ -366,7 +367,8 @@ export function tokenGetter() {
       {path: 'save-workflow/:idWorkflow', component: SaveWorkflowComponent},///
       {path: 'configure-workflow/:idWorkflow', component: ConfigureWorkflowComponent},///
       {path: 'assign-queue', component: AssignWorkflowToQueueComponent},///
-
+      {path: 'historique', component: HistoriqueListeComponent},///
+      
     ]),
     CdkListbox, CdkOption,
     NgFor, AsyncPipe,

@@ -1,16 +1,24 @@
-<div class="d-flex flex-row mt-3">
-  <div class="card card-default col-md-4 m-2">
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="" class="p-2 fw-normal" style="color: grey !important"
-        ><i class="fa-solid fa-less-than"></i> Retour</a
-      >
-      <a href="" class="p-2 fw-normal" style="color: grey !important"
-        ><i class="fa-solid fa-bars p-1"></i> Actions</a
-      >
-    </div>
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="" class="p-2 fw-normal">Ajouter un chmp</a>
-    </div>
+<div class="page-title">
+  <div class="row" id="block_header">
+      <div class="col-12 col-md-8 order-md-1 order-last mt-4">
+          <h3>Paramétrage</h3>
+          <p>Liste des infos complémentaires</p>
+      </div>
+      <div class="col-12 col-md-4 order-md-2 order-last">
+          <nav aria-label="breadcrumb" class="breadcrumb-header float-end float-lg-end float-right">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/Ajouter_model_affichage2">Activité</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Liste des infos complémentaires</li>
+              </ol>
+          </nav>
+      </div>
+  </div>
+</div>
+<div class="d-flex flex-row mt-3 mr-2">
+  <!-- <div class="card card-default col-md-4 m-2 pt-3">
+    <p class="card-description text-primary">
+      Ajouter un chmp
+    </p>
     <form method="POST" (ngSubmit)="AddDetailModel()">
       <div class="card mt-2p-2">
         <div class="form-group input_div">
@@ -83,22 +91,6 @@
             />
           </mat-form-field>
         </div>
-        <!-- <div class="form-group input_div">
-          <label for="Element5" class="mt-1">Type de creance : </label>
-          <mat-form-field appearance="outline">
-            <mat-label>Type creance</mat-label>
-            <mat-select
-              class="custom-input"
-              matInput
-              id="type_creance"
-              [(ngModel)]="typeCreance"
-              [ngModelOptions]="{ standalone: true }"
-            >
-              <mat-option value="segmentation">Segmentation</mat-option>
-              <mat-option value="creance">Creance</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div> -->
         <div class="form-group input_div">
           <label for="Element4"class="mt-1">Active : </label>
           
@@ -131,14 +123,22 @@
         </div>
       </div>
     </form>
-  </div>
+  </div> -->
 
-  <div class="col-md-8 mt-2">
+  <div class="col-md-12 mt-1">
+    <div class="col-md-12 text-end">
+      <button type="button" class="btn btn-success btn-sm text-white mb-3" (click)="openAddModal()"  mat-raised-button style="background-color: #018f23;">
+        Ajouter un chmp
+      </button>
+    </div>
+
     <div class="card card-default">
       <div class="card-body">
-        <p class="card-description text-primary">
-          Liste des infos complémentaires
-        </p>
+        <!-- <p class="card-description text-primary">Liste des infos complémentaires</p> 
+        <div class="modal-header">
+          <p class="card-description text-primary">Liste des infos complémentaires</p>
+          
+        </div>-->
         <table class="table table-hover table-data-table" id="myTable">
           <thead>
             <tr>

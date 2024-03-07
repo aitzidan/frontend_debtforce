@@ -3,6 +3,7 @@ import { UtilisateursService } from 'projects/back-office/src/app/Api/utilisateu
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ActivatedRoute } from '@angular/router';
 import { ChampsmodalUpdateComponent } from '../../modals/champsmodal-update/champsmodal-update.component';
+import { ChampModalAddComponent } from '../../../../app/modals/parametrages/champ-modal-add/champ-modal-add.component';
 import {MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
 import { BmxToastService } from 'bmx-toast';
@@ -28,6 +29,7 @@ export class Modifiermodel2Component implements OnInit{
     public detail:any;
     ModelIdFromRoute: number = 0;
     modalRef: MdbModalRef<ChampsmodalUpdateComponent> | null = null;
+    modalRef2: MdbModalRef<ChampModalAddComponent> | null = null;
     public Modelarray: any = [];
 
     type:string="";
@@ -99,6 +101,45 @@ export class Modifiermodel2Component implements OnInit{
       });
     }
 
+    openAddModal() {
+      this.modalRef2 = this.modalService.open(ChampModalAddComponent);
+      /*this.modalRef2.onClose.subscribe((data: any) => {
+        if (data) {
+          this.modelApi.AddModel(data).subscribe(
+            (res: any) => {
+              this._toastService.generate({
+                type: 'success',
+                toastHeading: 'Success',
+                toastText: 'Operation effectuée avec succès',
+                timeout: 1500,
+                position: 'top-right',
+                autoClose: true,
+                progressbar: true,
+                closeIcon: false,
+                border: "semi-rounded",
+              });
+              this.getData();
+            },
+            (error: any) => {
+              console.log(error);
+              this._toastService.generate({
+                type: 'error',
+                toastHeading: 'Erreur',
+                toastText: 'Une erreur s\'est produite',
+                timeout: 1500,
+                position: 'top-right',
+                autoClose: true,
+                progressbar: true,
+                closeIcon: false,
+                border: "semi-rounded",
+              });
+            }
+          );
+        }
+      });*/
+    }
+
+    /*
     AddDetailModel(){
       const formdata={
         
@@ -157,6 +198,7 @@ export class Modifiermodel2Component implements OnInit{
       }
       
     }
+    */
     DeleteModel(id:number){
       Swal.fire({
         title: 'Are you sure?',

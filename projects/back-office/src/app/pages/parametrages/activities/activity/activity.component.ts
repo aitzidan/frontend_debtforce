@@ -396,11 +396,11 @@ export class ActivityComponent implements OnInit {
               }
           )
         }else{
-          console.log(response.codeStatut)
+          this.notify.showError(response.codeStatut)
         }
       },
       (error: any) => {
-        console.log(error)
+        this.notify.showError2();
       }
     );
   }

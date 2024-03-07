@@ -1,0 +1,116 @@
+    
+    <div class="modal-header p-3 pb-0">
+        <p class="card-description text-primary">
+            Ajouter un chmp
+        </p>
+        <button
+          type="button"
+          class="btn-close p-3"
+          aria-label="Close"
+          (click)="modalRef.close()"
+        ></button>
+      </div>
+    <form method="POST" (ngSubmit)="AddDetailModel()">
+      <div class="card mt-2 p-3">
+        <div class="form-group input_div">
+            <label for="Element1" class="mr-5">Entitié : </label>
+          
+            <mat-form-field appearance="outline">
+              <mat-label>Entité : </mat-label>
+              <mat-select
+                class="custom-input"
+                matInput
+                id="table"
+                name="table_name"
+                [(ngModel)]="entite"
+              >
+              <mat-option value="debiteur">Débiteur</mat-option>
+                <mat-option value="creance">Creance</mat-option>
+                <mat-option value="dossier">Dossier</mat-option>
+                <mat-option value="portefeuille">Porte feuille</mat-option>
+                <mat-option value="detail_creance">Detail creance</mat-option>
+                <mat-option value="donneur_ordre">Donneur ordre</mat-option>
+              </mat-select>
+            </mat-form-field>
+          
+        </div>
+        <div class="form-group input_div">
+                <label for="champ_name" class="mt-1">Nom de champ :</label>
+                <mat-form-field appearance="outline">
+                  <mat-label>Nom champ</mat-label>
+                  <input
+                    type="text"
+                    class="custom-input"
+                    matInput
+                    id="champ_name"
+                    name="champ_name"
+                    placeholder=""
+                    [(ngModel)]="nom"
+                  />
+                </mat-form-field>
+        </div>
+        <div class="form-group input_div">
+          <label for="champ_type"class="mt-1">Type :</label>
+          <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <mat-select
+              class="custom-input"
+              matInput
+              id="type_val"
+              name="champ_type"
+              [(ngModel)]="type"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <mat-option value="text">Text</mat-option>
+              <mat-option value="number">Number</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group input_div">
+          <label for="Element3"class="mt-1">Lentgh :</label>
+          <mat-form-field appearance="outline">
+            <mat-label>Length</mat-label>
+            <input
+              type="number"
+              class="custom-input"
+              matInput
+              name="lentgh"
+              name="lentgh"
+              placeholder=""
+              [(ngModel)]="length"
+              
+            />
+          </mat-form-field>
+        </div>
+        <div class="form-group input_div">
+          <label for="Element4"class="mt-1">Active : </label>
+          
+          <mat-radio-group [(ngModel)]="active"[ngModelOptions]="{standalone: true}">
+            <mat-radio-button color="primary" value="1"(change)="onActiveChange('1')">Oui</mat-radio-button>
+            <mat-radio-button color="primary" value="0"(change)="onActiveChange('0')">Non</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="form-group input_div">
+          <label for="Element6" class="mt-1">Required : </label>
+          <input
+            type="text"
+            class="form-control"
+            id="Element6"
+            name="Element6"
+            id="exampleInputName1"
+            placeholder=""
+            style="display: none"
+          />
+          
+          <mat-radio-group [(ngModel)]="required"[ngModelOptions]="{standalone: true}">
+            <mat-radio-button color="primary" value="1"(change)="Required('1')">Oui</mat-radio-button>
+            <mat-radio-button color="primary" value="0"(change)="Required('0')">Non</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="form-group text-center mt-5">
+          <button type="submit" class="btn btn-warning mr-2" mat-raised-button color="primary">
+            <i class="fa-solid fa fa-save text-white"></i> Enreigestrer
+          </button>
+        </div>
+      </div>
+    </form>

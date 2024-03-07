@@ -1,3 +1,23 @@
 .active-link {
-    color: #23b7e5; /* Change this to your desired active color */
-  }
+  color: white;
+  background-color: #e76b00 !important;
+}
+
+.sidebar-nav > li > a:focus, .sidebar-nav > li > a:hover, .sidebar-nav > li > .nav-item:focus, .sidebar-nav > li > .nav-item:hover{
+  color: white;
+  background-color: #e76b00 !important;
+}
+
+.sidebar-subnav > li > a, .sidebar-subnav > li > .nav-item {
+    padding:10px 0px 10px 60px;
+    color: #515253;
+    cursor: pointer;
+}
+.sidebar-subnav > .Img{
+  text-align: center !important;
+  margin-top:15px;
+}
+.img-radius{
+  border-radius: 50%;
+  border:1px solid rgb(179, 179, 179);
+}

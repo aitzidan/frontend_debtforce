@@ -26,6 +26,8 @@ export class UpdateCompetenceComponent {
     var url = new URL(url_str);
     var search_params = url.searchParams;
     this.id = search_params.get('id');
+    const routeParams = this.route.snapshot.paramMap;
+    this.id = Number(routeParams.get('competenceId'));
     if(!this.id){
       window.location.href = "/addCompetence";
     }
@@ -60,7 +62,7 @@ export class UpdateCompetenceComponent {
     this.activityApi.updateCompetence(titre,this.id).subscribe(
       (res : any) => {
         if(res.codeStatut == "OK"){
-          console.log("OK");
+          //console.log("OK");
           const data = {
             data_check : checkedValues ,
             id : this.id ,
@@ -71,14 +73,14 @@ export class UpdateCompetenceComponent {
               console.log(response)
             },
             (error: any) => {
-              console.log(error)
+              //console.log(error)
             }
           )
-          console.log(checkedValues)
+          //console.log(checkedValues)
         }
       },
       (err: any) => {
-        console.log(err)
+        //console.log(err)
       }
     )
     

@@ -70,4 +70,6 @@
 
   .bg_liste{
     background-color: #8080803d;
+    max-height: 500px;
+    overflow: auto;
   }

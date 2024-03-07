@@ -1,3 +1,128 @@
+<div class="page-title">
+    <div class="row" id="block_header">
+        <div class="col-12 col-md-8 order-md-1 order-last mt-4">
+            <h3>Competénce</h3>
+            <p>Modifier une compétences</p>
+            
+        </div>
+        <div class="col-12 col-md-4 order-md-2 order-last">
+            <nav aria-label="breadcrumb" class="breadcrumb-header float-end float-lg-end float-right">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page"><a href="">Liste des competénce</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Modifier une compétences</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="content-wrapper">
+    <div class="card-block">
+      <div class="page-body">
+        <div class="card">
+          <form #f="ngForm" (ngSubmit)="onSubmit(f)"  novalidate class="card-default col-md-12 row">
+            <div class="card-body col-md-5">
+              <fieldset>
+                <h1 class="titre">Sélectionner des familles : </h1>
+                <div class="form-group row  pb-4">
+                  <div class="div_form_label mt-2">
+                    <mat-label>Titre <span class="text-danger">*</span> :</mat-label>
+                  </div>
+                  <div class="div_form_inputs input_div">
+                    <mat-form-field  appearance="outline" style="width: 100%">
+                      <mat-label>Titre</mat-label>
+                      <input  matInput
+                      placeholder="Titre competence"
+                      [(ngModel)]="titreValue"
+                      name="titreValue">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row col-md-12 mt-4" style="display: flex;flex-wrap: nowrap;">
+                  <!-- <div class="example-container col-md-6">
+                    <p>Liste familles <span class="text-danger">*</span></p>
+                    <div
+                      cdkDropList
+                      #todoList="cdkDropList"
+                      [cdkDropListData]="todo"
+                      [cdkDropListConnectedTo]="[doneList]"
+                      class="example-list"
+                      (cdkDropListDropped)="drop($event)">
+                      <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item.titre}}</div>
+                    </div>
+                  </div> -->
+                  <div class="example-container col-md-6">
+                    <p>Liste familles sélectionnés</p>
+                    <!-- <div
+                      cdkDropList
+                      #doneList="cdkDropList"
+                      [cdkDropListData]="done"
+                      [cdkDropListConnectedTo]="[todoList]"
+                      class="example-list"
+                      (cdkDropListDropped)="drop($event)">
+                      <div class="example-box" *ngFor="let item of done" cdkDrag>{{item.titre}}</div>
+                    </div> -->
+                  </div>
+                </div>
+                
+              </fieldset>
+            </div>
+            <div class="card-body col-md-7">
+              <fieldset>
+                <h1 class="titre">Sélectionner sous familles : </h1>
+                <div class="form-group row">
+                  <div class="div_form_label mt-2">
+                    <mat-label>Filtrer les familles <span class="text-danger">*</span> :</mat-label>
+                  </div>
+                  <div class="div_form_inputs input_div">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Familles</mat-label>
+                            <mat-option  *ngFor="let f of familles" value="{{f.id}}">{{f.titre }}</mat-option>
+                        </mat-form-field>
+                  </div>
+                </div>
+                <div class="form-group row mt-5">
+                  <div class="form-group groupe_checkbox col-md-12 d-flex"
+                    id="param_list">
+                    <div class="form-check mr-2 form-check-primary col-md-6 bg_liste">
+                        <label class=" col-form-label" for="input-id-1">List des paramétrages
+                        <span class="text-danger">*</span>
+                        </label>
+                        <label class="form-check-label">
+                            <p><mat-checkbox *ngFor="let p of sousFamilles"  
+                                name="{{ p.param.id }}"
+                                [(ngModel)]="p.check"
+                                color="primary" [checked]="true">{{p.param.type}}</mat-checkbox></p>
+                            <i class="input-helper"></i>
+                            <p  *ngFor="let p of sousFamilles">
+                            </p>
+                        </label>
+                    </div>
+                    <!-- <div class="col-md-6 bg_liste">
+                      <label class=" col-form-label">List des paramétres Selectionnées :</label>
+                        <ul *ngFor="let items of SelectedCheck">
+                          <li>  {{items.type}}</li>
+                        </ul>
+                    </div> -->
+                  </div>
+                </div>
+              </fieldset>    
+            </div>
+            <fieldset>
+              <div class="form-group row">
+                <div class="col-md-12">
+                    <button mat-flat-button class="btn btn-primary "  (click)="onSubmit(f)" [disabled]="isDisabled">
+                        <i class="fa-solid fa fa-plus"></i>
+                        Modifier
+                    </button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+<!--
 <div class="content-wrapper row">
     <div class="card card-default col-md-3 mr-5 ml-4">
         <div class="d-flex align-items-center justify-content-between">
@@ -29,77 +154,77 @@
     <div class=" col-md-8">
         <div class=" col-md-12">
             <div class="card card-default ">
-            <form   #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>    
-                <div class="card-body">
-                    <p class="card-description text-primary ">
-                        Créer une compétence
-                    </p>
-                    <fieldset>
-                        <div class="form-group row">
-                            <div class="col-md-5">
-                                <mat-form-field class="example-full-width">
-                                    <mat-label>Titre</mat-label>
-                                    <input matInput placeholder="Titre competence"  [(ngModel)]="titreValue" name="titreValue">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-5">
-                                <mat-form-field>
-                                    <mat-label>Familles</mat-label>
-                                    <mat-select  required >
-                                        <mat-option  *ngFor="let f of familles" value="{{f.id}}">{{f.titre }}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label" for="input-id-1">List des paramétrages
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="form-group groupe_checkbox col-md-10" id="param_list">
-                                <div class="form-check mr-2 form-check-primary" >
-                                    <label class="form-check-label">
-                                        <p><mat-checkbox *ngFor="let p of sousFamilles"  
-                                            name="{{ p.param.id }}"
-                                            [(ngModel)]="p.check"
-                                            color="primary" [checked]="true">{{p.param.type}}</mat-checkbox></p>
-                                        <i class="input-helper"></i>
-                                        <p  *ngFor="let p of sousFamilles">
-                                        </p>
-                                    </label>
+                <form   #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>    
+                    <div class="card-body">
+                        <p class="card-description text-primary ">
+                            Créer une compétence
+                        </p>
+                        <fieldset>
+                            <div class="form-group row">
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Titre</mat-label>
+                                        <input matInput placeholder="Titre competence"  [(ngModel)]="titreValue" name="titreValue">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-5">
+                                    <mat-form-field>
+                                        <mat-label>Familles</mat-label>
+                                        <mat-select  required >
+                                            <mat-option  *ngFor="let f of familles" value="{{f.id}}">{{f.titre }}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
                                 </div>
                             </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <div class="form-group row">
-                        <div class="col-md-6 offset-2">
-                            <table id="selectedParamsTable">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody><tr></tr></tbody>
-                            </table>
-                        </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <div class="form-group row">
-                            <div class="col-md-4">
-                                <button mat-flat-button class="btn btn-primary "  (click)="onSubmit(f)" [disabled]="isDisabled">
-                                    <i class="fa-solid fa fa-plus"></i>
-                                    Ajouter</button>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label" for="input-id-1">List des paramétrages
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="form-group groupe_checkbox col-md-10" id="param_list">
+                                    <div class="form-check mr-2 form-check-primary" >
+                                        <label class="form-check-label">
+                                            <p><mat-checkbox *ngFor="let p of sousFamilles"  
+                                                name="{{ p.param.id }}"
+                                                [(ngModel)]="p.check"
+                                                color="primary" [checked]="true">{{p.param.type}}</mat-checkbox></p>
+                                            <i class="input-helper"></i>
+                                            <p  *ngFor="let p of sousFamilles">
+                                            </p>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </fieldset>
-                </div>
-            </form>
-            
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group row">
+                            <div class="col-md-6 offset-2">
+                                <table id="selectedParamsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody><tr></tr></tbody>
+                                </table>
+                            </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <button mat-flat-button class="btn btn-primary "  (click)="onSubmit(f)" [disabled]="isDisabled">
+                                        <i class="fa-solid fa fa-plus"></i>
+                                        Ajouter
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </form>
             </div>
             <div class="card card-default card card-default ">
                 <div class="card-body ">
@@ -145,3 +270,4 @@
         </div>
     </div>
 </div>
+-->

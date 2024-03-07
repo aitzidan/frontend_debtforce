@@ -1,15 +1,25 @@
-<div class="card card-default col-md-12 m-2" style="width: 96%">
-  <h3 class="card-header text-primary">Liste des donneurs d'ordre</h3>
-  <div class="text-right">
-    <a
-      class="btn btn-info py-3"
-      routerLink="/donneur"
-      mat-raised-button
-      color="primary"
-      >Donneur d'ordre <i class="fa fa-plus"></i></a>
+<div class="page-title">
+  <div class="row" id="block_header">
+      <div class="col-12 col-md-8 order-md-1 order-last mt-4">
+          <h3>Donneurs d'ordre</h3>
+          <p>Liste des donneurs d'ordre</p>
+      </div>
+      <!-- <div class="col-12 col-md-4 order-md-2 order-last">
+          <nav aria-label="breadcrumb" class="breadcrumb-header float-end float-lg-end float-right">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">Liste des donneurs d'ordre</li>
+              </ol>
+          </nav>
+      </div> -->
   </div>
-  <div class="card-body table-responsive div_form_inputs input_div">
-    <mat-form-field  appearance="outline" class="mb-3">
+</div>
+<div class="text-right m-3">
+  <a class="btn btn-info py-3" routerLink="/donneur" mat-raised-button style="background-color: #018f23;color:white;">Donneur d'ordre <i class="fa fa-plus"></i></a>
+</div>
+<div class="card card-default col-md-12 " style="width: 98%;margin-left: 18px;">
+  <!-- <h3 class="card-header text-primary">Liste des donneurs d'ordre</h3> -->
+  <div class="table-responsive div_form_inputs input_div">
+    <!-- <mat-form-field  appearance="outline" class="mb-3">
       <mat-label>Recherche </mat-label>
       <input
         type="text" 
@@ -24,7 +34,7 @@
       <button matSuffix mat-icon-button aria-label="Clear" disabled="true">
         <mat-icon>search</mat-icon>
       </button>
-    </mat-form-field>
+    </mat-form-field> -->
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource">
         <!-- Position Column -->
@@ -53,8 +63,8 @@
           <ng-container matColumnDef="operation">
             <th mat-header-cell *matHeaderCellDef> Opération </th>
             <td mat-cell *matCellDef="let element"> 
-              <a type="button" class="btn btn-warning btn-sm m-1" ><i class="fa fa-pencil-alt"></i></a>
-              <button type="button" class="btn btn-danger btn-sm m-1"   o><i class="fa fa-trash"></i></button>   
+              <a type="button" class="btn btn-warning btn-sm m-1" routerLink="/ModifierDonneur/{{element.dn.id}}"><i class="fa fa-pencil-alt"></i></a>
+              <button type="button" class="btn btn-danger btn-sm m-1"   ><i class="fa fa-trash"></i></button>   
             </td>
           </ng-container>
     

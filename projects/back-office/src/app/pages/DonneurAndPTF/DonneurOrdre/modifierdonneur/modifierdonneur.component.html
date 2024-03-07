@@ -1,5 +1,20 @@
-<div class="card card-default col-md-12 m-2" style="width: 98%;">
-    <div class="card-header text-primary">Créer un donneur d'ordre</div>
+<div class="page-title">
+  <div class="row" id="block_header">
+    <div class="col-12 col-md-8 order-md-1 order-last mt-4">
+        <h3>Donneurs d'ordre</h3>
+        <p>Créer un donneur d'ordre</p>
+    </div>
+    <div class="col-12 col-md-4 order-md-2 order-last">
+        <nav aria-label="breadcrumb" class="breadcrumb-header float-end float-lg-end float-right">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page"><a href="/donneur_ordre">Liste des donneurs d'ordre</a></li>
+                <li class="breadcrumb-item" aria-current="page">Créer un donneur d'ordre</li>
+            </ol>
+        </nav>
+    </div>
+  </div>
+</div><div class="card card-default col-md-12 m-2" style="width: 98%;">
+    <!-- <div class="card-header text-primary">Créer un donneur d'ordre</div> -->
     <div class="card-body">
       <form class="form-horizontal" method="POST" enctype="multipart/form-data" (ngSubmit)="UpdateDonneur(
         rs.value, nom.value, metier.value, compte_bancaire.value,num_rc.value,c_postale.value,

@@ -77,7 +77,7 @@ export class AddCompetenceComponent {
   }
 
   list_models: Competence[] = []; // Change the type to PeriodicElement[]
-  displayedColumns: string[] = ['id', 'titre', 'operation'];
+  displayedColumns: string[] = ['id', 'titre', 'date', 'operation'];
   dataSource = new MatTableDataSource<Competence>([]); // Initialize with an empty array
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

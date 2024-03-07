@@ -1,17 +1,33 @@
-<div class="card card-default col-md-12 m-2"style="width:96%;">
+<div class="page-title">
+  <div class="row" id="block_header">
+    <div class="col-12 col-md-8 order-md-1 order-last mt-4">
+        <h3>Donneurs d'ordre</h3>
+        <p>Contact Donneur ordre</p>
+    </div>
+    <div class="col-12 col-md-4 order-md-2 order-last">
+        <nav aria-label="breadcrumb" class="breadcrumb-header float-end float-lg-end float-right">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page"><a href="/donneur_ordre">Liste des donneurs d'ordre</a></li>
+                <li class="breadcrumb-item" aria-current="page">Contact Donneur ordre</li>
+            </ol>
+        </nav>
+    </div>
+  </div>
+</div>
+<div class="card card-default col-md-12 m-2"style="width:98.2%;">
     <div class="card">
       <div class="card-body">
-        <div class="div_header">
+        <!-- <div class="div_header">
               <div class="title">
                 <h4 class="card-title">Contact Donneur ordre</h4>
               </div> 
               <div>
 
               </div>
-        </div>
+        </div> -->
         <div id="container" style="padding-bottom: 0vh;">
           <div id="">
-                <p class="card-description mt-4">
+                <p class="titre mt-2">
                     Ajouter contact donneur d'ordre
                 </p>  
                 <form class="" method="POST" (ngSubmit)="AddContact(nom.value,prenom.value,poste.value,email.value,tel.value,fix.value,adresse.value)">
@@ -98,16 +114,17 @@
                     </div>
                   </div>
                   <div class="form-group row div_btn">
-                    <button type="submit" class=" btn btn-success   col-sm-3 offset-4  form-control-sm" mat-raised-button color="primary" > Ajouter</button>
+                    <button type="submit" class=" btn btn-success   col-sm-3 offset-4  form-control-sm" mat-raised-button color="primary" style="font-size: 17px;color:white;" > Ajouter</button>
                   </div>
                 </form>
           </div>
         </div>
-
+      </div>
+    </div>
 </div>
 
-<div class="card card-default col-md-12 m-2"style="width:96%;">
-  <div class="card-header"> Liste des contacts donneurs d'ordre</div>
+<div class="card card-default col-md-12 m-2"style="width:98.2%;">
+  <p class="titre mt-3"> Liste des contacts donneurs d'ordre</p>
   <div class="card-body table-responsive">
     <input
     type="text"
